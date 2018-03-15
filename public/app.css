@@ -1,0 +1,26 @@
+body{
+  color: blue;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 33% 33% ;
+  grid-column-gap: 10px;
+  margin-top: 10px;
+}
+
+.thing1, .thing2, .thing3{
+  color: black;
+  text-align: center;
+  background-color: white;
+}
+
+.thing2{
+  background-color: grey;
+}
+
+.thing3{
+  background-color: green;
+}
