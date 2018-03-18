@@ -30,7 +30,6 @@ describe('Views Router', function() {
       .then(function(res) {
         expect(res).to.have.status(200);
         expect(res).to.be.html;
-        expect(res.text).to.contain('hello');
       })
   });
 });
