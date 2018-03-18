@@ -17,6 +17,7 @@ mongoose.Promise = global.Promise;
 
 // Logging
 app.use(morgan('common'));
+app.set('view engine', 'ejs');
 
 // CORS
 app.use(function (req, res, next) {
@@ -38,8 +39,8 @@ app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-app.use('/*', (req, res) => {
-  return res.status(404).json({ message: 'Not Found' });
+app.get('/', (req, res) => {
+  res.render('pages/index.ejs')
 });
 
 let server;
