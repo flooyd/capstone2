@@ -1,2 +1,10 @@
 language: node_js
 node_js: node
+services: mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: fa3YD9KOfOi6rIjYlWUWpBDoC78wduxCkKaCpDuzJRWd6p5w3M0k26F290THf1whepTsj3h62k4o2AZNhPbRujYHnI7Q9IzslLNP5tJllYTAc+a7/evQs9x95XKQHNEjQreRJg5tlo+3qsjZcNlzawy/hbKoPuLMZMzxY/bn+PSmjnqSUbZUYN6wFiSb4wVk7TT4Q/qG2IxQT76aoANUeYKjQcRT6jSTruTZp+gL14+6bDBBUpbfV5hAnRHGzjKGtYMTFBNnDAa38jITcnk5M6M/z5+aIdSqA3ueMiUHG6jHcde1+/5/UoS3Mh2S6bw7PWKKktZ5y79BHL+8H1eCbxFjCvHY5pIeI5r2AFLklTuiU5C8pbRtTeqzdzmjnrQaOu6oVq0RycwVfidCYFO+gxRvupDvTw+LOgvnR+XxLmIcLfdWLiY9d0xmL2ej8nbqz6TFzIPNte3kw8sRAULeaeBCmfKggwVtB+zQxlvWpR4kFVzShP+jE2h6/Ru4xkQ37Ne2FNJc+d9h/z0peWr0bDHcKjg4Ehr923P5WRyEPLkPS3oetmtCHjYnyBDIFIZmWsG4BS1ZoP92QCwsL8Z5DW97qn1BpbYw+J83e0gqnhMlJbZh05APw8PiXASdi1VzGEPj4GI1vaIKhLUEC4jXs0s0hOq3PVsMmQ/x6Iz/YX4=
+  app: fcapstone2
+  on:
+    repo: flooyd/capstone2
