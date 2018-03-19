@@ -1,0 +1,61 @@
+main {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto auto;
+  grid-template-areas: "form something" "result"
+}
+
+form{
+  width: 95%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+legend{
+  width: 100%;
+}
+
+.legendText {
+  display:inline-block;
+  border-bottom:2px solid black;
+  padding-bottom:2px;
+}
+
+.titleSearch{
+  width: 80%;
+  height: 25px;
+  margin-top: 25px;
+  max-width: 350px;
+  min-width: 150px;
+  border: 1px solid grey;
+  border-radius: 60px;
+  padding: 10px;
+}
+
+label{
+  margin-right: 6px;
+}
+
+select {
+  width: 80%;
+  height: 25px;
+  margin-top: 25px;
+  max-width: 350px;
+  min-width:150px;
+}
+
+.searchButton{
+  display: block;
+  margin: 0 auto;
+  background-color: #e8554e;
+  
+  font-size: 18px;
+  padding: 5px;
+  color: black;
+  border: 2px solid white;
+  
+}
+
+fieldset{
+  margin-top: 10px;
+}

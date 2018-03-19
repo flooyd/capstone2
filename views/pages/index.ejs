@@ -3,11 +3,31 @@
 
 <head>
   <% include ../partials/head %>
+  <link rel="stylesheet" href="css/search.css">
 </head>
 
 <body>
   <% include ../partials/navigation %>
-  Hello
+  <main>
+    <form>
+      <fieldset>
+        <legend><span class="legendText">Search for a TV Show or Movie</span></legend>
+        <label for="search">Title</label>
+        <input class="titleSearch" type="text" name="search">
+        <div>
+          <label for="type">Type</label>
+          <select class="typeSelect" name="type">
+            <option>TV Show</option>
+            <option>Movie</option>
+          </select>
+        </div>
+        <button class="searchButton" type="submit">Search</button>
+      </fieldset>
+    </form>
+    <h1>
+      Hello
+    </h1>
+  </main>
   <% include ../partials/scripts %>
 </body>
 
