@@ -1,10 +1,10 @@
 'use strict';
-require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
+const reload = require('reload');
 
 const {router: usersRouter} = require('./users/router');
 const {router: authRouter} = require('./auth/router');
@@ -77,6 +77,11 @@ function closeServer() {
     });
   });
 }
+
+if(process.env.NODE_ENV === 'development') {
+  reload(app);
+}
+
 
 if (require.main === module) {
   runServer(DATABASE_URL, PORT).catch(err => console.error(err));
