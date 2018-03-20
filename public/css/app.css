@@ -33,6 +33,7 @@ header {
 }
 
 .brand {
+  font-family: 'Roboto';
   margin-left: 25px;
   color: #e8554e;
   font-size: 22px;

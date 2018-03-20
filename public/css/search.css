@@ -10,7 +10,6 @@ form {
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  border: 1px solid red;
 }
 
 legend {
@@ -29,8 +28,6 @@ legend {
   margin-top: 25px;
   max-width: 350px;
   min-width: 150px;
-  border: 1px solid grey;
-  border-radius: 60px;
   padding: 10px;
 }
 
@@ -40,20 +37,14 @@ label {
 
 select {
   width: 80%;
-  height: 25px;
+  height: 32px;
   margin-top: 25px;
   max-width: 350px;
   min-width: 150px;
 }
 
 .searchButton {
-  display: block;
-  margin: 10px auto;
-  background-color: #e8554e;
-  font-size: 18px;
-  padding: 5px;
-  color: black;
-  border: 2px solid white;
+  margin-top: 10px;
 }
 
 fieldset {
@@ -61,14 +52,13 @@ fieldset {
 }
 
 #searchResults {
-  border: 1px solid black;
+  
   padding: 10px;
   height: 100%;
   overflow: scroll;
 }
 
 .result {
-  background-color: grey;
   margin-top: 10px;
 }
 
@@ -78,6 +68,31 @@ fieldset {
   border: 1px solid green;
 }
 
-p {
-  margin-top: 50px;
+.resultImg {
+  width: 20%;
+}
+
+.resultInfo {
+  width: 80%;
+  padding: 10px;
+  float: right;
+  text-align: center;
+}
+
+.resultDesc {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.resultTitle {
+  text-align: center;
+  font-weight: bold;
+}
+
+.resultDesc {
+  margin-left: 10px;
+}
+
+.resultInfo button {
+  margin-top: 15px;
 }
