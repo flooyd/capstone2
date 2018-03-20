@@ -1,14 +1,16 @@
 main {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: auto auto;
-  grid-template-areas: "form something" "result"
+  grid-template-rows: 50% 50%;
+  grid-column-gap: 10px;
+  grid-template-areas: "form something" "result result"
 }
 
 form{
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
+  border: 1px solid red;
 }
 
 legend{
@@ -46,7 +48,7 @@ select {
 
 .searchButton{
   display: block;
-  margin: 0 auto;
+  margin: 10px auto;
   background-color: #e8554e;
   
   font-size: 18px;
@@ -58,4 +60,22 @@ select {
 
 fieldset{
   margin-top: 10px;
+}
+
+#searchResults {
+  border: 1px solid black;
+  padding: 10px;
+  height: 100%;
+  overflow: scroll;
+}
+
+.result {
+  background-color: grey;
+  margin-top: 10px;
+}
+
+#selectedResult {
+  margin-top: 20px;
+  grid-area: result;
+  border: 1px solid green;
 }
