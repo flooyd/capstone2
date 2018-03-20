@@ -1,0 +1,16 @@
+main {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 300px;
+  grid-column-gap: 10px;
+  grid-template-areas: "watched watched" "result result"
+}
+
+.watchedShows {
+  grid-area: watched;
+  text-align: center;
+  font-size: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
