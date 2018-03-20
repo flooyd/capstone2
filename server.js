@@ -40,7 +40,7 @@ app.use('/api/auth/', authRouter);
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.get('/', (req, res) => {
-  res.render('pages/index.ejs', {title: 'Capstone 2 - Home'});
+  res.render('pages/search.ejs', {title: 'Capstone 2 - Search'});
 });
 
 let server;
