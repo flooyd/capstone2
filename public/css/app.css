@@ -23,6 +23,8 @@ a {
 }
 
 header {
+  position: sticky;
+  top: 0px;
   grid-area: header;
   background-color: #222;
   display: flex;
@@ -39,10 +41,10 @@ header {
 
 .sidebar {
   grid-area: sidebar;
-  max-height: 95vh;
+  max-height: 100vh;
   background-color: #e8554e;
   position: sticky;
-  top: 0px;
+  top: 50px;
 }
 
 .sidebar img {

@@ -1,29 +1,29 @@
 main {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 50% 50%;
+  grid-template-rows: 400px;
   grid-column-gap: 10px;
   grid-template-areas: "form something" "result result"
 }
 
-form{
+form {
   width: 100%;
   margin: 0 auto;
   text-align: center;
   border: 1px solid red;
 }
 
-legend{
+legend {
   width: 100%;
 }
 
 .legendText {
-  display:inline-block;
-  border-bottom:2px solid black;
-  padding-bottom:2px;
+  display: inline-block;
+  border-bottom: 2px solid black;
+  padding-bottom: 2px;
 }
 
-.titleSearch{
+.titleSearch {
   width: 80%;
   height: 25px;
   margin-top: 25px;
@@ -34,7 +34,7 @@ legend{
   padding: 10px;
 }
 
-label{
+label {
   margin-right: 6px;
 }
 
@@ -43,22 +43,20 @@ select {
   height: 25px;
   margin-top: 25px;
   max-width: 350px;
-  min-width:150px;
+  min-width: 150px;
 }
 
-.searchButton{
+.searchButton {
   display: block;
   margin: 10px auto;
   background-color: #e8554e;
-  
   font-size: 18px;
   padding: 5px;
   color: black;
   border: 2px solid white;
-  
 }
 
-fieldset{
+fieldset {
   margin-top: 10px;
 }
 
@@ -78,4 +76,8 @@ fieldset{
   margin-top: 20px;
   grid-area: result;
   border: 1px solid green;
+}
+
+p {
+  margin-top: 50px;
 }
