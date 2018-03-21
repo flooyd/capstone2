@@ -52,13 +52,13 @@ fieldset {
 }
 
 #searchResults {
-  
   padding: 10px;
   height: 100%;
   overflow: scroll;
 }
 
 .result {
+  clear: both;
   margin-top: 10px;
 }
 
@@ -69,6 +69,7 @@ fieldset {
 }
 
 .resultImg {
+  vertical-align: middle;
   width: 20%;
 }
 

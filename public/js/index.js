@@ -17,13 +17,14 @@ const results = [{
 $(() => {
   $('#searchResults').append(
     `<div class="result">
-    <img class="resultImg" src="images/bsgtest2.jpg">
+    <img class="resultImg" src="images/bsgtest.jpg">
     <div class='resultInfo'>
       <div class="resultTitle">
-        Battlestar Galactica: Razor
+        Battlestar Galactica
       </div>
       <p class="resultDesc">
-      A two-hour Battlestar Galactica special that tells the story of the Battlestar Pegasus several months prior to it finding the Galactica. 
+        When an old enemy, the Cylons, resurface and obliterate the 12 colonies, the crew of the aged Galactica protect a small civilian
+        fleet - the last of humanity - as they journey toward the fabled 13th colony, Earth.
       </p>
       <button class="Watching btn btn-danger">Watching</button>
       <button class="Watched btn btn-default">Watched All</button>
