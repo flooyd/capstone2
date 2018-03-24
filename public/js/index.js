@@ -14,13 +14,25 @@ const results = [{
   title: '6 - Some Description'
 }];
 
+const handleLoginBox = () => {
+  $('.closeButton').click(() => {
+    console.log('hi');
+    $('.login').css('display', 'none');
+  });
+
+  $('.logNav').click(() => {
+    $('.login').css('display', 'initial');
+  });
+}
+
 $(() => {
+  handleLoginBox();
   $('#searchResults').append(
     `<div class="result">
-    <img class="resultImg" src="images/bsgtest.jpg">
+    <img class="resultImg" src="images/bsgtest2.jpg">
     <div class='resultInfo'>
       <div class="resultTitle">
-        Battlestar Galactica
+        Battlestar Galactica: Razor
       </div>
       <p class="resultDesc">
         When an old enemy, the Cylons, resurface and obliterate the 12 colonies, the crew of the aged Galactica protect a small civilian

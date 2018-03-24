@@ -1,6 +1,5 @@
 *{
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -11,6 +10,7 @@ body {
   grid-template-columns: 40px 1fr;
   grid-template-rows: 50px 1fr;
   grid-template-areas: "header header" "sidebar content";
+  font-family: 'Roboto', sans-serif;
 }
 
 main {
@@ -62,7 +62,7 @@ header {
   cursor: pointer;
 }
 
-.sidebarNav, .collapseNav, .logoutNav{
+.sidebarNav, .collapseNav, .logNav{
   text-align: center;
   height: 33.3%;
 }
@@ -82,14 +82,78 @@ header {
   justify-content: center;
 }
 
-.logoutNav {
+.logNav {
   display: flex;
   justify-content: center;
 }
 
-.logoutNav a {
+.logNav a {
   align-self: flex-end;
   margin-bottom: 25%;
+}
+
+.login {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, .8);
+}
+
+.loginBox {
+  text-align: center;
+  background-color: white;
+  margin: auto auto;
+  width: 90%;
+  height: 50%;
+  position: relative;
+  top: 10%;
+}
+
+.closeButton {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  cursor: pointer;
+}
+
+.loginForm {
+  position: relative;
+  top: 15%;
+  width: 100%;
+}
+
+.loginForm legend {
+  font-size: 22px;
+}
+
+.loginForm p {
+  margin-top: 10px;
+}
+
+.loginForm .legendText {
+  border: none;
+  font-size: 20px;
+}
+
+.loginForm input {
+  margin-top: 15px;
+}
+
+.loginForm label {
+  width: 75px;
+}
+
+.registerLink {
+  border-bottom: 1px solid #e8554e;
+  color: #e8554e;
+}
+
+.loginForm button {
+  clear: both;
+  display: block;
+  width: 100px;
+  text-align: center;
+  margin: 15px auto;
 }
 
 

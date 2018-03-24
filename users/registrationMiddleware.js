@@ -1,5 +1,6 @@
 module.exports = {
   checkMissingFields: (req, res, next) => {
+    console.log(req.body)
     const requiredFields = ['username', 'password'];
     const missingField = requiredFields.find(field => !(field in req.body));
 
@@ -34,6 +35,7 @@ module.exports = {
   },
 
   checkNonTrimmedFields: (req, res, next) => {
+    
     const explicityTrimmedFields = ['username', 'password'];
     const nonTrimmedField = explicityTrimmedFields.find(
       field => req.body[field].trim() !== req.body[field]

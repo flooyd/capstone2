@@ -4,16 +4,17 @@ const bodyParser = require('body-parser');
 const {User} = require('../models/user');
 const router = express.Router();
 const jsonParser = bodyParser.json();
+const formParser = bodyParser.urlencoded({extended: false});
 
 const {
+  checkMissingFields,
   checkFieldSize,
   checkNonStringFields,
   checkNonTrimmedFields,
-  checkMissingFields
 } = require('./registrationMiddleware');
 
-router.use(jsonParser);
-const middleware = [checkFieldSize, checkNonStringFields, checkNonTrimmedFields, checkMissingFields];
+router.use(jsonParser, formParser);
+const middleware = [checkMissingFields, checkFieldSize, checkNonStringFields, checkNonTrimmedFields];
 
 
 // Post to register a new user
