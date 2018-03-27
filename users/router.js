@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const {User} = require('../models/user');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 const jsonParser = bodyParser.json();
 const formParser = bodyParser.urlencoded({extended: false});
 
@@ -15,6 +17,14 @@ const {
 
 router.use(jsonParser, formParser);
 const middleware = [checkMissingFields, checkFieldSize, checkNonStringFields, checkNonTrimmedFields];
+
+const createAuthToken = function(user) {
+  return jwt.sign({user}, config.JWT_SECRET, {
+    subject: user.username,
+    expiresIn: config.JWT_EXPIRY,
+    algorithm: 'HS256'
+  });
+};
 
 
 // Post to register a new user
@@ -44,12 +54,14 @@ router.post('/',  middleware, (req, res) => {
       });
     })
     .then(user => {
-      return res.status(201).json(user.serialize());
+      const authToken = createAuthToken(user.serialize());
+      res.json({authToken});
     })
     .catch(err => {
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
+      console.log(err);
       res.status(500).json({code: 500, message: 'Internal server error'});
     });
 });
