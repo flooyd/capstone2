@@ -1,47 +1,43 @@
-const results = [{
-  title: '1 - Some Description',
-  img: 'images/bsgtest.jpg',
-  info: 'When an old enemy, the Cylons, resurface and obliterate the 12 colonies, the crew of the aged Galactica protect a small civilian fleet - the last of humanity - as they journey toward the fabled 13th colony, Earth. '
-}, {
-  title: '2 - Some Description'
-}, {
-  title: '3 - Some Description'
-}, {
-  title: '4 - Some Description'
-}, {
-  title: '5 - Some Description'
-}, {
-  title: '6 - Some Description'
-}];
-
-const handleLoginBox = () => {
-  $('.closeButton').click(() => {
-    console.log('hi');
-    $('.login').css('display', 'none');
-  });
-
-  $('.logNav').click(() => {
-    $('.login').css('display', 'initial');
-  });
-}
-
 $(() => {
-  handleLoginBox();
-  $('#searchResults').append(
-    `<div class="result">
-    <img class="resultImg" src="images/bsgtest2.jpg">
-    <div class='resultInfo'>
-      <div class="resultTitle">
-        Battlestar Galactica: Razor
-      </div>
-      <p class="resultDesc">
-        When an old enemy, the Cylons, resurface and obliterate the 12 colonies, the crew of the aged Galactica protect a small civilian
-        fleet - the last of humanity - as they journey toward the fabled 13th colony, Earth.
-      </p>
-      <button class="Watching btn btn-danger">Watching</button>
-      <button class="Watched btn btn-default">Watched All</button>
-      <button class="IMDB btn btn-info">View on IMDB</button>
-    </div>
-  </div>`
-  )
+  handleDisplayLoginBox();
+  handleLoginSubmit();
+  
+  function handleDisplayLoginBox() {
+    $('.closeButton').click(() => {
+      console.log('hi');
+      $('.login').css('display', 'none');
+    });
+
+    $('.logNav').click(() => {
+      $('.login').css('display', 'initial');
+    });
+  }
+  
+  function handleLoginSubmit() {
+    $('.registerLink').click(e => {
+      let linkText = $(e.currentTarget).text();
+      if(linkText == 'Register') {
+        console.log('hi');
+        $('.loginForm p').text('Already registered? <span class="registerLink">Login</span>')
+        $(e.currentTarget).text('Login');
+        $('.loginForm').attr('action', 'api/auth/login');
+        $('.loginForm button').text('Register');
+        $('.loginForm button').before(
+          `<div class="passwordConfirm">
+          <label for="passwordConfirm">Confirm</label>
+          <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm password" required>
+        </div>`)
+      } else {
+        $(e.currentTarget).text('Register');
+        $('.loginForm legend').text('Register');
+        $('.loginForm').attr('action', 'api/users');
+        $('.loginForm button').text('Login');
+        $('.passwordConfirm').remove();
+      }
+      
+     
+    })
+  }
+
+
 })

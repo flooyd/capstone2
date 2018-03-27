@@ -146,9 +146,13 @@ header {
 
 .registerLink {
   border-bottom: 1px solid #e8554e;
+  cursor: pointer;
   color: #e8554e;
 }
 
+.registerLink:hover {
+  color: black;
+}
 .loginForm button {
   clear: both;
   display: block;

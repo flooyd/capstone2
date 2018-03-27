@@ -35,7 +35,7 @@
     <div class="closeButton">
       <img src="icons/close.png" alt="close button">
     </div>
-    <form class="loginForm" action="/api/users" method="post">
+    <form class="loginForm" action="/api/auth/login" method="post">
       <fieldset>
         <legend>
           Login
@@ -43,11 +43,11 @@
         <p>Don't have an account? <span class="registerLink">Register</span></p>
         <div>
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="username">
+        <input type="text" id="username" name="username" placeholder="username" required>
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="password">
+          <input type="password" id="password" name="password" placeholder="password" required>
         </div>
         <button class="btn btn-default" type="submit">Login</button>
       </fieldset>
