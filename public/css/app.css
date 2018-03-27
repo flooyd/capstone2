@@ -93,6 +93,7 @@ header {
 }
 
 .login {
+  display: none;
   position: absolute;
   height: 100%;
   width: 100%;
