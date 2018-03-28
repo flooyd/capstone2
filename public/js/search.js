@@ -31,7 +31,7 @@ $(() => {
             </p>
             <button class="Watching btn btn-danger">Watching</button>
             <button class="Watched btn btn-default">Watched All</button>
-            <button class="IMDB btn btn-info">View on IMDB</button>
+            <button id=${show.externals.imdb} class="IMDB btn btn-info">View on IMDB</button>
           </div>
         </div>`)
   }
@@ -40,5 +40,11 @@ $(() => {
     $('#searchResults').empty();
     let query = $('.titleSearch').val();
     search(query);
+  });
+  
+  $('#searchResults').on('click', '.IMDB', e => {
+    let id = $(e.currentTarget).prop('id');
+    console.log(id);
+    window.open(`https://www.imdb.com/title/${id}`);
   });
 });
