@@ -57,6 +57,10 @@ fieldset {
   overflow-y: scroll;
 }
 
+#searchResults p {
+  text-align: center;
+}
+
 .result {
   clear: both;
   margin-top: 10px;
@@ -65,7 +69,12 @@ fieldset {
 #selectedResult {
   margin-top: 20px;
   grid-area: result;
-  border: 1px solid green;
+}
+
+#selectedResult p {
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .resultImg {

@@ -17,11 +17,18 @@ $(() => {
     })
   }
   
+  function getImage(image) {
+    if(image) {
+      return image.medium;
+    } else {
+      return 'images/camera.png';
+    }
+  }
   function renderItem(show) {
     console.log('hi');
     $('#searchResults').append(
       `<div class="result">
-          <img class="resultImg" src="${show.image.medium}">
+          <img class="resultImg" src="${getImage(show.image)}">
           <div class='resultInfo'>
             <div class="resultTitle">
               ${show.name}

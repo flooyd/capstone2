@@ -15,7 +15,7 @@
             <span class="legendText">Search for a TV Show or Movie</span>
           </legend>
           <label for="search">Title</label>
-          <input class="titleSearch" type="text" name="search">
+          <input class="titleSearch" type="text" name="search" required>
           <div>
             <label for="type">Type</label>
             <select class="typeSelect" name="type">
@@ -28,24 +28,11 @@
         </fieldset>
       </form>
       <section id="searchResults">
-        <div class="result">
-          <img class="resultImg" src="images/bsgtest.jpg">
-          <div class='resultInfo'>
-            <div class="resultTitle">
-              Battlestar Galactica
-            </div>
-            <p class="resultDesc">
-              When an old enemy, the Cylons, resurface and obliterate the 12 colonies, the crew of the aged Galactica protect a small civilian
-              fleet - the last of humanity - as they journey toward the fabled 13th colony, Earth.
-            </p>
-            <button class="Watching btn btn-danger">Watching</button>
-            <button class="Watched btn btn-default">Watched All</button>
-            <button class="IMDB btn btn-info">View on IMDB</button>
-          </div>
-        </div>
+        <p>What are you waiting for? Search and see the results here!</p>
       </section>
       <section id="selectedResult">
-        This section will allow for immediate management of show!!
+        <p>Never search for the same show twice.</p>
+        <p>Here are the shows you have watched or are still watching.</p>
       </section>
     </main>
     <% include ../partials/scripts %>
