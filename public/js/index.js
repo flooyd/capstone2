@@ -1,5 +1,7 @@
 $(() => {
+  let loginOrRegister = 'login';
   handleDisplayLoginBox();
+  handleSwitchLogin();
   handleLoginSubmit();
   
   function handleDisplayLoginBox() {
@@ -13,7 +15,7 @@ $(() => {
     });
   }
   
-  function handleLoginSubmit() {
+  function handleSwitchLogin() {
     $('.registerLink').click(e => {
       let linkText = $(e.currentTarget).text();
       if(linkText == 'Login') {
@@ -21,8 +23,9 @@ $(() => {
         $(e.currentTarget).text('Register');
         $('.currentForm-js').text('Need an account?')
         $('.loginForm legend').text('Login');
-        $('.loginForm').attr('action', 'api/users');
+        $('.loginForm').attr('action', 'api/auth/login');
         $('.passwordConfirm').remove();
+        loginOrRegister = 'login';
       } else {
         $(e.currentTarget).text('Login');
         $('.currentForm-js').text('Already Registered?')
@@ -33,7 +36,15 @@ $(() => {
           <label for="passwordConfirm">Confirm</label>
           <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm password" required>
         </div>`)
+        loginOrRegister = 'register';
       }
+    })
+  }
+
+  function handleLoginSubmit() {
+    $('.loginForm').submit(e => {
+      e.preventDefault();
+      console.log(loginOrRegister);
     })
   }
 
