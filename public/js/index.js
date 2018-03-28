@@ -16,7 +16,6 @@ const results = [{
 
 const handleLoginBox = () => {
   $('.closeButton').click(() => {
-    console.log('hi');
     $('.login').css('display', 'none');
   });
 
