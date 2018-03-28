@@ -34,8 +34,6 @@ $(() => {
           <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm password" required>
         </div>`)
       }
-      
-     
     })
   }
 
