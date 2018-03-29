@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 const reload = require('reload');
+const cookieParser = require('cookie-parser');
 
 mongoose.Promise = global.Promise;
 
@@ -15,10 +16,9 @@ const {localStrategy, jwtStrategy } = require('./auth/strategies');
 const { PORT, DATABASE_URL } = require('./config');
 const {User} = require('./models/user');
 
-
-
 // Logging
 app.use(morgan('common'));
+app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 // CORS
@@ -41,7 +41,9 @@ app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-app.get('/', (req, res) => {
+app.get('/', jwtStrategy, (req, res) => {
+  console.log(req.cookies);
+  console.log(req.user);
   res.render('pages/search.ejs', {title: 'Capstone 2 - Search'});
 });
 

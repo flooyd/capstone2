@@ -44,7 +44,7 @@ $(() => {
   function handleLoginSubmit() {
     $('.loginForm').submit(e => {
       e.preventDefault();
-      console.log(loginOrRegister);
+      
     })
   }
 
