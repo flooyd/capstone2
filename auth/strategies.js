@@ -33,7 +33,7 @@ const localStrategy = (req, res, next) => {
     .catch(err => {
       if (err.reason === 'LoginError') {
         console.log('login error');
-        res.json({"Login Failure": "Incorrect username or password"});
+        res.status(401).json({"Login Failure": "Incorrect username or password"});
       }
     }); 
 }

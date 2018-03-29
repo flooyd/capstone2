@@ -59,14 +59,14 @@ router.post('/',  middleware, (req, res) => {
       let options = {
         httpOnly: true
       }
-      res.json({"success": req.user.username, "token": authToken});
+      res.json({"username": username, "token": authToken});
     })
     .catch(err => {
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
       console.log(err);
-      res.status(500).json({code: 500, message: 'Internal server error'});
+      res.status(500).json({code: 500, message: err});
     });
 });
 

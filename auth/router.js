@@ -23,7 +23,7 @@ router.post('/login', localStrategy, (req, res) => {
   let options = {
     httpOnly: true
   }
-  res.json({"success": req.user.username, "token": authToken});
+  res.json({"username": req.user.username, "token": authToken});
 });
 
 

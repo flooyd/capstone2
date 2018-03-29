@@ -1,5 +1,5 @@
 $(() => {
-  let loginOrRegister = 'login';
+  let loginOrRegister = 'register';
   handleDisplayLoginBox();
   handleSwitchLogin();
   handleLoginSubmit();
@@ -40,12 +40,40 @@ $(() => {
       }
     })
   }
-
+  
   function handleLoginSubmit() {
     $('.loginForm').submit(e => {
       e.preventDefault();
+      let URL = '';
+      if (loginOrRegister === 'register') {
+        URL = 'api/users';
+      } else {
+        URL = 'api/auth/login'
+      }
+      login(URL);
       
     })
+  }
+  
+  function login(URL) {
+    let username = $('#username').val();
+    let password = $('#password').val();
+    let data = {
+      username,
+      password
+    }
+    
+    $.post(URL, data, afterLogin, 'json').fail(failedLogin);
+  }
+  
+  function afterLogin(res) {
+    localStorage.setItem('token', res.token);
+    localStorage.setItem('user', res.username);
+    console.log(localStorage.getItem('user'))
+  }
+  
+  function failedLogin(res) {
+    console.log(res);
   }
 
 
