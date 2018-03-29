@@ -42,6 +42,10 @@ app.get('/', jwtStrategy, (req, res) => {
   res.render('pages/search.ejs', {title: 'Capstone 2 - Search'});
 });
 
+app.get('/a', jwtStrategy, (req, res) => {
+  res.json({"hi": "hello"});
+})
+
 let server;
 
 function runServer(dbUrl, port) {

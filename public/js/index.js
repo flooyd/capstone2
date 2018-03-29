@@ -1,4 +1,19 @@
+function ajax(url, data, bAuth, type, success, error) {
+  $.ajax({
+    url,
+    data,
+    type,
+    success,
+    error,
+    beforeSend: function(req) {
+      req.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    }
+  })
+}
 $(() => {
+  let event = document.createEvent('Event');
+  event.initEvent('login', true, true);
+
   let loginOrRegister = 'register';
   handleDisplayLoginBox();
   handleSwitchLogin();
@@ -62,14 +77,15 @@ $(() => {
       username,
       password
     }
-    
-    $.post(URL, data, afterLogin, 'json').fail(failedLogin);
+    ajax(URL, data, false, 'POST', afterLogin, failedLogin);
   }
   
   function afterLogin(res) {
     localStorage.setItem('token', res.token);
     localStorage.setItem('user', res.username);
-    console.log(localStorage.getItem('user'))
+    
+    $('.login').css('display', 'none');
+    dispatchEvent(event);
   }
   
   function failedLogin(res) {
