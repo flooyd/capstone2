@@ -59,8 +59,7 @@ router.post('/',  middleware, (req, res) => {
       let options = {
         httpOnly: true
       }
-      res.cookie('jwt', authToken, options);
-      res.redirect('/');
+      res.json({"success": req.user.username, "token": authToken});
     })
     .catch(err => {
       if (err.reason === 'ValidationError') {

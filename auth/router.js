@@ -14,17 +14,16 @@ const createAuthToken = function(user) {
   });
 };
 
-const {myLocalStrategy} = require('./strategies');
+const {localStrategy} = require('./strategies');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
 // The user provides a username and password to login
-router.post('/login', myLocalStrategy, (req, res) => {
+router.post('/login', localStrategy, (req, res) => {
   const authToken = createAuthToken(req.user.serialize());
   let options = {
     httpOnly: true
   }
-  res.cookie('jwt', authToken, options);
-  res.json({"success": req.user.username});
+  res.json({"success": req.user.username, "token": authToken});
 });
 
 

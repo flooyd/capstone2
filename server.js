@@ -42,8 +42,6 @@ app.use('/api/auth/', authRouter);
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.get('/', jwtStrategy, (req, res) => {
-  console.log(req.cookies);
-  console.log(req.user);
   res.render('pages/search.ejs', {title: 'Capstone 2 - Search'});
 });
 
