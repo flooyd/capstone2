@@ -51,7 +51,10 @@ $(() => {
   
   $('#searchResults').on('click', '.IMDB', e => {
     let id = $(e.currentTarget).prop('id');
-    console.log(id);
     window.open(`https://www.imdb.com/title/${id}`);
+  });
+  
+  window.addEventListener('loginFinished', function() {
+    $('.login').css('display', 'none');
   });
 });

@@ -1,12 +1,36 @@
+function ajax(url, data, type, bSendAuth, success, error) {
+  return $.ajax({
+    url,
+    data,
+    type,
+    beforeSend: function(req) {
+      if(bSendAuth) {
+        req.setRequestHeader('Authorization', 'bearer ' + localStorage.getItem('token'));
+      }
+    },
+    success: function(data, status, res) {
+      success(data);
+    },
+    error: function(data, status, res) {
+      error(data);
+    }
+  })
+}
+
+let localStorage = window.localStorage;
+
 $(() => {
   let loginOrRegister = 'register';
+  var body = document.getElementsByTagName("BODY")[0];
+  let loginFinished = document.createEvent('HTMLEvents');
+  loginFinished.initEvent('loginFinished', true, true);
+  
   handleDisplayLoginBox();
   handleSwitchLogin();
   handleLoginSubmit();
   
   function handleDisplayLoginBox() {
     $('.closeButton').click(() => {
-      console.log('hi');
       $('.login').css('display', 'none');
     });
 
@@ -19,7 +43,7 @@ $(() => {
     $('.registerLink').click(e => {
       let linkText = $(e.currentTarget).text();
       if(linkText == 'Login') {
-        console.log('hi');
+        ('hi');
         $(e.currentTarget).text('Register');
         $('.currentForm-js').text('Need an account?')
         $('.loginForm legend').text('Login');
@@ -63,17 +87,19 @@ $(() => {
       password
     }
     
-    $.post(URL, data, afterLogin, 'json').fail(failedLogin);
+    ajax(URL, data, 'POST', false, afterLogin, failedLogin);
   }
   
   function afterLogin(res) {
     localStorage.setItem('token', res.token);
     localStorage.setItem('user', res.username);
-    console.log(localStorage.getItem('user'))
+    window.dispatchEvent(loginFinished);
+    
   }
   
   function failedLogin(res) {
     console.log(res);
+    $('.loginError').text('Incorrect username or password. Please try again.');
   }
 
 
