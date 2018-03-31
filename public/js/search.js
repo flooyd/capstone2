@@ -3,6 +3,9 @@ $(() => {
   window.addEventListener('login', function(e) {
     console.log('we just logged in!!!');
   }, false);
+  let watchedId;
+  let watchedAll;
+  
   function search(query) {
     let URL = `https://api.tvmaze.com/search/shows?q=${query}`
     $.getJSON(URL)
@@ -28,7 +31,6 @@ $(() => {
     }
   }
   function renderItem(show) {
-    console.log('hi');
     $('#searchResults').append(
       `<div class="result">
           <img class="resultImg" src="${getImage(show.image)}">
@@ -39,8 +41,8 @@ $(() => {
             <p class="resultDesc">
               ${show.summary}
             </p>
-            <button class="Watching btn btn-danger">Watching</button>
-            <button class="Watched btn btn-default">Watched All</button>
+            <button id=${show.id} class="Watching btn btn-danger">Watching</button>
+            <button id="${show.id}-all" class="Watched btn btn-default">Watched All</button>
             <button id=${show.externals.imdb} class="IMDB btn btn-info">View on IMDB</button>
           </div>
         </div>`)
@@ -57,7 +59,38 @@ $(() => {
     window.open(`https://www.imdb.com/title/${id}`);
   });
   
+  $('#searchResults').on('click', '.Watching', e => {
+    watchedId = $(e.currentTarget).prop('id');
+    let url = `https://api.tvmaze.com/shows/${watchedId}/episodes`
+    ajax(url, {}, 'GET', false, watchingSuccess, watchingFail);
+    $(e.currentTarget).parent().find('button').css('display', 'none');
+    $(e.currentTarget).parent().append('<p class="watchd">Adding to watchd</p>');
+    
+  });
+  
   window.addEventListener('loginFinished', function() {
     $('.login').css('display', 'none');
   });
+  
+  function watchingSuccess(data, status, res) {
+    //ajax call to my server
+    if (watchedAll) {
+      //watch all save
+    } else {
+      //watch none save 
+    }
+  }
+  
+  function watchingFail(data, status, res) {
+    console.log(data);
+  }
+  
+  function episodesSaveSuccess(data, status, res) {
+    let watchedShow = $(`#${watchedId}`).parent().parent();
+    $(watchedShow).remove();
+  }
+  
+  function episodesSaveFail(data, status, res) {
+    
+  }
 });
