@@ -1,5 +1,8 @@
 
 $(() => {
+  window.addEventListener('login', function(e) {
+    console.log('we just logged in!!!');
+  }, false);
   function search(query) {
     let URL = `https://api.tvmaze.com/search/shows?q=${query}`
     $.getJSON(URL)

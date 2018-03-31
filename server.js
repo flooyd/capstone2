@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const passport = require('passport');
 const reload = require('reload');
 const cookieParser = require('cookie-parser');
 
@@ -32,18 +31,20 @@ app.use(function (req, res, next) {
   next();
 });
 
-passport.use(localStrategy);
-passport.use(jwtStrategy);
+
 
 app.use(express.static('public'));
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
-const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.get('/', jwtStrategy, (req, res) => {
   res.render('pages/search.ejs', {title: 'Capstone 2 - Search'});
 });
+
+app.get('/a', jwtStrategy, (req, res) => {
+  res.json({"hi": "hello"});
+})
 
 let server;
 

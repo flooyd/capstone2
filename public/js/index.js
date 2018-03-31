@@ -1,3 +1,4 @@
+
 function ajax(url, data, type, bSendAuth, success, error) {
   return $.ajax({
     url,
@@ -19,7 +20,11 @@ function ajax(url, data, type, bSendAuth, success, error) {
 
 let localStorage = window.localStorage;
 
+
 $(() => {
+  let event = document.createEvent('Event');
+  event.initEvent('login', true, true);
+
   let loginOrRegister = 'register';
   var body = document.getElementsByTagName("BODY")[0];
   let loginFinished = document.createEvent('HTMLEvents');
@@ -93,8 +98,10 @@ $(() => {
   function afterLogin(res) {
     localStorage.setItem('token', res.token);
     localStorage.setItem('user', res.username);
+
     window.dispatchEvent(loginFinished);
-    
+  
+
   }
   
   function failedLogin(res) {

@@ -40,6 +40,7 @@ const localStrategy = (req, res, next) => {
 
 //not using passport here. Doesn't seem to support storing jwt in cookies...
 const jwtStrategy = (req, res, next) => {
+  console.log(req);
   if(req.cookies['jwt']) {
     let decoded = jwt.verify(req.cookies['jwt'], config.JWT_SECRET);
     req.user = decoded.user.username;
