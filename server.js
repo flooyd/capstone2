@@ -38,7 +38,7 @@ app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
 
-app.get('/', jwtStrategy, (req, res) => {
+app.get('/',  (req, res) => {
   res.render('pages/search.ejs', {title: 'Capstone 2 - Search'});
 });
 

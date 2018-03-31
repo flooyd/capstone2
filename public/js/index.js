@@ -13,7 +13,7 @@ function ajax(url, data, type, bSendAuth, success, error) {
       success(data);
     },
     error: function(data, status, res) {
-      error(data);
+      error(data, status, res);
     }
   })
 }
@@ -24,6 +24,8 @@ let localStorage = window.localStorage;
 $(() => {
   let event = document.createEvent('Event');
   event.initEvent('login', true, true);
+  
+  ajax('/a', {}, 'GET', true, data => console.log(data), (data, status, res) => console.log(res));
 
   let loginOrRegister = 'register';
   var body = document.getElementsByTagName("BODY")[0];
