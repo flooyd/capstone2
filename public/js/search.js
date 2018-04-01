@@ -75,9 +75,9 @@ $(() => {
   function watchingSuccess(data, status, res) {
     //ajax call to my server
     if (watchedAll) {
-      //watch all save
+      console.log(data);
     } else {
-      //watch none save 
+      console.log(data);
     }
   }
   

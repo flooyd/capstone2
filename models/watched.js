@@ -1,10 +1,13 @@
 'use strict';
 const mongoose = require('mongoose');
 
-const EpisodeSchema = mongoose.Schema({
+const WatchedSchema = mongoose.Schema({
   title: {
     type: String,
     required: true
+  },
+  description: {
+    type: String
   },
   number: {
     type: Number,
@@ -14,10 +17,6 @@ const EpisodeSchema = mongoose.Schema({
     type: Number,
     required: true
   },
-  description: {
-    type: String,
-    required: true
-  },
   watchedAt: {
     type: Date,
     required: true,
@@ -25,8 +24,8 @@ const EpisodeSchema = mongoose.Schema({
   }
 });
 
-const Episode = mongoose.model('Episode', EpisodeSchema);
+const Watched = mongoose.model('Watched', WatchedSchema);
 
 module.exports = {
-  Episode
+  Watched
 };
