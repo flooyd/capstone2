@@ -10,6 +10,7 @@ mongoose.Promise = global.Promise;
 
 const {router: usersRouter} = require('./users/router');
 const {router: authRouter} = require('./auth/router');
+const {router: watchedRouter} = require('./watched/router');
 const {localStrategy, jwtStrategy } = require('./auth/strategies');
 
 const { PORT, DATABASE_URL } = require('./config');
@@ -36,6 +37,7 @@ app.use(function (req, res, next) {
 app.use(express.static('public'));
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
+app.use('/api/watched/', watchedRouter);
 
 
 app.get('/',  (req, res) => {
@@ -44,6 +46,10 @@ app.get('/',  (req, res) => {
 
 app.get('/a', jwtStrategy, (req, res) => {
   res.json({"hi": "hello"});
+})
+
+app.get('*', (req, res) => {
+  res.json({"404": "weird 404"});
 })
 
 let server;

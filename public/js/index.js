@@ -7,6 +7,7 @@ function ajax(url, data, type, bSendAuth, success, error) {
     beforeSend: function(req) {
       if(bSendAuth) {
         req.setRequestHeader('Authorization', 'bearer ' + localStorage.getItem('token'));
+        req.setRequestHeader('Content-type', 'application/json');
       }
     },
     success: function(data, status, res) {
@@ -92,6 +93,8 @@ $(() => {
       password
     }
     
+    console.log(data);
+    
     ajax(URL, data, 'POST', false, afterLogin, failedLogin);
   }
   
@@ -100,8 +103,7 @@ $(() => {
     localStorage.setItem('user', res.username);
 
     window.dispatchEvent(loginFinished);
-  
-
+    
   }
   
   function failedLogin(res) {

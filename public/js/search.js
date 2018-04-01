@@ -3,8 +3,11 @@ $(() => {
   window.addEventListener('login', function(e) {
     console.log('we just logged in!!!');
   }, false);
+  getWatched();
   let watchedId;
+  let watchedImage;
   let watchedAll;
+  let watchedShow;
   
   function search(query) {
     let URL = `https://api.tvmaze.com/search/shows?q=${query}`
@@ -25,6 +28,7 @@ $(() => {
   
   function getImage(image) {
     if(image) {
+      image.medium = image.medium.replace(/^http:\/\//i, 'https://');
       return image.medium;
     } else {
       return 'images/camera.png';
@@ -61,6 +65,11 @@ $(() => {
   
   $('#searchResults').on('click', '.Watching', e => {
     watchedId = $(e.currentTarget).prop('id');
+    watchedImage = $(e.currentTarget).parent().parent().find('img').prop('src');
+    watchedShow = $(e.currentTarget).parent().parent().find('.resultTitle').text().trim();
+    console.log(watchedShow);
+    console.log(watchedImage);
+    console.log(watchedId);
     let url = `https://api.tvmaze.com/shows/${watchedId}/episodes`
     ajax(url, {}, 'GET', false, watchingSuccess, watchingFail);
     $(e.currentTarget).parent().find('button').css('display', 'none');
@@ -72,12 +81,49 @@ $(() => {
     $('.login').css('display', 'none');
   });
   
+  function getWatched() {
+    ajax('/api/watched/watched', {}, 'GET', true, getWatchedSuccess, getWatchedFail);
+  }
+  
+  function getWatchedSuccess(data, status, res) {
+    console.log(data);
+  }
+  
+  function getWatchedFail(data, status, res) {
+    console.log(getWatchedFail);
+  }
   function watchingSuccess(data, status, res) {
+    //some shows have 0 episodes...
+    if(data.length < 1) {
+      //handle error
+      $('.watchd').text('This show has no episodes...sorry');
+      return;
+    }
+    let episodes = data.map(e => {
+        return {
+          season: e.season,
+          number: e.number,
+          description: e.summary,
+          title: e.name,
+          id: e.id,
+          showId: watchedId,
+          user: localStorage.getItem('user'),
+          watchedAt: null
+        }
+    });
+    
+    episodes[0].image = watchedImage;
+    episodes[0].show = watchedShow;
+    
+    episodes = JSON.stringify(episodes);
+    
     //ajax call to my server
     if (watchedAll) {
       console.log(data);
     } else {
+      //save with none watched
       console.log(data);
+      ajax('api/watched/watching', episodes, 'POST', true, episodesSaveSuccess, episodesSaveFail);
     }
   }
   
@@ -86,11 +132,13 @@ $(() => {
   }
   
   function episodesSaveSuccess(data, status, res) {
+    console.log(data);
     let watchedShow = $(`#${watchedId}`).parent().parent();
     $(watchedShow).remove();
   }
   
   function episodesSaveFail(data, status, res) {
-    
+    console.log('already watching');
+    $('.watchd').text('You are already watching this show.');
   }
 });
