@@ -67,9 +67,6 @@ $(() => {
     watchedId = $(e.currentTarget).prop('id');
     watchedImage = $(e.currentTarget).parent().parent().find('img').prop('src');
     watchedShow = $(e.currentTarget).parent().parent().find('.resultTitle').text().trim();
-    console.log(watchedShow);
-    console.log(watchedImage);
-    console.log(watchedId);
     let url = `https://api.tvmaze.com/shows/${watchedId}/episodes`
     ajax(url, {}, 'GET', false, watchingSuccess, watchingFail);
     $(e.currentTarget).parent().find('button').css('display', 'none');
@@ -86,11 +83,10 @@ $(() => {
   }
   
   function getWatchedSuccess(data, status, res) {
-    console.log(data);
   }
   
   function getWatchedFail(data, status, res) {
-    console.log(getWatchedFail);
+    
   }
   function watchingSuccess(data, status, res) {
     //some shows have 0 episodes...
@@ -99,6 +95,8 @@ $(() => {
       $('.watchd').text('This show has no episodes...sorry');
       return;
     }
+    
+    
     let episodes = data.map(e => {
         return {
           season: e.season,

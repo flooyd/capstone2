@@ -36,7 +36,6 @@ router.post('/',  middleware, (req, res) => {
     .count()
     .then(count => {
       if (count > 0) {
-        console.log('existing user');
         // There is an existing user with the same username
         return Promise.reject({
           code: 422,
@@ -65,7 +64,6 @@ router.post('/',  middleware, (req, res) => {
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
-      console.log(err);
       res.status(500).json({code: 500, message: err});
     });
 });

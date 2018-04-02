@@ -93,17 +93,13 @@ $(() => {
       password
     }
     
-    console.log(data);
-    
     ajax(URL, data, 'POST', false, afterLogin, failedLogin);
   }
   
   function afterLogin(res) {
     localStorage.setItem('token', res.token);
     localStorage.setItem('user', res.username);
-
     window.dispatchEvent(loginFinished);
-    
   }
   
   function failedLogin(res) {

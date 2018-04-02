@@ -44,13 +44,12 @@ const jwtStrategy = (req, res, next) => {
     let token = req.header('Authorization').split(' ')[1];
       jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
       if (decoded) {
-        console.log('decoded', decoded);
         req.user = decoded.user.username;
         next();
       }
       else {
         console.log(err);
-        return res.status(401).json({"unauthorized": "must be logged in 1"});
+        return res.status(401).json({"unauthorized": "must be logged in"});
       }
     });
   } else {
