@@ -103,17 +103,16 @@ $(() => {
   }
   
   function getWatchedFail(data, status, res) {
-    
+    console.log(data);
   }
   function watchingSuccess(data, status, res) {
     //some shows have 0 episodes...
     if(data.length < 1) {
-      //handle error
-      $('.watchd').text('This show has no episodes...sorry');
+      $('.watchd').text('This appears to be a direct to TV movie, or it is a show with no episodes listed. No support for these yet.');
       return;
     }
     
-    
+    console.log(data);
     let episodes = data.map(e => {
         return {
           season: e.season,
@@ -123,7 +122,8 @@ $(() => {
           id: e.id,
           showId: watchedId,
           user: localStorage.getItem('user'),
-          watchedAt: null
+          watchedAt: null,
+          airDate: e.airdate
         }
     });
     

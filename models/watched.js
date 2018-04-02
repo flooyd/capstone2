@@ -12,6 +12,9 @@ const WatchedSchema = mongoose.Schema({
   show: {
     type: String
   },
+  airDate: {
+    type: Date
+  },
   showTrackedAt: {
     type: Date,
     default: Date.now,
