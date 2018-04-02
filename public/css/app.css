@@ -42,7 +42,7 @@ header {
 
 .sidebar {
   grid-area: sidebar;
-  max-height: 100vh;
+  max-height: 95vh;
   background-color: #e8554e;
   position: sticky;
   top: 50px;
@@ -153,12 +153,20 @@ header {
 .registerLink:hover {
   color: black;
 }
+
 .loginForm button {
   clear: both;
   display: block;
   width: 100px;
   text-align: center;
   margin: 15px auto;
+}
+
+.loginError {
+  color: #e8554e;
+}
+.authNeeded {
+  display: none;
 }
 
 

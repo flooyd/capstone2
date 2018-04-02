@@ -66,11 +66,6 @@ fieldset {
   margin-top: 10px;
 }
 
-#selectedResult {
-  margin-top: 20px;
-  grid-area: result;
-}
-
 #selectedResult p {
   margin-top: 20px;
   font-weight: bold;
@@ -111,4 +106,31 @@ fieldset {
   color: #e8554e;
   margin: 25px;
 }
+
+#watchedTitles {
+  line-height: 1.2;
+  border-top: 2px solid black;
+  text-align: center;
+  grid-area: result;
+  margin-top: 20px;
+}
+
+#watchedTitles p {
+  margin-top: 10px;
+}
+
+.watchedTitle {
+  width: 175px;
+  display: inline-block;
+  margin: 20px 15px;
+}
+
+.watchedTitle p {
+  margin-bottom: 8px;
+}
+
+.watchedTitle img {
+  max-height: 175px;
+}
+
 

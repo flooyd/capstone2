@@ -23,7 +23,7 @@ router.get('/watched', jwtStrategy, (req, res) => {
     show: {
       $ne: null
     }
-  })
+  }).sort({showTrackedAt: -1})
   .then(results => {
     res.json(results);
   })
@@ -47,7 +47,7 @@ router.post('/watching', jwtStrategy, (req, res) => {
     }
   })
   .then(createdEps => {
-    res.json(createdEps)
+    res.json(createdEps[0])
   })
   .catch(err => {
     res.status(500).json(err);

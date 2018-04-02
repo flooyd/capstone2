@@ -47,6 +47,7 @@ $(() => {
   
   function handleSwitchLogin() {
     $('.registerLink').click(e => {
+      $('.loginError').empty();
       let linkText = $(e.currentTarget).text();
       if(linkText == 'Login') {
         ('hi');

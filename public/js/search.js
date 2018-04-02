@@ -1,13 +1,18 @@
 
 $(() => {
-  window.addEventListener('login', function(e) {
-    console.log('we just logged in!!!');
-  }, false);
-  getWatched();
+  begin();
   let watchedId;
   let watchedImage;
   let watchedAll;
   let watchedShow;
+  
+  function begin(){
+    if(localStorage.getItem('user')) {
+      getWatched();
+      $('.preAuth').css('display', 'none');
+      $('.authNeeded').css('display', 'block');
+    }
+  }
   
   function search(query) {
     let URL = `https://api.tvmaze.com/search/shows?q=${query}`
@@ -51,6 +56,13 @@ $(() => {
           </div>
         </div>`)
   }
+  
+  function renderWatchedShow(show) {
+    return `<div class="watchedTitle">
+            <p>${show.show}</p>
+            <img src=${show.image} alt="A poster of the show ${show.show}">`
+  }
+  
   $('.searchForm-js').submit(e => {
     e.preventDefault();
     $('#searchResults').empty();
@@ -76,6 +88,7 @@ $(() => {
   
   window.addEventListener('loginFinished', function() {
     $('.login').css('display', 'none');
+    begin();
   });
   
   function getWatched() {
@@ -83,6 +96,10 @@ $(() => {
   }
   
   function getWatchedSuccess(data, status, res) {
+    console.log(data);
+    data.forEach(s => {
+      $('#watchedTitles').append(renderWatchedShow(s));
+    });
   }
   
   function getWatchedFail(data, status, res) {
@@ -133,6 +150,7 @@ $(() => {
     console.log(data);
     let watchedShow = $(`#${watchedId}`).parent().parent();
     $(watchedShow).remove();
+    $('#watchedTitles p:nth-child(4)').after(renderWatchedShow(data));
   }
   
   function episodesSaveFail(data, status, res) {
