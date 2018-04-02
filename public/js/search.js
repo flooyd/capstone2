@@ -82,7 +82,7 @@ $(() => {
     let url = `https://api.tvmaze.com/shows/${watchedId}/episodes`
     ajax(url, {}, 'GET', false, watchingSuccess, watchingFail);
     $(e.currentTarget).parent().find('button').css('display', 'none');
-    $(e.currentTarget).parent().append('<p class="watchd">Adding to watchd</p>');
+    $(e.currentTarget).parent().append('<p class="watchd">Adding to Watched</p>');
     
   });
   
@@ -150,7 +150,7 @@ $(() => {
     console.log(data);
     let watchedShow = $(`#${watchedId}`).parent().parent();
     $(watchedShow).remove();
-    $('#watchedTitles p:nth-child(4)').after(renderWatchedShow(data));
+    $('#watchedTitles p:nth-child(5)').after(renderWatchedShow(data));
   }
   
   function episodesSaveFail(data, status, res) {

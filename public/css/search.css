@@ -109,10 +109,15 @@ fieldset {
 
 #watchedTitles {
   line-height: 1.2;
-  border-top: 2px solid black;
   text-align: center;
   grid-area: result;
   margin-top: 20px;
+}
+
+.separator {
+  border-top: 2px solid black;
+  width: 75%;
+  margin: 0 auto;
 }
 
 #watchedTitles p {
