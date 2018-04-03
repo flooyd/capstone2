@@ -1,6 +1,5 @@
 module.exports = {
   checkMissingFields: (req, res, next) => {
-    console.log(req.body)
     const requiredFields = ['username', 'password'];
     const missingField = requiredFields.find(field => !(field in req.body));
 

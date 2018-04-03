@@ -14,6 +14,10 @@ const EpisodeSchema = mongoose.Schema({
     type: Number,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   watchedAt: {
     type: Date,
     required: true,

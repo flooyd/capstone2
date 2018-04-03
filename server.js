@@ -10,6 +10,7 @@ mongoose.Promise = global.Promise;
 
 const {router: usersRouter} = require('./users/router');
 const {router: authRouter} = require('./auth/router');
+const {router: watchedRouter} = require('./watched/router');
 const {localStrategy, jwtStrategy } = require('./auth/strategies');
 
 const { PORT, DATABASE_URL } = require('./config');
@@ -39,6 +40,7 @@ app.use(function (req, res, next) {
 app.use(express.static('public'));
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
+app.use('/api/watched/', watchedRouter);
 
 <<<<<<< HEAD
 app.get('/', jwtStrategy, (req, res) => {
@@ -50,10 +52,6 @@ app.get('/',  (req, res) => {
 >>>>>>> 20189664b79378003dbfde8af8bce85a4fb0416e
   res.render('pages/search.ejs', {title: 'Capstone 2 - Search'});
 });
-
-app.get('/a', jwtStrategy, (req, res) => {
-  res.json({"hi": "hello"});
-})
 
 let server;
 

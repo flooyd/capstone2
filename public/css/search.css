@@ -35,16 +35,11 @@ label {
   margin-right: 6px;
 }
 
-select {
-  width: 80%;
-  height: 32px;
-  margin-top: 25px;
-  max-width: 350px;
-  min-width: 150px;
-}
-
 .searchButton {
-  margin-top: 10px;
+  color: #e8554e;
+  margin-top: 60px;
+  display: block;
+  margin: 25px auto;
 }
 
 fieldset {
@@ -64,11 +59,6 @@ fieldset {
 .result {
   clear: both;
   margin-top: 10px;
-}
-
-#selectedResult {
-  margin-top: 20px;
-  grid-area: result;
 }
 
 #selectedResult p {
@@ -106,3 +96,41 @@ fieldset {
 .resultInfo button {
   margin-top: 15px;
 }
+
+.watchd {
+  color: #e8554e;
+  margin: 25px;
+}
+
+#watchedTitles {
+  line-height: 1.2;
+  text-align: center;
+  grid-area: result;
+  margin-top: 20px;
+}
+
+.separator {
+  border-top: 2px solid black;
+  width: 75%;
+  margin: 0 auto;
+}
+
+#watchedTitles p {
+  margin-top: 10px;
+}
+
+.watchedTitle {
+  width: 175px;
+  display: inline-block;
+  margin: 20px 15px;
+}
+
+.watchedTitle p {
+  margin-bottom: 8px;
+}
+
+.watchedTitle img {
+  max-height: 175px;
+}
+
+

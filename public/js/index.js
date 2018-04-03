@@ -7,10 +7,11 @@ function ajax(url, data, type, bSendAuth, success, error) {
     beforeSend: function(req) {
       if(bSendAuth) {
         req.setRequestHeader('Authorization', 'bearer ' + localStorage.getItem('token'));
+        req.setRequestHeader('Content-type', 'application/json');
       }
     },
     success: function(data, status, res) {
-      success(data);
+      success(data, status, res);
     },
     error: function(data, status, res) {
       error(data, status, res);
@@ -24,8 +25,6 @@ let localStorage = window.localStorage;
 $(() => {
   let event = document.createEvent('Event');
   event.initEvent('login', true, true);
-  
-  ajax('/a', {}, 'GET', true, data => console.log(data), (data, status, res) => console.log(res));
 
   let loginOrRegister = 'register';
   var body = document.getElementsByTagName("BODY")[0];
@@ -48,6 +47,7 @@ $(() => {
   
   function handleSwitchLogin() {
     $('.registerLink').click(e => {
+      $('.loginError').empty();
       let linkText = $(e.currentTarget).text();
       if(linkText == 'Login') {
         ('hi');
@@ -100,10 +100,7 @@ $(() => {
   function afterLogin(res) {
     localStorage.setItem('token', res.token);
     localStorage.setItem('user', res.username);
-
     window.dispatchEvent(loginFinished);
-  
-
   }
   
   function failedLogin(res) {

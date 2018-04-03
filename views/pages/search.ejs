@@ -12,27 +12,23 @@
       <form class="searchForm-js">
         <fieldset>
           <legend>
-            <span class="legendText">Search for a TV Show or Movie</span>
+            <span class="legendText">Search for a TV Show</span>
           </legend>
           <label for="search">Title</label>
           <input class="titleSearch" type="text" name="search" required>
-          <div>
-            <label for="type">Type</label>
-            <select class="typeSelect" name="type">
-              <option>Both</option>
-              <option>Movie</option>
-              <option>TV Show</option>
-            </select>
-          </div>
+          
           <button class="searchButton" type="submit">Search</button>
         </fieldset>
       </form>
       <section id="searchResults">
         <p>What are you waiting for? Search and see the results here!</p>
       </section>
-      <section id="selectedResult">
-        <p>Never search for the same show twice.</p>
-        <p>Here are the shows you have watched or are still watching.</p>
+      <section id="watchedTitles">
+        <div class="separator"></div>
+        <p class="preAuth">Login to see what you are Watching!</p>
+        <p class="authNeeded">Never search for the same show twice.</p>
+        <p class="authNeeded">Here are the shows you have Watched or are still Watching.</p>
+        <p class="authNeeded">Manage the show's episodes on your profile page.</p>
       </section>
     </main>
     <% include ../partials/scripts %>
