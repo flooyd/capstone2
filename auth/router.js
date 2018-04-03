@@ -19,11 +19,7 @@ router.use(bodyParser.urlencoded({extended: false}));
 // The user provides a username and password to login
 router.post('/login', localStrategy, (req, res) => {
   const authToken = createAuthToken(req.user.serialize());
-  let options = {
-    httpOnly: true
-  }
-  res.cookie('jwt', authToken, options);
-  res.json({"success": req.user.username});
+  res.status(200).json({"username": req.user.username, "token": authToken});
 });
 
 

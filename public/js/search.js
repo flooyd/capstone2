@@ -1,5 +1,8 @@
 
 $(() => {
+  window.addEventListener('login', function(e) {
+    console.log('we just logged in!!!');
+  }, false);
   function search(query) {
     let URL = `https://api.tvmaze.com/search/shows?q=${query}`
     $.getJSON(URL)
@@ -51,7 +54,10 @@ $(() => {
   
   $('#searchResults').on('click', '.IMDB', e => {
     let id = $(e.currentTarget).prop('id');
-    console.log(id);
     window.open(`https://www.imdb.com/title/${id}`);
+  });
+  
+  window.addEventListener('loginFinished', function() {
+    $('.login').css('display', 'none');
   });
 });
