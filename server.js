@@ -32,24 +32,15 @@ app.use(function (req, res, next) {
   next();
 });
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 20189664b79378003dbfde8af8bce85a4fb0416e
 app.use(express.static('public'));
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 app.use('/api/watched/', watchedRouter);
 
-<<<<<<< HEAD
-app.get('/', jwtStrategy, (req, res) => {
-  console.log(req.cookies);
-  console.log(req.user);
-=======
 
 app.get('/',  (req, res) => {
->>>>>>> 20189664b79378003dbfde8af8bce85a4fb0416e
   res.render('pages/search.ejs', {title: 'Capstone 2 - Search'});
 });
 
