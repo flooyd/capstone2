@@ -1,4 +1,7 @@
+//global variables and functions. Tried to avoid these as much as possible, but it's an easy way to
+//allow for modular functions that can be used across pages
 
+let loggedIn = false;
 function ajax(url, data, type, bSendAuth, success, error) {
   return $.ajax({
     url,
@@ -19,7 +22,13 @@ function ajax(url, data, type, bSendAuth, success, error) {
   })
 }
 
-let localStorage = window.localStorage;
+function begin(){
+  if(localStorage.getItem('user')) {
+    loggedIn = true;
+    $('.preAuth').css('display', 'none');
+    $('.authNeeded').css('display', 'block');
+  }
+}
 
 
 $(() => {
@@ -34,6 +43,25 @@ $(() => {
   handleDisplayLoginBox();
   handleSwitchLogin();
   handleLoginSubmit();
+  handleChangeListDisplay();
+
+  function handleChangeListDisplay() {
+    $('.titleBlocks').click((e) => {
+      toggleClass('watchedTitleOnly');
+      $('#displayFilters button').prop('disabled', false);
+      $(e.currentTarget).prop('disabled', true);
+    });
+
+    $('.imageBlocks').click((e) => {
+      toggleClass('watchedTitle');
+      $('#displayFilters button').prop('disabled', false);
+      $(e.currentTarget).prop('disabled', true);
+    });
+  }
+
+  function toggleClass(classToAdd) {
+    $('.watchedTitle, .watchedTitleOnly').removeClass('watchedTitleOnly watchedTitle').addClass(classToAdd);
+  }
   
   function handleDisplayLoginBox() {
     $('.closeButton').click(() => {
@@ -100,6 +128,7 @@ $(() => {
   function afterLogin(res) {
     localStorage.setItem('token', res.token);
     localStorage.setItem('user', res.username);
+    $('.login').css('display', 'none');
     window.dispatchEvent(loginFinished);
   }
   

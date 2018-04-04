@@ -9,15 +9,17 @@
 <body>
   <% include ../partials/navigation %>
     <main>
-      <section class="watchedShows">
-        <p>Manage your watched shows</p>
-        <p>Manage your watched shows</p>
-        <p>Manage your watched shows</p>
-        <p>Manage your watched shows</p>
-        <p>Manage your watched shows</p><p>Manage your watched shows</p><p>Manage your watched shows</p>
+      <section id="watchedTitles">
+        <p class="watchedHelp">Click the title of a show to manage episodes.</p>
+        <div id="displayFilters">
+            <button class="btn btn-default titleBlocks">Title blocks</button>
+            <button class="btn btn-default imageBlocks">Image blocks</button>
+        </div>
+        
       </section>
     </main>
     <% include ../partials/scripts %>
+    <script src="js/profile.js"></script>
 </body>
 
 </html>

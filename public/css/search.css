@@ -115,22 +115,6 @@ fieldset {
   margin: 0 auto;
 }
 
-#watchedTitles p {
-  margin-top: 10px;
-}
 
-.watchedTitle {
-  width: 175px;
-  display: inline-block;
-  margin: 20px 15px;
-}
-
-.watchedTitle p {
-  margin-bottom: 8px;
-}
-
-.watchedTitle img {
-  max-height: 175px;
-}
 
 

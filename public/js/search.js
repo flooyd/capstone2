@@ -1,17 +1,22 @@
 
+
+
 $(() => {
+  //from index.js
   begin();
+
+  if(loggedIn) {
+    searchBegin();
+  }
+  
   let watchedId;
   let watchedImage;
   let watchedAll;
   let watchedShow;
-  
-  function begin(){
-    if(localStorage.getItem('user')) {
-      getWatched();
-      $('.preAuth').css('display', 'none');
-      $('.authNeeded').css('display', 'block');
-    }
+
+  //called on login from search page
+  function searchBegin() {
+    getWatched();
   }
   
   function search(query) {
@@ -60,7 +65,8 @@ $(() => {
   function renderWatchedShow(show) {
     return `<div class="watchedTitle">
             <p>${show.show}</p>
-            <img src=${show.image} alt="A poster of the show ${show.show}">`
+            <img src=${show.image} alt="A poster of the show ${show.show}">
+            </div>`
   }
   
   $('.searchForm-js').submit(e => {
@@ -87,8 +93,9 @@ $(() => {
   });
   
   window.addEventListener('loginFinished', function() {
-    $('.login').css('display', 'none');
+    //if user wasn't logged in when initially reaches this page, begin is never called, so it's called here as well
     begin();
+    searchBegin();
   });
   
   function getWatched() {

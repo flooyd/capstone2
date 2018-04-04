@@ -8,13 +8,27 @@ const cookieParser = require('cookie-parser');
 
 mongoose.Promise = global.Promise;
 
-const {router: usersRouter} = require('./users/router');
-const {router: authRouter} = require('./auth/router');
-const {router: watchedRouter} = require('./watched/router');
-const {localStrategy, jwtStrategy } = require('./auth/strategies');
+const {
+  router: usersRouter
+} = require('./users/router');
+const {
+  router: authRouter
+} = require('./auth/router');
+const {
+  router: watchedRouter
+} = require('./watched/router');
+const {
+  localStrategy,
+  jwtStrategy
+} = require('./auth/strategies');
 
-const { PORT, DATABASE_URL } = require('./config');
-const {User} = require('./models/user');
+const {
+  PORT,
+  DATABASE_URL
+} = require('./config');
+const {
+  User
+} = require('./models/user');
 
 // Logging
 app.use(morgan('common'));
@@ -40,15 +54,25 @@ app.use('/api/auth/', authRouter);
 app.use('/api/watched/', watchedRouter);
 
 
-app.get('/',  (req, res) => {
-  res.render('pages/search.ejs', {title: 'Capstone 2 - Search'});
+app.get('/', (req, res) => {
+  res.render('pages/search.ejs', {
+    title: 'Watched - Search'
+  });
+});
+
+app.get('/profile', (req, res) => {
+  res.render('pages/profile.ejs', {
+    title: 'Watched - Profile'
+  });
 });
 
 let server;
 
 function runServer(dbUrl, port) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(dbUrl, { useMongoClient: true }, err => {
+    mongoose.connect(dbUrl, {
+      useMongoClient: true
+    }, err => {
       if (err) {
         return reject(err);
       }
@@ -80,7 +104,7 @@ function closeServer() {
 }
 
 console.log(process.env.NODE_ENV)
-if(process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   reload(app);
 }
 
@@ -89,4 +113,8 @@ if (require.main === module) {
   runServer(DATABASE_URL, PORT).catch(err => console.error(err));
 }
 
-module.exports = { app, runServer, closeServer };
+module.exports = {
+  app,
+  runServer,
+  closeServer
+};
