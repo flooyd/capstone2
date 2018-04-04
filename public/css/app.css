@@ -1,5 +1,6 @@
 *{
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 body {
@@ -200,6 +201,15 @@ header {
 
 .watchedTitleOnly img {
   display: none;
+}
+
+#watchedTitles button {
+  margin: 15px auto;
+}
+
+#watchedTitles button:disabled {
+  color: #e8554e;
+  opacity: 1;
 }
 
 

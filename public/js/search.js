@@ -1,6 +1,4 @@
 
-
-
 $(() => {
   //from index.js
   begin();
@@ -60,13 +58,6 @@ $(() => {
             <button id=${show.externals.imdb} class="IMDB btn btn-info">View on IMDB</button>
           </div>
         </div>`)
-  }
-  
-  function renderWatchedShow(show) {
-    return `<div class="watchedTitle">
-            <p>${show.show}</p>
-            <img src=${show.image} alt="A poster of the show ${show.show}">
-            </div>`
   }
   
   $('.searchForm-js').submit(e => {
@@ -157,7 +148,7 @@ $(() => {
     console.log(data);
     let watchedShow = $(`#${watchedId}`).parent().parent();
     $(watchedShow).remove();
-    $('#watchedTitles p:nth-child(5)').after(renderWatchedShow(data));
+    $('#displayFilters').after(getWatchedShowHTML(data));
   }
   
   function episodesSaveFail(data, status, res) {

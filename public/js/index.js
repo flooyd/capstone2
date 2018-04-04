@@ -1,7 +1,11 @@
-//global variables and functions. Tried to avoid these as much as possible, but it's an easy way to
-//allow for modular functions that can be used across pages
 
+'use strict';
 let loggedIn = false;
+let displayPref = 'watchedTitle';
+
+//global variables and functions. Tried to avoid these as much as possible, but it's an easy way to
+//allow for modular functions that can be used across pages (can't use export and import here...)
+
 function ajax(url, data, type, bSendAuth, success, error) {
   return $.ajax({
     url,
@@ -30,6 +34,15 @@ function begin(){
   }
 }
 
+function getWatchedShowHTML(show) {
+  return `<div class="${displayPref}">
+          <p>${show.show}</p>
+          <img src=${show.image} alt="A poster of the show ${show.show}">`
+}
+
+function renderWatchedShow(show, displayPref) {
+  $('#watchedTitles').append(getWatchedShowHTML(show));
+}
 
 $(() => {
   let event = document.createEvent('Event');
@@ -60,6 +73,7 @@ $(() => {
   }
 
   function toggleClass(classToAdd) {
+    displayPref = classToAdd;
     $('.watchedTitle, .watchedTitleOnly').removeClass('watchedTitleOnly watchedTitle').addClass(classToAdd);
   }
   

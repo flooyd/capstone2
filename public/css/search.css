@@ -61,12 +61,6 @@ fieldset {
   margin-top: 10px;
 }
 
-#selectedResult p {
-  margin-top: 20px;
-  font-weight: bold;
-  text-align: center;
-}
-
 .resultImg {
   vertical-align: middle;
   width: 20%;
