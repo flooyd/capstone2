@@ -169,9 +169,6 @@ header {
 .loginError {
   color: #e8554e;
 }
-.authNeeded {
-  display: none;
-}
 
 #watchedTitles p {
   margin-top: 10px;
@@ -211,5 +208,10 @@ header {
   color: #e8554e;
   opacity: 1;
 }
+
+.authNeeded {
+  display: none;
+}
+
 
 

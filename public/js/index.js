@@ -2,6 +2,7 @@
 'use strict';
 let loggedIn = false;
 let displayPref = 'watchedTitle';
+let sidebarCollapsed = true;
 
 //global variables and functions. Tried to avoid these as much as possible, but it's an easy way to
 //allow for modular functions that can be used across pages (can't use export and import here...)
@@ -57,6 +58,7 @@ $(() => {
   handleSwitchLogin();
   handleLoginSubmit();
   handleChangeListDisplay();
+  handleResizeSidebar();
 
   function handleChangeListDisplay() {
     $('.titleBlocks').click((e) => {
@@ -143,12 +145,116 @@ $(() => {
     localStorage.setItem('token', res.token);
     localStorage.setItem('user', res.username);
     $('.login').css('display', 'none');
+    resizeSidebar(sidebarPref, true);
     window.dispatchEvent(loginFinished);
   }
   
   function failedLogin(res) {
     console.log(res);
     $('.loginError').text('Incorrect username or password. Please try again.');
+  }
+
+  function handleResizeSidebar() {
+    $('.sidebar').on('click', '.chevronCollapse', e => {
+      swapSidebarElements(true);
+      $('.sidebar').css('width', '40px');
+      $('.brand').css('margin-left', '25px');
+    });
+
+    $('.sidebar').on('click', '.chevronOpen', e => {
+      swapSidebarElements(false);
+      $('.sidebar').css('width', '130px');
+    $('.brand').css('margin-left', '115px');
+    });
+
+    
+    
+  }
+
+  function resizeSidebar() {
+
+  }
+
+  function swapSidebarElements(bCollapse, fromLogin) {
+    let loginElement = '';
+
+    if(loggedIn) {
+      if(bCollapse) {
+        loginElement = '<img src="icons/logout.png">';
+      } else {
+        loginElement = 'Logout';
+      }
+    } else {
+      if(bCollapse) {
+        loginElement = '<img src="icons/login.png">';
+      } else {
+        loginElement = 'Login';
+      }
+    }
+
+
+    $('.sidebar').empty();
+    if(bCollapse) {
+      $('.sidebar').append(
+        `<div class="sidebarNav">
+        <div class="searchNav">
+          <a href="/">
+            <img src="icons/search.png">
+          </a>
+        </div>
+        <div class="profileNav">
+          <a href="/profile">
+            <img src="icons/profile.png">
+          </a>
+        </div>
+        <div class="friendsNav">
+          <a href="#">
+            <img src="icons/friends.png">
+          </a>
+        </div>
+      </div>
+      <div class="collapseNav">
+        <button>
+          <img src="icons/chevronOpen.png" class="chevronOpen">
+        </button>
+      </div>
+      <div class="logNav">
+        <a href="#">
+          ${loginElement}
+        </a>
+      </div>`
+      )
+    } else {
+      $('.sidebar').append(
+        `<div class="sidebarNav">
+        <div class="searchNav">
+          <a href="/">
+            Search
+          </a>
+        </div>
+        <div class="profileNav">
+          <a href="/profile">
+            Profile
+          </a>
+        </div>
+        <div class="friendsNav">
+          <a href="#">
+            Friends
+          </a>
+        </div>
+      </div>
+      <div class="collapseNav">
+        <button>
+          <img src="icons/chevron.png" class="chevronCollapse">
+        </button>
+      </div>
+      <div class="logNav">
+        <a href="#">
+          ${loginElement}
+        </a>
+      </div>`
+      )
+    }
   }
 
 
