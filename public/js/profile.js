@@ -13,6 +13,7 @@ $(() => {
 
   function profileBegin() {
     getWatched();
+    
   }
   
 
@@ -24,10 +25,30 @@ $(() => {
     watchedShows = data;
     data.forEach(show => {
       renderWatchedShow(show);
-    })
+    });
+    console.log(watchedShows);
+    console.log(watchedShows[1].showId);
+    getEpisodes();
   }
 
   function getWatchedFail(data, status, res) {
     console.log(data.responseText);
   }
-})
+
+  function getEpisodes() {
+    let show = {
+      showId: watchedShows[0].showId
+    };
+
+    ajax('/api/watched/episodes', show, 'GET', true, getEpisodesSuccess, getEpisodesFail);
+  }
+
+  function getEpisodesSuccess(data, status, res) {
+    console.log(data);
+  }
+
+  function getEpisodesFail(data, status, res) {
+    console.log(data);
+  }
+
+});

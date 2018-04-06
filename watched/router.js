@@ -56,7 +56,8 @@ router.post('/watching', jwtStrategy, (req, res) => {
 });
 
 router.get('/episodes', jwtStrategy, (req, res) => {
-  Watched.find({showId: req.showId, user: req.user})
+  console.log(req.query);
+  Watched.find({showId: req.query.showId, user: req.user})
   .then(episodes => {
     if(episodes.count === 0) {
      return res.json({"response": "No saved episodes"});
