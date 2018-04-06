@@ -11,7 +11,6 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
 // The user provides a username and password to login
 
-//saves all episodes, marks none
 router.get('/watched', jwtStrategy, (req, res) => {
   let user = req.user;
   
@@ -31,6 +30,8 @@ router.get('/watched', jwtStrategy, (req, res) => {
     res.json(err);
   })
 })
+
+//saves all episodes, marks none
 router.post('/watching', jwtStrategy, (req, res) => {
   let episode = req.body[0];
   episode.user = req.user;
@@ -53,5 +54,18 @@ router.post('/watching', jwtStrategy, (req, res) => {
     res.status(500).json(err);
   })
 });
+
+router.get('/episodes', jwtStrategy, (req, res) => {
+  Watched.find({showId: req.showId, user: req.user})
+  .then(episodes => {
+    if(episodes.count === 0) {
+     return res.json({"response": "No saved episodes"});
+    }
+    return res.json(episodes);
+  })
+  .catch(err => {
+    res.status(500).json(err);
+  })
+})
 
 module.exports = {router};

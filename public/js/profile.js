@@ -1,10 +1,8 @@
 $(() => {
   let watchedShows;
-  begin();
 
   window.addEventListener('loginFinished', function() {
     //if user wasn't logged in when initially reaches this page, begin is never called, so it's called here as well
-    begin();
     profileBegin();
   });
 

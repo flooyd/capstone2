@@ -3,6 +3,7 @@
 let loggedIn = false;
 let displayPref = 'watchedTitle';
 let sidebarCollapsed = true;
+begin();
 
 //global variables and functions. Tried to avoid these as much as possible, but it's an easy way to
 //allow for modular functions that can be used across pages (can't use export and import here...)
@@ -59,6 +60,7 @@ $(() => {
   handleLoginSubmit();
   handleChangeListDisplay();
   handleResizeSidebar();
+  swapSidebarElements(sidebarCollapsed);
 
   function handleChangeListDisplay() {
     $('.titleBlocks').click((e) => {
@@ -84,7 +86,7 @@ $(() => {
       $('.login').css('display', 'none');
     });
 
-    $('.logNav').click(() => {
+    $('.sidebar').on('click', '.logNav', () => {
       $('.login').css('display', 'initial');
     });
   }
@@ -177,18 +179,18 @@ $(() => {
 
   function swapSidebarElements(bCollapse, fromLogin) {
     let loginElement = '';
-
+    console.log(loggedIn);
     if(loggedIn) {
       if(bCollapse) {
         loginElement = '<img src="icons/logout.png">';
       } else {
-        loginElement = 'Logout';
+        loginElement = '<a href="#">Logout</a>';
       }
     } else {
       if(bCollapse) {
         loginElement = '<img src="icons/login.png">';
       } else {
-        loginElement = 'Login';
+        loginElement = '<p>Login</p>';
       }
     }
 
