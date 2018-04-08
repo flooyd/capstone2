@@ -12,4 +12,29 @@ main {
   text-align: center;
 }
 
+.seasonBlock {
+  width: 90%;
+  padding: 10px;
+  line-height: 50px;
+  border-bottom: 2px solid black;
+  margin: 20px auto;
+}
+
+.episodeCount {
+  text-align: right;
+}
+
+.seasonNumber {
+  color: #e8554e;
+  margin-left: 10px;
+}
+
+.seasonExpand {
+  float: center;
+  text-align: center;
+}
+
+.seasonTable {
+  width: 100%;
+}
 

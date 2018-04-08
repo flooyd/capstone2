@@ -104,6 +104,7 @@ $(() => {
     console.log(data);
   }
   function watchingSuccess(data, status, res) {
+    console.log(data);
     //some shows have 0 episodes...
     if(data.length < 1) {
       $('.watchd').text('This appears to be a direct to TV movie, or it is a show with no episodes listed. No support for these yet.');
@@ -112,6 +113,7 @@ $(() => {
     
     console.log(data);
     let episodes = data.map(e => {
+      let episodeImage = e.image.medium || null;
         return {
           season: e.season,
           number: e.number,
@@ -121,8 +123,9 @@ $(() => {
           showId: watchedId,
           user: localStorage.getItem('user'),
           watchedAt: null,
-          airDate: e.airdate
-        }
+          airDate: e.airdate,
+          episodeImage
+        };
     });
     
     episodes[0].image = watchedImage;

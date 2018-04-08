@@ -13,23 +13,23 @@ function ajax(url, data, type, bSendAuth, success, error) {
     url,
     data,
     type,
-    beforeSend: function(req) {
-      if(bSendAuth) {
+    beforeSend: function (req) {
+      if (bSendAuth) {
         req.setRequestHeader('Authorization', 'bearer ' + localStorage.getItem('token'));
         req.setRequestHeader('Content-type', 'application/json');
       }
     },
-    success: function(data, status, res) {
+    success: function (data, status, res) {
       success(data, status, res);
     },
-    error: function(data, status, res) {
+    error: function (data, status, res) {
       error(data, status, res);
     }
   })
 }
 
-function begin(){
-  if(localStorage.getItem('user')) {
+function begin() {
+  if (localStorage.getItem('user')) {
     loggedIn = true;
     $('.preAuth').css('display', 'none');
     $('.authNeeded').css('display', 'block');
@@ -55,7 +55,7 @@ $(() => {
   var body = document.getElementsByTagName("BODY")[0];
   let loginFinished = document.createEvent('HTMLEvents');
   loginFinished.initEvent('loginFinished', true, true);
-  
+
   handleDisplayLoginBox();
   handleSwitchLogin();
   handleLoginSubmit();
@@ -81,7 +81,7 @@ $(() => {
     displayPref = classToAdd;
     $('.watchedTitle, .watchedTitleOnly').removeClass('watchedTitleOnly watchedTitle').addClass(classToAdd);
   }
-  
+
   function handleDisplayLoginBox() {
     $('.closeButton').click(() => {
       $('.login').css('display', 'none');
@@ -91,12 +91,12 @@ $(() => {
       $('.login').css('display', 'initial');
     });
   }
-  
+
   function handleSwitchLogin() {
     $('.registerLink').click(e => {
       $('.loginError').empty();
       let linkText = $(e.currentTarget).text();
-      if(linkText == 'Login') {
+      if (linkText == 'Login') {
         ('hi');
         $(e.currentTarget).text('Register');
         $('.currentForm-js').text('Need an account?')
@@ -118,7 +118,7 @@ $(() => {
       }
     })
   }
-  
+
   function handleLoginSubmit() {
     $('.loginForm').submit(e => {
       e.preventDefault();
@@ -129,10 +129,10 @@ $(() => {
         URL = 'api/auth/login'
       }
       login(URL);
-      
+
     })
   }
-  
+
   function login(URL) {
     let username = $('#username').val();
     let password = $('#password').val();
@@ -140,18 +140,18 @@ $(() => {
       username,
       password
     }
-    
+
     ajax(URL, data, 'POST', false, afterLogin, failedLogin);
   }
-  
+
   function afterLogin(res) {
     localStorage.setItem('token', res.token);
     localStorage.setItem('user', res.username);
     $('.login').css('display', 'none');
-    resizeSidebar(sidebarPref, true);
+    resizeSidebar(sidebarCollapsed, true);
     window.dispatchEvent(loginFinished);
   }
-  
+
   function failedLogin(res) {
     console.log(res);
     $('.loginError').text('Incorrect username or password. Please try again.');
@@ -167,28 +167,21 @@ $(() => {
     $('.sidebar').on('click', '.chevronOpen', e => {
       swapSidebarElements(false);
       $('.sidebar').css('width', '130px');
-    $('.brand').css('margin-left', '115px');
+      $('.brand').css('margin-left', '115px');
     });
-
-    
-    
   }
 
-  function resizeSidebar() {
-
-  }
 
   function swapSidebarElements(bCollapse, fromLogin) {
     let loginElement = '';
-    console.log(loggedIn);
-    if(loggedIn) {
-      if(bCollapse) {
+    if (loggedIn) {
+      if (bCollapse) {
         loginElement = '<img src="icons/logout.png">';
       } else {
         loginElement = '<a href="#">Logout</a>';
       }
     } else {
-      if(bCollapse) {
+      if (bCollapse) {
         loginElement = '<img src="icons/login.png">';
       } else {
         loginElement = '<p>Login</p>';
@@ -197,7 +190,7 @@ $(() => {
 
 
     $('.sidebar').empty();
-    if(bCollapse) {
+    if (bCollapse) {
       $('.sidebar').append(
         `<div class="sidebarNav">
         <div class="searchNav">
