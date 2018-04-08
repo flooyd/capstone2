@@ -6,6 +6,8 @@ $(() => {
     searchBegin();
   }
 
+  let searchedShows;
+
   let watchedId;
   let watchedImage;
   let watchedAll;
@@ -27,8 +29,8 @@ $(() => {
     let URL = `https://api.tvmaze.com/search/shows?q=${query}`
     $.getJSON(URL)
       .then(data => {
-        console.log(data);
         if (data.length > 0) {
+          searchedShows = data;
           data.forEach(item => {
             renderItem(item.show);
           })
@@ -41,16 +43,10 @@ $(() => {
       })
   }
 
-  function getImage(image) {
-    if (image) {
-      image.medium = image.medium.replace(/^http:\/\//i, 'https://');
-      return image.medium;
-    } else {
-      return 'images/camera.png';
-    }
-  }
-
   function renderItem(show) {
+    if(!show.summary){
+      show.summary = "<p>This show has no description available.</p>"
+    }
     $('#searchResults').append(
       `<div class="result">
           <img class="resultImg" src="${getImage(show.image)}">
@@ -59,9 +55,11 @@ $(() => {
               ${show.name}
             </div>
             ${show.summary}
+            <div class="watchButtons">
             <button id=${show.id} class="Watching btn btn-danger">Watching</button>
             <button id="${show.id}-all" class="Watched btn btn-default">Watched All</button>
             <button id=${show.externals.imdb} class="IMDB btn btn-info">View on IMDB</button>
+            </div>
           </div>
         </div>`)
   }
@@ -89,7 +87,7 @@ $(() => {
 
   function saveShowInfo(show) {
     watchedId = $(show).prop('id');
-    watchedShow = $(show).parent().parent();
+    watchedShow = $(show).parent().parent().parent();
     watchedImage = $(watchedShow).find('img').prop('src');
     watchedDescription = $(watchedShow).find('p');
     watchedShow = $(watchedShow).find('.resultTitle').text().trim();
@@ -102,7 +100,6 @@ $(() => {
     ajax(url, {}, 'GET', false, watchingSuccess, watchingFail);
     $(e.currentTarget).parent().find('button').css('display', 'none');
     $(e.currentTarget).parent().append('<p class="watchd">Adding to Watched</p>');
-
   });
 
   function getWatched() {
@@ -128,9 +125,7 @@ $(() => {
 
     let episodes = data.map(e => {
       let episodeImage;
-      if(e.image) {
-        episodeImage = e.image.medium || null;
-      }
+      episodeimage = getImage(e.image);
       
       return {
         season: e.season,
@@ -146,16 +141,23 @@ $(() => {
       };
     });
 
+    let showDescription = searchedShows.filter(show => {
+      if(show.show.id == watchedId) {
+        return show;
+      }
+    })[0].show.summary;
+
+    console.log(showDescription);
+
     episodes[0].image = watchedImage;
     episodes[0].show = watchedShow;
-    episodes[0].showDescription = watchedSummary;
-    console.log(watchedSummary);
+    episodes[0].showDescription = showDescription;
 
     episodes = JSON.stringify(episodes);
 
     //ajax call to my server
     if (watchedAll) {
-      console.log(data);
+      
     } else {
       //save with none watched
       ajax('api/watched/watching', episodes, 'POST', true, episodesSaveSuccess, episodesSaveFail);
@@ -168,7 +170,7 @@ $(() => {
 
   function episodesSaveSuccess(data, status, res) {
     console.log(data);
-    let watchedShow = $(`#${watchedId}`).parent().parent();
+    let watchedShow = $(`#${watchedId}`).parent().parent().parent();
     $(watchedShow).remove();
     $('#displayFilters').after(getWatchedShowHTML(data));
   }

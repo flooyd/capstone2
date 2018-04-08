@@ -15,11 +15,20 @@ $(() => {
 
   function profileBegin() {
     getWatched();
-
   }
 
   function renderShowInfo(show) {
-    console.log(show);
+    console.log(show.showDescription);
+    $('#watchedTitles').empty().append(
+      `
+      <div class="showInfo">
+        <p>${show.show}</p>
+        <p>${show.showDescription}</p>
+        <img src="${show.image}" alt="An image of the show, ${show.show}">
+      </div>
+      `
+    )
+    $('main').removeClass('showsGrid');
   }
 
   function renderSeasons(data) {
@@ -41,7 +50,6 @@ $(() => {
         <table class="seasonTable">
         <tr>
         <td class="seasonNumber">Season ${season}</td>
-        <td class="seasonExpand">Down</td>
         <td class="episodeCount">${episodeCount} episodes</td>
         </tr>
         </table>
@@ -50,8 +58,7 @@ $(() => {
         </div>
        </div>
       `
-      // <p class="seasonNumber">Season ${season} <span class="seasonExpand">down</span> <span class="episodeCount">${episodeCount} episodes</span></p>
-    )
+    );
   }
 
   function renderEpisode(episode) {
@@ -72,6 +79,8 @@ $(() => {
     data.forEach(show => {
       renderWatchedShow(show);
     });
+
+    renderShowInfo(watchedShows[0][0]);
   }
 
   function getWatchedFail(data, status, res) {

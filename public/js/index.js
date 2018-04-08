@@ -1,7 +1,6 @@
 //global variables and functions. Tried to avoid these as much as possible, but it's an easy way to
 //allow for modular functions that can be used across pages (can't use export and import here...)
 
-
 'use strict';
 let loggedIn = false;
 let displayPref = 'watchedTitle';
@@ -46,6 +45,15 @@ function getWatchedShowHTML(show) {
 
 function renderWatchedShow(show, displayPref) {
   $('#watchedTitles').append(getWatchedShowHTML(show));
+}
+
+function getImage(image) {
+  if (image) {
+    image.medium = image.medium.replace(/^http:\/\//i, 'https://');
+    return image.medium;
+  } else {
+    return 'images/camera.png';
+  }
 }
 
 $(() => {

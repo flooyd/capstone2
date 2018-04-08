@@ -5,10 +5,6 @@
   grid-template-areas: "watched something" "result result"
 }
 
-.episodesGrid {
-  
-}
-
 #watchedTitles {
   grid-area: watched;
   position: sticky;
@@ -34,12 +30,17 @@
   margin-left: 10px;
 }
 
-.seasonExpand {
-  float: center;
-  text-align: center;
-}
-
 .seasonTable {
   width: 100%;
 }
+
+.showInfo p {
+  width: 80%;
+}
+
+.showInfo img {
+  float: right;
+}
+
+
 
