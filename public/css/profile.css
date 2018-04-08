@@ -1,23 +1,24 @@
-.showsGrid {
-  display: grid;
-  grid-template-columns: 40% 1fr;
-  grid-column-gap: 10px;
-  grid-template-areas: "watched something" "result result"
-}
 
 #watchedTitles {
-  grid-area: watched;
-  position: sticky;
-  margin-left: 10px;
   font-size: 18px;
   text-align: center;
+  position: relative;
+}
+
+
+.watchedTitle p {
+  cursor: pointer;
+}
+
+main{
+  padding-top: 10px;
 }
 
 .seasonBlock {
-  width: 90%;
+  width: 100%;
   padding: 10px;
   line-height: 50px;
-  border-bottom: 2px solid black;
+  border: 2px solid #222;
   margin: 20px auto;
 }
 
@@ -26,7 +27,6 @@
 }
 
 .seasonNumber {
-  color: #e8554e;
   margin-left: 10px;
 }
 
@@ -34,13 +34,81 @@
   width: 100%;
 }
 
-.showInfo p {
-  width: 80%;
+.showInfo {
+  margin: 10px auto;
+  margin-top: 100px;
+}
+
+.showDescription {
+  line-height: 1.4;
+  float: right;;
+  width: 70%;
+  text-align: left;
 }
 
 .showInfo img {
-  float: right;
+  width: 30%;
+  max-width: 250px;
+  display: inline-block;
+  z-index: -5;
 }
+
+.showTitle {
+  color: white;
+  font-weight: bold;
+  margin-left: 10px;
+  text-align: left;
+}
+
+.showOptions {
+  position: sticky;
+  top: 50px;
+  margin: 0 auto;
+  line-height: 50px;
+  text-align: left;
+  background-color: #222;
+}
+
+.showOptions p {
+  display: inline-block;
+}
+
+.showButtons {
+  float: right;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.showButtons button {
+  color: black;
+}
+
+.watchAllShow {
+  background-color: #e8554e;
+  color: black;
+}
+
+.showButtons .removeShow {
+  background-color: #222;
+  color: white;
+}
+
+.seasonOptions {
+  text-align: right;
+}
+
+.seasonOptions button {
+  color: black;
+}
+
+.viewSeason {
+  float: left;
+}
+
+.seasonOptions .watchAllSeason {
+  background-color: #e8554e;
+}
+
 
 
 

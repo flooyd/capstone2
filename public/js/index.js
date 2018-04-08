@@ -47,15 +47,6 @@ function renderWatchedShow(show, displayPref) {
   $('#watchedTitles').append(getWatchedShowHTML(show));
 }
 
-function getImage(image) {
-  if (image) {
-    image.medium = image.medium.replace(/^http:\/\//i, 'https://');
-    return image.medium;
-  } else {
-    return 'images/camera.png';
-  }
-}
-
 $(() => {
   let event = document.createEvent('Event');
   event.initEvent('login', true, true);

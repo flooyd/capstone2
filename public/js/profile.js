@@ -17,14 +17,28 @@ $(() => {
     getWatched();
   }
 
-  function renderShowInfo(show) {
-    console.log(show.showDescription);
-    $('#watchedTitles').empty().append(
+  function renderShowInfo(show, seasonCount) {
+    $('main').empty().append(
       `
+      <div class="showOptions">
+      <p class="showTitle">${show.show}</p>
+      <div class="showButtons">
+        <button class="btn btn-default watchAllShow">Watch entire show</button>
+        <button class="btn btn-default expandAllSeasons">Expand all ${seasonCount} seasons</button>
+        <button class="btn btn-default backToBrowse">Browse shows</button>
+        <button class="btn btn-default removeShow">Remove show</button>
+      </div>
+      </div>
+
       <div class="showInfo">
-        <p>${show.show}</p>
-        <p>${show.showDescription}</p>
         <img src="${show.image}" alt="An image of the show, ${show.show}">
+        <div class="showDescription">
+        ${show.showDescription}
+        </div>
+      </div>
+
+      <div id="episodes">
+
       </div>
       `
     )
@@ -33,20 +47,21 @@ $(() => {
 
   function renderSeasons(data) {
     let seasonCount = [...new Set(data.map(episode => episode.season))].length;
+    renderShowInfo(data[0], seasonCount);
 
     for (let i = 0; i < seasonCount; i++) {
-      
-      let episodeCount = data.filter(episode => episode.season === i + 1).length;
-      $('#episodes').append(renderSeasonBlock(i + 1, episodeCount, data[0].showId));
-      for (let j = 0; j < episodeCount; j++) {
-        
+      let episodes = data.filter(episode => episode.season === i + 1);
+      let currentSeason = $('#episodes').append(renderSeasonBlock(i + 1, episodes.length, data[0].showId));
+      for (let j = 0; j < episodes.length; j++) {
+        let episode = getEpisodeHTML(episodes[j], i + 1);
+        $(currentSeason).append(episode);
       }
     }
   }
 
   function renderSeasonBlock(season, episodeCount, showId) {
     return (
-      `<div class="seasonBlock" id="${season}-${showId}">
+      `<div class="seasonBlock" id="${season}---${showId}">
         <table class="seasonTable">
         <tr>
         <td class="seasonNumber">Season ${season}</td>
@@ -54,14 +69,25 @@ $(() => {
         </tr>
         </table>
         <div class="seasonOptions">
-          <button class="btn btn-default">View episodes</button>
+          <button class="btn btn-default viewSeason">View episodes</button>
+          <button class="btn btn-default watchAllSeason">Watch entire season</button>
         </div>
        </div>
       `
     );
   }
 
-  function renderEpisode(episode) {
+  function getEpisodeHTML(episode, season) {
+    let airDate = episode.airDate.split('T')[0];
+    return (
+      `
+      <div class=episode id=${episode.id}>
+        <p>Episode ${episode.number}</p>
+        <p>Air date: ${airDate}</p>
+        <img src="${episode.episodeImage}" alt="A preview picture of this episode of ${episode.show}">
+      </div>
+      `
+    )
     //div episode ID
         //episode title
         //description button
@@ -79,8 +105,6 @@ $(() => {
     data.forEach(show => {
       renderWatchedShow(show);
     });
-
-    renderShowInfo(watchedShows[0][0]);
   }
 
   function getWatchedFail(data, status, res) {
@@ -101,7 +125,7 @@ $(() => {
       showId: showId,
       episodes: data
     });
-    renderShowInfo(data[0]);
+    
     renderSeasons(data);
   }
 

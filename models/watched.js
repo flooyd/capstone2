@@ -12,6 +12,9 @@ const WatchedSchema = mongoose.Schema({
   image: {
     type: String
   },
+  episodeImage: {
+    type: String
+  },
   show: {
     type: String
   },

@@ -43,6 +43,15 @@ $(() => {
       })
   }
 
+  function getImage(image) {
+    if (image) {
+      console.log(image.medium.replace(/^http:\/\//i, 'https://'));
+      return image.medium.replace(/^http:\/\//i, 'https://');
+    } else {
+      return 'images/camera.png';
+    }
+  }
+
   function renderItem(show) {
     if(!show.summary){
       show.summary = "<p>This show has no description available.</p>"
@@ -99,7 +108,7 @@ $(() => {
     let url = `https://api.tvmaze.com/shows/${watchedId}/episodes`
     ajax(url, {}, 'GET', false, watchingSuccess, watchingFail);
     $(e.currentTarget).parent().find('button').css('display', 'none');
-    $(e.currentTarget).parent().append('<p class="watchd">Adding to Watched</p>');
+    $(e.currentTarget).parent().append('<p class="watched">Adding to Watched</p>');
   });
 
   function getWatched() {
@@ -119,14 +128,12 @@ $(() => {
   function watchingSuccess(data, status, res) {
     //some shows have 0 episodes...
     if (data.length < 1) {
-      $('.watchd').text('This appears to be a direct to TV movie, or it is a show with no episodes listed. No support for these yet.');
+      $('.watched').text('This appears to be a direct to TV movie, or it is a show with no episodes listed. No support for these yet.');
+      $('.watched').removeClass('watched').addClass('watchedError');
       return;
     }
 
     let episodes = data.map(e => {
-      let episodeImage;
-      episodeimage = getImage(e.image);
-      
       return {
         season: e.season,
         number: e.number,
@@ -137,7 +144,7 @@ $(() => {
         user: localStorage.getItem('user'),
         watchedAt: null,
         airDate: e.airdate,
-        episodeImage
+        episodeImage: getImage(e.image)
       };
     });
 
@@ -176,7 +183,14 @@ $(() => {
   }
 
   function episodesSaveFail(data, status, res) {
-    console.log('already watching');
-    $('.watchd').text('You are already watching this show.');
+    if(data.status == 413){
+      $('.watched').text('Show is too large to track. Need to fix :)');
+    } else {
+      $('.watched').text('You are already watching this show.');
+    }
+
+    $('.watched').removeClass('watched').addClass('watchedError');
+    return;
+    
   }
 });

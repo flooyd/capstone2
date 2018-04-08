@@ -88,7 +88,7 @@ fieldset {
   margin-top: 15px;
 }
 
-.resultInfo .watchd {
+.resultInfo .watched  {
   color: #e8554e;
   margin-top: 25px;
   text-align: center;
@@ -111,6 +111,11 @@ fieldset {
   margin-top: 10px;
 }
 
-
+.watchedError {
+  color: #e8554e;
+  text-align: center;
+  width: 90%;
+  margin: 0 auto;
+}
 
 

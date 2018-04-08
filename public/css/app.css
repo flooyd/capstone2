@@ -31,6 +31,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: left;
+  z-index: 5;
 }
 
 .brand {
@@ -47,6 +48,7 @@ header {
   background-color: #e8554e;
   position: sticky;
   top: 0px;
+  z-index: 5;
 }
 
 .sidebar img {
