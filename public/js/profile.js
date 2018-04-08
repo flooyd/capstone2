@@ -10,6 +10,8 @@ $(() => {
   if(loggedIn) {
     profileBegin();
   }
+  
+  handleShowClicked();
 
   function profileBegin() {
     getWatched();
@@ -26,18 +28,15 @@ $(() => {
     data.forEach(show => {
       renderWatchedShow(show);
     });
-    console.log(watchedShows);
-    console.log(watchedShows[1].showId);
-    getEpisodes();
   }
 
   function getWatchedFail(data, status, res) {
     console.log(data.responseText);
   }
 
-  function getEpisodes() {
+  function getEpisodes(showId) {
     let show = {
-      showId: watchedShows[0].showId
+      showId
     };
 
     ajax('/api/watched/episodes', show, 'GET', true, getEpisodesSuccess, getEpisodesFail);
@@ -49,6 +48,15 @@ $(() => {
 
   function getEpisodesFail(data, status, res) {
     console.log(data);
+  }
+  
+  function handleShowClicked() {
+    $('main').on('click', '.watchedTitle p', e => {
+      console.log('hi');
+      let showId = $(e.currentTarget).parent().prop('id');
+      console.log(showId);
+      getEpisodes(showId);
+    });
   }
 
 });
