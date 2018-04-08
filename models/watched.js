@@ -2,6 +2,9 @@
 const mongoose = require('mongoose');
 
 const WatchedSchema = mongoose.Schema({
+  id: {
+    type: Number
+  },
   user: {
     type: String,
     required: true
@@ -27,8 +30,8 @@ const WatchedSchema = mongoose.Schema({
   description: {
     type: String
   },
-  id: {
-    type: Number
+  showDescription: {
+    type: String
   },
   showId: {
     type: Number,

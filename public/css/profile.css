@@ -1,12 +1,17 @@
-main {
+.showsGrid {
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 40% 1fr;
   grid-column-gap: 10px;
   grid-template-areas: "watched something" "result result"
 }
 
+.episodesGrid {
+  
+}
+
 #watchedTitles {
   grid-area: watched;
+  position: sticky;
   margin-left: 10px;
   font-size: 18px;
   text-align: center;

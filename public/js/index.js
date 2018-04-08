@@ -37,6 +37,7 @@ function begin() {
 }
 
 function getWatchedShowHTML(show) {
+  console.log(show);
   return `<div id=${show.showId} class="${displayPref}">
           <p>${show.show}</p>
           <img src=${show.image} alt="A poster of the show ${show.show}">

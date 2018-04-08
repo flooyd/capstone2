@@ -1,6 +1,7 @@
 $(() => {
   let watchedShows = [];
   let clickedShows = [];
+  let workingShow;
 
   window.addEventListener('loginFinished', function () {
     profileBegin();
@@ -17,6 +18,10 @@ $(() => {
 
   }
 
+  function renderShowInfo(show) {
+    console.log(show);
+  }
+
   function renderSeasons(data) {
     let seasonCount = [...new Set(data.map(episode => episode.season))].length;
 
@@ -25,12 +30,7 @@ $(() => {
       let episodeCount = data.filter(episode => episode.season === i + 1).length;
       $('#episodes').append(renderSeasonBlock(i + 1, episodeCount, data[0].showId));
       for (let j = 0; j < episodeCount; j++) {
-        //div episode ID
-        //episode title
-        //description button
-        //watchedAt
-        //date
-        //unwatch
+        
       }
     }
   }
@@ -55,7 +55,12 @@ $(() => {
   }
 
   function renderEpisode(episode) {
-    return
+    //div episode ID
+        //episode title
+        //description button
+        //watchedAt
+        //date
+        //unwatch
   }
 
   function getWatched() {
@@ -87,6 +92,7 @@ $(() => {
       showId: showId,
       episodes: data
     });
+    renderShowInfo(data[0]);
     renderSeasons(data);
   }
 
@@ -96,17 +102,16 @@ $(() => {
 
   function handleShowClicked() {
     $('main').on('click', '.watchedTitle p', e => {
-      
       let showId = $(e.currentTarget).parent().prop('id');
       let watchedShow = clickedShows.find(show => show.showId);
       if(watchedShow) {
-        console.log('already clicked show');
-        console.log(clickedShows);
         //user previously clicked on this show while on page
         //don't make another server call, get episodes from memory
-        return renderSeasons(watchedShow.episodes);
+        renderSeasons(watchedShow.episodes);
+        renderShowInfo(watchedShow.episodes[0]);
+      } else {
+        getEpisodes(showId);
       }
-      getEpisodes(showId);
     });
   }
 
