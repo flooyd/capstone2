@@ -46,6 +46,7 @@ $(() => {
   }
 
   function renderSeasons(data) {
+    console.log(data);
     let seasonCount = [...new Set(data.map(episode => episode.season))].length;
     renderShowInfo(data[0], seasonCount);
 

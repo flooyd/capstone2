@@ -28,7 +28,7 @@ function ajax(url, data, type, bSendAuth, success, error) {
 }
 
 function begin() {
-  if (localStorage.getItem('user')) {
+  if (localStorage.getItem('token')) {
     loggedIn = true;
     $('.preAuth').css('display', 'none');
     $('.authNeeded').css('display', 'block');
@@ -148,7 +148,6 @@ $(() => {
     localStorage.setItem('token', res.token);
     localStorage.setItem('user', res.username);
     $('.login').css('display', 'none');
-    resizeSidebar(sidebarCollapsed, true);
     window.dispatchEvent(loginFinished);
   }
 
@@ -160,14 +159,16 @@ $(() => {
   function handleResizeSidebar() {
     $('.sidebar').on('click', '.chevronCollapse', e => {
       swapSidebarElements(true);
-      $('.sidebar').css('width', '40px');
-      $('.brand').css('margin-left', '25px');
+      //$('.sidebar').css('width', '40px');
+      //$('.brand').css('margin-left', '25px');
+      $('body').css('grid-template-columns', '40px 1fr');
     });
 
     $('.sidebar').on('click', '.chevronOpen', e => {
       swapSidebarElements(false);
-      $('.sidebar').css('width', '130px');
-      $('.brand').css('margin-left', '115px');
+      //$('.sidebar').css('width', '130px');
+      //$('.brand').css('margin-left', '115px');
+      $('body').css('grid-template-columns', '130px 1fr');
     });
   }
 
