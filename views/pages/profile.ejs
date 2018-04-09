@@ -3,12 +3,13 @@
 
 <head>
   <% include ../partials/head %>
-    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="/css/profile.css">
 </head>
 
 <body>
   <% include ../partials/navigation %>
-    <main id=<%= show %> class="showsGrid">
+    <main class="showsGrid">
+        id=<%= show %>
       <section id="watchedTitles">
         <p class="watchedHelp authNeeded">Click the title of a show to manage episodes.</p>
         <p class="preAuth">Login to manage your shows.</p>

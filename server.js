@@ -60,13 +60,14 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get(`/profile/`, (req, res) => {
+app.get(`/profile/:showId?`, (req, res) => {
   let data = {
     title: 'Watched - Profile'
   }
   console.log(req.params);
-  if (req.params.id) {
-    data.show = `id="${req.params.showId}`;
+  if (req.params.showId) {
+    data.show = req.params.showId;
+    console.log(data.show);
   } else {
     data.show='';
   }
