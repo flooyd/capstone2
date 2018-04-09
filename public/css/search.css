@@ -101,6 +101,11 @@ fieldset {
   margin-top: 20px;
 }
 
+.watchedTitle p {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .separator {
   border-top: 2px solid black;
   width: 75%;

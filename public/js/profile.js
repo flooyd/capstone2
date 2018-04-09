@@ -14,7 +14,14 @@ $(() => {
   handleShowClicked();
 
   function profileBegin() {
+    let showId = checkForShow();
+    if(showId) return getEpisodes(showId);
     getWatched();
+  }
+
+  function checkForShow() {
+    let showId = $('main').prop('id');
+    if(showId) return showId;
   }
 
   function renderShowInfo(show, seasonCount) {
@@ -121,6 +128,7 @@ $(() => {
   }
 
   function getEpisodesSuccess(data, status, res) {
+    console.log(data, status, res);
     let showId = data[0].showId;
     clickedShows.push({
       showId: showId,

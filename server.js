@@ -60,10 +60,18 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/profile', (req, res) => {
-  res.render('pages/profile.ejs', {
+app.get(`/profile/`, (req, res) => {
+  let data = {
     title: 'Watched - Profile'
-  });
+  }
+  console.log(req.params);
+  if (req.params.id) {
+    data.show = `id="${req.params.showId}`;
+  } else {
+    data.show='';
+  }
+  console.log(data);
+  res.render('pages/profile.ejs', data);
 });
 
 let server;

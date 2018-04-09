@@ -40,6 +40,7 @@ const localStrategy = (req, res, next) => {
 
 
 const jwtStrategy = (req, res, next) => {
+  
   if(req.header('Authorization')) {
     let token = req.header('Authorization').split(' ')[1];
       jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
@@ -49,11 +50,13 @@ const jwtStrategy = (req, res, next) => {
       }
       else {
         console.log(err);
-        return res.status(401).json({"unauthorized": "must be logged in"});
+        res.status(401).json({"unauthorized": "must be logged in"});
+        next();
       }
     });
   } else {
     res.status(401).json({"unauthorized": "must be logged in"});
+    next();
   }
 }
 
