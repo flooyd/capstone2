@@ -79,9 +79,7 @@ let server;
 
 function runServer(dbUrl, port) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(dbUrl.toString(), {
-      useMongoClient: true
-    }, err => {
+    mongoose.connect(dbUrl, err => {
       if (err) {
         return reject(err);
       }
