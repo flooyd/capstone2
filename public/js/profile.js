@@ -15,7 +15,10 @@ $(() => {
 
   function profileBegin() {
     let showId = checkForShow();
-    if(showId) return getEpisodes(showId);
+    if(showId !== '0') {
+      $('main').empty();
+      return getEpisodes(showId);
+    } 
     getWatched();
   }
 
@@ -144,6 +147,7 @@ $(() => {
 
   function handleShowClicked() {
     $('main').on('click', '.watchedTitle p', e => {
+      e.preventDefault();
       let showId = $(e.currentTarget).parent().prop('id');
       let watchedShow = clickedShows.find(show => show.showId);
       if(watchedShow) {

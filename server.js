@@ -60,19 +60,19 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get(`/profile/:showId?`, (req, res) => {
-  let data = {
-    title: 'Watched - Profile'
-  }
-  console.log(req.params);
-  if (req.params.showId) {
-    data.show = req.params.showId;
-    console.log(data.show);
+app.get(`/profile`, (req, res) => {
+  console.log(req.query);
+  if (req.query.showId) {
+    return res.render('pages/profile.ejs', {
+      title: 'Watched - Profile',
+      show: req.query.showId
+    })
   } else {
-    data.show='';
+    res.render('pages/profile.ejs', {
+      title: 'Watched - Profile',
+      show: '0'
+    });
   }
-  console.log(data);
-  res.render('pages/profile.ejs', data);
 });
 
 let server;
