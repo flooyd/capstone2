@@ -110,7 +110,7 @@ main{
   color: black;
 }
 
-.viewSeason {
+.viewSeason, .hideEpisodes {
   float: left;
 }
 
@@ -118,7 +118,65 @@ main{
   background-color: #e8554e;
 }
 
-@media only screen and (max-width: 600px), (max-height: 400px) {
+.episode {
+  margin: 30px auto;
+  border-bottom: 2px solid #222;
+  display: none;
+}
+
+.episodeHeader {
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.episodeTitle {
+  float: left;
+  width: 33%;
+  text-align: left;
+}
+
+.episodeAirDate {
+  width: 33%;
+  text-align: center;
+}
+
+.episodeNumber {
+  width: 33%;
+  float: right;
+  text-align: right;
+  color: #e8554e;
+}
+
+.episodeInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.episodeInfo p  {
+  order: 2;
+  padding: 0px 8px;
+  width: 75%;
+  vertical-align: middle;
+}
+
+episodeInfo .episodeImg {
+  order: 1;
+}
+
+.episodeOptions {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.episodeOptions .dateInput {
+  margin-right: 5px;
+}
+
+
+@media only screen and (max-width: 768px), (max-height: 400px) {
   .showOptions {
     display: block;
     position: initial;
@@ -162,6 +220,23 @@ main{
     width: 100%;
     display: block;
     clear: both;
+  }
+
+  .episode {
+    border: 2px solid #222;
+    display: none;
+  }
+
+  .episode * {
+    display: block;
+    float: none;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .episode .episodeInfo {
+    display: none;
   }
 }
 

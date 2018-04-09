@@ -117,9 +117,15 @@ $(() => {
   }
 
   function getWatchedSuccess(data, status, res) {
-    data.forEach(s => {
-      $('#watchedTitles').append(renderWatchedShow(s));
-    });
+    if(data.length > 0) {
+      $('#displayFilters ').css('display', 'block');
+      console.log('hello 2');
+      data.forEach(s => {
+        $('#watchedTitles').append(renderWatchedShow(s));
+      });
+    } else {
+      $('#displayFilters ').css('display', 'none');
+    }
   }
 
   function getWatchedFail(data, status, res) {
