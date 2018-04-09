@@ -5,7 +5,6 @@
   position: relative;
 }
 
-
 .watchedTitle p {
   cursor: pointer;
 }
@@ -15,11 +14,15 @@ main{
 }
 
 .seasonBlock {
+  position: sticky;
+  top: 90px;
   width: 100%;
   padding: 10px;
   line-height: 50px;
-  border: 2px solid #222;
+  border: 3px solid #222;
+  border-radius: 5px;
   margin: 20px auto;
+  background-color: white;
 }
 
 .episodeCount {
@@ -35,15 +38,18 @@ main{
 }
 
 .showInfo {
-  margin: 10px auto;
-  margin-top: 100px;
+  margin-top: 20px;
 }
 
 .showDescription {
   line-height: 1.4;
-  float: right;;
+  float: right;
   width: 70%;
   text-align: left;
+}
+
+.showDescription p {
+  margin-bottom: 10px;
 }
 
 .showInfo img {
@@ -56,31 +62,34 @@ main{
 .showTitle {
   color: white;
   font-weight: bold;
-  margin-left: 10px;
   text-align: left;
+  margin-left: 5px;
 }
 
 .showOptions {
   position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 50px;
   top: 50px;
   margin: 0 auto;
-  line-height: 50px;
   text-align: left;
   background-color: #222;
 }
 
 .showOptions p {
-  display: inline-block;
+  margin-right: auto;
 }
 
 .showButtons {
-  float: right;
-  display: inline-block;
-  margin-right: 10px;
+  margin-left: auto;
 }
 
 .showButtons button {
   color: black;
+  margin: 5px;
 }
 
 .watchAllShow {
@@ -109,6 +118,51 @@ main{
   background-color: #e8554e;
 }
 
+@media only screen and (max-width: 600px), (max-height: 400px) {
+  .showOptions {
+    display: block;
+    position: initial;
+    width: 100%;
+    top: 50px;
+    margin: 10px auto;
+    min-height: 50px;
+    padding: 8px;
+  }
+
+  .showOptions p {
+    display: block;
+    text-align: center;
+  }
+
+  .showButtons button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .showInfo img {
+    float: left;
+  }
+
+  .showDescription {
+    line-height: 1;
+    padding: 0px 10px;;
+  }
+
+  .seasonBlock {
+    position: initial;
+    display: block;
+    border: none;
+    background-color: none;
+  }
+
+  .seasonBlock button {
+    margin: 8px 0px;
+    width: 100%;
+    display: block;
+    clear: both;
+  }
+}
 
 
 

@@ -23,10 +23,10 @@ $(() => {
       <div class="showOptions">
       <p class="showTitle">${show.show}</p>
       <div class="showButtons">
-        <button class="btn btn-default watchAllShow">Watch entire show</button>
-        <button class="btn btn-default expandAllSeasons">Expand all ${seasonCount} seasons</button>
-        <button class="btn btn-default backToBrowse">Browse shows</button>
+        <button class="btn btn-default watchAllShow">Watch all</button>
         <button class="btn btn-default removeShow">Remove show</button>
+        <button class="btn btn-default expandAllSeasons">Expand all</button>
+        <button class="btn btn-default backToBrowse">Shows</button>
       </div>
       </div>
 
