@@ -4,7 +4,7 @@ $(() => {
   let workingEpisodes = [];
   let watchedEpisodes = [];
   let bNeedSave = false;
-  let episodesWatched = 0;
+  let numEpisodesToSave = 0;
 
   window.addEventListener('loginFinished', function () {
     begin();
@@ -184,7 +184,7 @@ $(() => {
 
   function handleWatchEpisode() {
     $('main').on('click', '.episodeWatched', e => {
-      let date = $(e.currentTarget).siblings('.dateInput').val();
+      let watchedAt = $(e.currentTarget).siblings('.dateInput').val();
       let id = $(e.currentTarget).closest('.episode').prop('id');
       let seasonShow = $(e.currentTarget).closest('.season').prop('id').split('---');
       let showId = seasonShow[1];
@@ -193,34 +193,39 @@ $(() => {
         return e.id == id
       }).airDate;
 
-      date = new Date(date);
+      watchedAt = new Date(watchedAt);
       airDate = new Date(airDate);
       
       let watchedInfo = $(e.currentTarget).parent().siblings('.watchedInfo');
       let seasonBlock = $(e.currentTarget).closest('.episode').siblings('.seasonBlock');
       console.log(seasonBlock);
       
-      if (date.getTime() < airDate.getTime()) {
+      if (watchedAt.getTime() < airDate.getTime()) {
         $(watchedInfo).text('Watch date can\'t be before the air date.');
         return;
       } else {
-        $(watchedInfo).text('Episode watched! Remember to save when you are finished.');
-        $(seasonBlock).find('.saveEpisodes').css('display', 'block');
-        setTimeout(() => {
-          $(watchedInfo).text('');
-        }, 2500);
-
         watchedEpisodes = watchedEpisodes.filter(e => {
           return e.id !== id
         });
 
         watchedEpisodes.push({
           id,
-          showId
+          showId,
+          watchedAt
         });
 
+        numEpisodesToSave++;
         bNeedSave = true;
+
+        $(watchedInfo).text('Episode watched! Remember to save when you are finished.');
+        $('.saveEpisodes').css('display', 'block');
+        $('.numEpisodesToSave').text(`${numEpisodesToSave} episodes watched (all seasons)`);
+        setTimeout(() => {
+          $(watchedInfo).text('');
+        }, 2500);
       }
+
+      console.log(watchedEpisodes);
     });
   }
 
