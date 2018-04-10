@@ -67,11 +67,18 @@ $(() => {
       let currentSeason = $('#episodes').append(renderSeasonBlock(i + 1, episodes.length, data[0].showId));
       currentSeason = `${i+1}---${data[0].showId}`;
       currentSeason = $(`#${currentSeason}`);
+      let watchedCount = 0;
       
       for (let j = 0; j < episodes.length; j++) {
-        let episode = getEpisodeHTML(episodes[j], i + 1);
-        episodesToRender.push(episode);
+        let episodeInfo = getEpisodeHTML(episodes[j], i + 1);
+        let episodeHtml = episodeInfo.episodeHtml;
+        if(episodeInfo.watchedAt) {
+          watchedCount++;
+        }
+        episodesToRender.push(episodeHtml);
       }
+      let episodeCount = $(currentSeason).find('.episodeCount');
+      $(episodeCount).text(`${watchedCount} / ${episodes.length} episodes watched`);
       $(currentSeason).append(episodesToRender);
     }
   }
@@ -83,7 +90,7 @@ $(() => {
         <table class="seasonTable">
         <tr>
         <td class="seasonNumber">Season ${season}</td>
-        <td class="episodeCount">${episodeCount} episodes</td>
+        <td class="episodeCount">${episodeCount}</td>
         </tr>
         </table>
         <div class="seasonOptions">
@@ -98,19 +105,27 @@ $(() => {
 
   function getEpisodeHTML(episode, season) {
     let airDate = episode.airDate.split('T')[0];
+    formattedAirDate = new Date(airDate);
+    let month = formattedAirDate.getUTCMonth() + 1;
+    if (month < 10) {
+      month = '0' + month;
+    }
+    let day = formattedAirDate.getUTCDate();
+    let year = formattedAirDate.getUTCFullYear();
+
+    formattedAirDate = month + "/" + day + "/" + year;
     let watchedAt = '';
 
     if (episode.watchedAt) {
       watchedAt = `<p>Watched on: <span class=watchedAt>${episode.watchedAt}</span></p>`;
     } else {
-      watchedAt = '';
+      watchedAt = null;
     }
-    return (
-      `
+    let episodeHtml = `
       <div class=episode id=${episode.id}>
         <p class="episodeHeader">
         <span class="episodeTitle">${episode.title}</span>
-        <span class="episodeAirDate">Air date: ${airDate}</span>
+        <span class="episodeAirDate">Air date: ${formattedAirDate}</span>
         <span class="episodeNumber">Episode ${episode.number}</span>
         </p>
         <div class="episodeInfo">
@@ -122,10 +137,12 @@ $(() => {
         <input class="dateInput" type="date" name="watchedDate" value="${airDate}">
         <button class="episodeWatched btn btn-default">Watch</button>
         </div>
-        
-      </div>
-      `
-    )
+      </div>`;
+
+      return {
+        episodeHtml,
+        watchedAt
+      }
     //description, episodeImage, 
     //div episode ID
     //episode title
