@@ -16,6 +16,7 @@ $(() => {
 
   //called on login from search page
   function searchBegin() {
+    begin();
     getWatched();
   }
 

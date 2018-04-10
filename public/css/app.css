@@ -51,8 +51,13 @@ header {
   z-index: 5;
 }
 
+legend {
+  border: none;
+}
+
 .sidebar img {
   width: 23px;
+  cursor: pointer;
 }
 
 .collapseNav img {
@@ -100,6 +105,7 @@ header {
 }
 
 .login {
+  z-index: 10;
   display: none;
   position: absolute;
   height: 100%;

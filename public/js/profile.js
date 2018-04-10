@@ -4,6 +4,7 @@ $(() => {
   let workingEpisodes = [];
 
   window.addEventListener('loginFinished', function () {
+    begin();
     profileBegin();
   });
 

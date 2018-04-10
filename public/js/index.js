@@ -36,7 +36,6 @@ function begin() {
 }
 
 function getWatchedShowHTML(show) {
-  console.log(show);
   return `<div id=${show.showId} class="${displayPref}">
           <p><a href="/profile?showId=${show.showId}">${show.show}</a></p>
           <img src=${show.image} alt="A poster of the show ${show.show}">
@@ -211,9 +210,7 @@ $(() => {
         </div>
       </div>
       <div class="collapseNav">
-        <button>
-          <img src="icons/chevronOpen.png" class="chevronOpen">
-        </button>
+        <img src="icons/chevronOpen.png" class="chevronOpen">
       </div>
       <div class="logNav">
         <a href="#">
@@ -241,9 +238,7 @@ $(() => {
         </div>
       </div>
       <div class="collapseNav">
-        <button>
-          <img src="icons/chevron.png" class="chevronCollapse">
-        </button>
+        <img src="icons/chevron.png" class="chevronCollapse">
       </div>
       <div class="logNav">
         <a href="#">
