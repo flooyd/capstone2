@@ -2,6 +2,9 @@ $(() => {
   let watchedShows = [];
   let clickedShows = [];
   let workingEpisodes = [];
+  let watchedEpisodes = [];
+  let bNeedSave = false;
+  let episodesWatched = 0;
 
   window.addEventListener('loginFinished', function () {
     begin();
@@ -14,6 +17,8 @@ $(() => {
 
   handleShowClicked();
   handleDisplayEpisodes();
+  handleWatchEpisode();
+  
 
   function profileBegin() {
     let showId = checkForShow();
@@ -43,7 +48,7 @@ $(() => {
       </div>
 
       <div class="showInfo">
-        <img src="${show.image}" alt="An image of the show, ${show.show}">
+        <img src="${show.image}" alt="An image of the show ${show.show}">
         <div class="showDescription">
         ${show.showDescription}
         </div>
@@ -93,9 +98,13 @@ $(() => {
         <td class="episodeCount">${episodeCount}</td>
         </tr>
         </table>
+        <div class="saveEpisodes">
+          <p class="numEpisodesToSave">15 episodes watched (all seasons)</p>
+          <button class="saveEpisodesButton btn btn-default">Save watched episodes</button>
+        </div>
         <div class="seasonOptions">
-          <button class="btn btn-default viewSeason">View episodes</button>
-          <button class="btn btn-default watchAllSeason">Watch entire season</button>
+          <button class="viewSeason btn btn-default">View episodes</button>
+          <button class="watchAllSeason btn btn-default">Watch entire season</button>
         </div>
        </div>
        </div>
@@ -131,12 +140,13 @@ $(() => {
         <div class="episodeInfo">
         ${episode.description}
         <img class="episodeImg" src="${episode.episodeImage}" 
-        alt="A preview picture of this episode of ${episode.show}">
+        alt="A preview picture of season ${episode.season} episode ${episode.number}">
         </div>
         <div class="episodeOptions">
         <input class="dateInput" type="date" name="watchedDate" value="${airDate}">
         <button class="episodeWatched btn btn-default">Watch</button>
         </div>
+        <p class="watchedInfo"></p>
       </div>`;
 
       return {
@@ -150,10 +160,6 @@ $(() => {
     //watchedAt
     //date
     //unwatch
-  }
-
-  function getWatched() {
-    ajax('/api/watched/watched', {}, 'GET', true, getWatchedSuccess, getWatchedFail);
   }
 
   function handleDisplayEpisodes() {
@@ -174,6 +180,52 @@ $(() => {
     $('main').on('click', '.expandAllSeasons', e => {
       $('.episode').css('display', 'block');
     })
+  }
+
+  function handleWatchEpisode() {
+    $('main').on('click', '.episodeWatched', e => {
+      let date = $(e.currentTarget).siblings('.dateInput').val();
+      let id = $(e.currentTarget).closest('.episode').prop('id');
+      let seasonShow = $(e.currentTarget).closest('.season').prop('id').split('---');
+      let showId = seasonShow[1];
+      
+      let airDate = workingEpisodes.find(e => {
+        return e.id == id
+      }).airDate;
+
+      date = new Date(date);
+      airDate = new Date(airDate);
+      
+      let watchedInfo = $(e.currentTarget).parent().siblings('.watchedInfo');
+      let seasonBlock = $(e.currentTarget).closest('.episode').siblings('.seasonBlock');
+      console.log(seasonBlock);
+      
+      if (date.getTime() < airDate.getTime()) {
+        $(watchedInfo).text('Watch date can\'t be before the air date.');
+        return;
+      } else {
+        $(watchedInfo).text('Episode watched! Remember to save when you are finished.');
+        $(seasonBlock).find('.saveEpisodes').css('display', 'block');
+        setTimeout(() => {
+          $(watchedInfo).text('');
+        }, 2500);
+
+        watchedEpisodes = watchedEpisodes.filter(e => {
+          return e.id !== id
+        });
+
+        watchedEpisodes.push({
+          id,
+          showId
+        });
+
+        bNeedSave = true;
+      }
+    });
+  }
+
+  function getWatched() {
+    ajax('/api/watched/watched', {}, 'GET', true, getWatchedSuccess, getWatchedFail);
   }
   
 

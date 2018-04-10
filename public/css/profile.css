@@ -77,6 +77,7 @@ main{
   margin: 0 auto;
   text-align: left;
   background-color: #222;
+  z-index: 2;
 }
 
 .showOptions p {
@@ -116,12 +117,14 @@ main{
 
 .seasonOptions .watchAllSeason {
   background-color: #e8554e;
+  color: black;
 }
 
 .episode {
   margin: 30px auto;
   border-bottom: 2px solid #222;
   display: none;
+  z-index: 1;
 }
 
 .episodeHeader {
@@ -173,6 +176,33 @@ episodeInfo .episodeImg {
 
 .episodeOptions .dateInput {
   margin-right: 5px;
+}
+
+.watchedInfo {
+  text-align: right;
+  color: #e8554e;
+}
+
+.numEpisodesToSave {
+  line-height: initial;
+  margin-bottom: 7px;
+}
+
+.saveEpisodesButton {
+  color: black;
+  background-color: #e8554e;
+  margin: 0 auto;
+}
+
+.saveEpisodes {
+  text-align: center;
+  display: none;
+}
+
+.btn-default:hover {
+  color: black;
+  background-color: #e6e6e6;
+  border-color: #adadad;
 }
 
 
@@ -237,6 +267,11 @@ episodeInfo .episodeImg {
 
   .episode .episodeInfo {
     display: none;
+  }
+
+  .watchedInfo {
+    display: block;
+    float: none;
   }
 }
 

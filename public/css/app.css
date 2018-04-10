@@ -4,6 +4,7 @@
 }
 
 body {
+  color: #222;
   display: grid;
   margin: 0px;
   min-height: 100vh;
