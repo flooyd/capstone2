@@ -1,3 +1,5 @@
+'use strict';
+
 $(() => {
   let watchedShows = [];
   let clickedShows = [];
@@ -114,7 +116,7 @@ $(() => {
 
   function getEpisodeHTML(episode, season) {
     let airDate = episode.airDate.split('T')[0];
-    formattedAirDate = new Date(airDate);
+    let formattedAirDate = new Date(airDate);
     let month = formattedAirDate.getUTCMonth() + 1;
     if (month < 10) {
       month = '0' + month;
@@ -179,7 +181,27 @@ $(() => {
 
     $('main').on('click', '.expandAllSeasons', e => {
       $('.episode').css('display', 'block');
-    })
+      $('.viewEpisodes').removeClass('viewSeason').addClass('hideEpisodes');
+      $('.viewEpisodes').text('Hide episodes')
+    });
+
+    $('main').on('click', '.expandAllSeasons', e => {
+      if($(e.currentTarget).text() === 'Expand all') {
+        $('.viewSeason').each(function() {
+          $('.episode').css('display', 'block');
+          $(this).text('Hide Episodes');
+          $(this).removeClass('viewSeason').addClass('hideEpisodes');
+        });
+        $(e.currentTarget).text('Collapse all');
+      } else {
+        $('.hideEpisodes').each(function() {
+          $('.episode').css('display', 'none');
+          $(this).text('View Episodes');
+          $(this).removeClass('hideEpisodes').addClass('viewSeason');
+        });
+        $(e.currentTarget).text('Expand all');
+      }
+    });
   }
 
   function handleWatchEpisode() {
