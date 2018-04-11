@@ -228,5 +228,64 @@ legend {
   display: none;
 }
 
+.watchNotification {
+  z-index: 10;
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, .8);
+}
+
+.watchNotification div {
+  text-align: center;
+  background-color: white;
+  margin: auto auto;
+  max-width: 1200px;
+  position: relative;
+  top: 10%;
+  font-size: 18px;
+  padding: 75px;
+  border: 6px solid black;
+}
+
+.watchNotification p {
+  width: 50%;
+  text-align: center;
+  margin: 15px auto;
+}
+
+.watchNotification button {
+  margin-top: 20px;
+  color: black;
+}
+
+.watchConfirm {
+  background-color: #e8554e;
+}
+
+.watchText {
+  color: #e8554e;
+}
+
+@media only screen and (max-width: 768px),
+(max-height: 400px) {
+  .watchNotification div {
+    font-size: 16px;
+    padding: 25px;
+  }
+  
+  .watchNotification p {
+    width: 100%;
+    text-align: center;
+    margin: 10px auto;
+  }
+  
+  .watchNotification button {
+    margin-top: 20px;
+    color: black;
+  }
+}
+
 
 
