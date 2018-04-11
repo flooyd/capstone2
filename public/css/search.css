@@ -116,6 +116,11 @@ fieldset {
   margin-top: 10px;
 }
 
+.resultInfo .watchShows {
+  text-align: center;
+  color: #e8554e;
+}
+
 .watchedError {
   color: #e8554e;
   text-align: center;

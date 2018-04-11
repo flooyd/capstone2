@@ -20,11 +20,12 @@ $(() => {
     getWatched();
   }
 
-  
+
 
   window.addEventListener('loginFinished', function () {
     console.log('logged in');
     searchBegin();
+    $('#searchResults').empty();
   });
 
   function search(query) {
@@ -55,8 +56,22 @@ $(() => {
   }
 
   function renderItem(show) {
-    if(!show.summary){
+    if (!show.summary) {
       show.summary = "<p>This show has no description available.</p>"
+    }
+
+    let watchShows;
+    if (!loggedIn) {
+      watchShows = `<p class="watchShows">
+              Login to watch shows.
+      </p>`;
+    } else {
+      watchShows = `
+      <div class="watchButtons">
+            <button id=${show.id} class="Watching btn btn-danger">Watching</button>
+            <button id="${show.id}-all" class="Watched btn btn-default">Watched All</button>
+            <button id=${show.externals.imdb} class="IMDB btn btn-info">View on IMDB</button>
+            </div>`;
     }
     $('#searchResults').append(
       `<div class="result">
@@ -66,11 +81,7 @@ $(() => {
               ${show.name}
             </div>
             ${show.summary}
-            <div class="watchButtons">
-            <button id=${show.id} class="Watching btn btn-danger">Watching</button>
-            <button id="${show.id}-all" class="Watched btn btn-default">Watched All</button>
-            <button id=${show.externals.imdb} class="IMDB btn btn-info">View on IMDB</button>
-            </div>
+            ${watchShows}
           </div>
         </div>`)
   }
@@ -89,7 +100,7 @@ $(() => {
 
   function parseShowDescription(watchedDescription) {
     watchedSummary = [];
-    if(watchedDescription.length > 0) {
+    if (watchedDescription.length > 0) {
       $.each(watchedDescription, (index, value) => {
         watchedSummary.push($(value).html());
       });
@@ -118,7 +129,7 @@ $(() => {
   }
 
   function getWatchedSuccess(data, status, res) {
-    if(data.length > 0) {
+    if (data.length > 0) {
       $('#displayFilters ').css('display', 'block');
       console.log('hello 2');
       data.forEach(s => {
@@ -157,7 +168,7 @@ $(() => {
     });
 
     let showDescription = searchedShows.filter(show => {
-      if(show.show.id == watchedId) {
+      if (show.show.id == watchedId) {
         return show;
       }
     })[0].show.summary;
@@ -172,7 +183,7 @@ $(() => {
 
     //ajax call to my server
     if (watchedAll) {
-      
+
     } else {
       //save with none watched
       ajax('api/watched/watching', episodes, 'POST', true, episodesSaveSuccess, episodesSaveFail);
@@ -191,7 +202,7 @@ $(() => {
   }
 
   function episodesSaveFail(data, status, res) {
-    if(data.status == 413){
+    if (data.status == 413) {
       $('.watched').text('Show is too large to track. Need to fix :)');
     } else {
       $('.watched').text('You are already watching this show.');
@@ -199,6 +210,6 @@ $(() => {
 
     $('.watched').removeClass('watched').addClass('watchedError');
     return;
-    
+
   }
 });
