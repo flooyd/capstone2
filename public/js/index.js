@@ -173,22 +173,6 @@ $(() => {
 
 
   function swapSidebarElements(bCollapse, fromLogin) {
-    let loginElement = '';
-    if (loggedIn) {
-      if (bCollapse) {
-        loginElement = '<img src="icons/logout.png">';
-      } else {
-        loginElement = '<a href="#">Logout</a>';
-      }
-    } else {
-      if (bCollapse) {
-        loginElement = '<img src="icons/login.png">';
-      } else {
-        loginElement = '<p>Login</p>';
-      }
-    }
-
-
     $('.sidebar').empty();
     if (bCollapse) {
       $('.sidebar').append(
@@ -211,13 +195,8 @@ $(() => {
       </div>
       <div class="collapseNav">
         <img src="icons/chevronOpen.png" class="chevronOpen">
-      </div>
-      <div class="logNav">
-        <a href="#">
-          ${loginElement}
-        </a>
       </div>`
-      )
+      );
     } else {
       $('.sidebar').append(
         `<div class="sidebarNav">
@@ -239,11 +218,6 @@ $(() => {
       </div>
       <div class="collapseNav">
         <img src="icons/chevron.png" class="chevronCollapse">
-      </div>
-      <div class="logNav">
-        <a href="#">
-          ${loginElement}
-        </a>
       </div>`
       )
     }
