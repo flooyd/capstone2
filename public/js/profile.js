@@ -269,7 +269,8 @@ $(() => {
       });
 
       $('.watchNotification').css('display', 'initial');
-      $('.watchNotification').css('height', $(document).height());
+      $('.watchNotification').css('height', 1000);
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       $('body').addClass('noScroll');
     });
   }
