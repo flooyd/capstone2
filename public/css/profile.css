@@ -1,4 +1,3 @@
-
 #watchedTitles {
   font-size: 18px;
   text-align: center;
@@ -9,7 +8,7 @@
   cursor: pointer;
 }
 
-main{
+main {
   padding-top: 10px;
 }
 
@@ -111,7 +110,8 @@ main{
   color: black;
 }
 
-.viewSeason, .hideEpisodes {
+.viewSeason,
+.hideEpisodes {
   float: left;
 }
 
@@ -157,7 +157,7 @@ main{
   justify-content: space-between;
 }
 
-.episodeInfo p  {
+.episodeInfo p {
   order: 2;
   padding: 0px 8px;
   width: 75%;
@@ -205,8 +205,52 @@ episodeInfo .episodeImg {
   border-color: #adadad;
 }
 
+.watchNotification {
+  z-index: 10;
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, .8);
+}
 
-@media only screen and (max-width: 768px), (max-height: 400px) {
+.watchNotification div {
+  text-align: center;
+  background-color: white;
+  margin: auto auto;
+  max-width: 1200px;
+  position: relative;
+  top: 10%;
+  font-size: 18px;
+  padding: 75px;
+  border: 6px solid black;
+}
+
+.watchNotification p {
+  width: 50%;
+  text-align: center;
+  margin: 15px auto;
+}
+
+.watchNotification button {
+  margin-top: 20px;
+  color: black;
+}
+
+.watchConfirm {
+  background-color: #e8554e;
+}
+
+.watchText {
+  color: #e8554e;
+}
+
+.noScroll {
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 768px),
+(max-height: 400px) {
   .showOptions {
     display: block;
     position: initial;
@@ -216,27 +260,23 @@ episodeInfo .episodeImg {
     min-height: 50px;
     padding: 8px;
   }
-
   .showOptions p {
     display: block;
     text-align: center;
   }
-
   .showButtons button {
     display: block;
     width: 100%;
     margin: 10px 0;
   }
-
   .showInfo img {
     float: left;
   }
-
   .showDescription {
     line-height: 1;
-    padding: 0px 10px;;
+    padding: 0px 10px;
+    ;
   }
-
   .seasonBlock {
     position: initial;
     display: block;
@@ -244,19 +284,16 @@ episodeInfo .episodeImg {
     background-color: none;
     margin: 20px auto;
   }
-
   .seasonBlock button {
     margin: 8px 0px;
     width: 100%;
     display: block;
     clear: both;
   }
-
   .episode {
     border: 2px solid #222;
     display: none;
   }
-
   .episode * {
     display: block;
     float: none;
@@ -264,16 +301,29 @@ episodeInfo .episodeImg {
     width: 100%;
     margin-bottom: 8px;
   }
-
   .episode .episodeInfo {
     display: none;
   }
-
   .watchedInfo {
     display: block;
     float: none;
   }
+
+  .watchNotification div {
+    font-size: 16px;
+    padding: 25px;
+  }
+  
+  .watchNotification p {
+    width: 100%;
+    text-align: center;
+    margin: 10px auto;
+  }
+  
+  .watchNotification button {
+    margin-top: 20px;
+    color: black;
+  }
+
+  
 }
-
-
-

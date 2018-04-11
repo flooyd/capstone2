@@ -20,7 +20,8 @@ $(() => {
   handleShowClicked();
   handleDisplayEpisodes();
   handleWatchEpisode();
-  
+  handleWatchAll();
+
 
   function profileBegin() {
     let showId = checkForShow();
@@ -39,7 +40,7 @@ $(() => {
   function renderShowInfo(show, seasonCount) {
     $('main').empty().append(
       `
-      <div class="showOptions">
+      <section class="showOptions">
       <p class="showTitle">${show.show}</p>
       <div class="showButtons">
         <button class="btn btn-default watchAllShow">Watch all</button>
@@ -47,18 +48,18 @@ $(() => {
         <button class="btn btn-default expandAllSeasons">Expand all</button>
         <button class="btn btn-default backToBrowse">Shows</button>
       </div>
-      </div>
+      </section>
 
-      <div class="showInfo">
+      <section class="showInfo">
         <img src="${show.image}" alt="An image of the show ${show.show}">
         <div class="showDescription">
         ${show.showDescription}
         </div>
-      </div>
+      </section>
 
-      <div id="episodes">
+      <section id="episodes">
 
-      </div>
+      </section>
       `
     )
     $('main').removeClass('showsGrid');
@@ -75,11 +76,11 @@ $(() => {
       currentSeason = `${i+1}---${data[0].showId}`;
       currentSeason = $(`#${currentSeason}`);
       let watchedCount = 0;
-      
+
       for (let j = 0; j < episodes.length; j++) {
         let episodeInfo = getEpisodeHTML(episodes[j], i + 1);
         let episodeHtml = episodeInfo.episodeHtml;
-        if(episodeInfo.watchedAt) {
+        if (episodeInfo.watchedAt) {
           watchedCount++;
         }
         episodesToRender.push(episodeHtml);
@@ -151,10 +152,10 @@ $(() => {
         <p class="watchedInfo"></p>
       </div>`;
 
-      return {
-        episodeHtml,
-        watchedAt
-      }
+    return {
+      episodeHtml,
+      watchedAt
+    }
     //description, episodeImage, 
     //div episode ID
     //episode title
@@ -186,15 +187,15 @@ $(() => {
     });
 
     $('main').on('click', '.expandAllSeasons', e => {
-      if($(e.currentTarget).text() === 'Expand all') {
-        $('.viewSeason').each(function() {
+      if ($(e.currentTarget).text() === 'Expand all') {
+        $('.viewSeason').each(function () {
           $('.episode').css('display', 'block');
           $(this).text('Hide Episodes');
           $(this).removeClass('viewSeason').addClass('hideEpisodes');
         });
         $(e.currentTarget).text('Collapse all');
       } else {
-        $('.hideEpisodes').each(function() {
+        $('.hideEpisodes').each(function () {
           $('.episode').css('display', 'none');
           $(this).text('View Episodes');
           $(this).removeClass('hideEpisodes').addClass('viewSeason');
@@ -210,18 +211,18 @@ $(() => {
       let id = $(e.currentTarget).closest('.episode').prop('id');
       let seasonShow = $(e.currentTarget).closest('.season').prop('id').split('---');
       let showId = seasonShow[1];
-      
+
       let airDate = workingEpisodes.find(e => {
         return e.id == id
       }).airDate;
 
       watchedAt = new Date(watchedAt);
       airDate = new Date(airDate);
-      
+
       let watchedInfo = $(e.currentTarget).parent().siblings('.watchedInfo');
       let seasonBlock = $(e.currentTarget).closest('.episode').siblings('.seasonBlock');
       console.log(seasonBlock);
-      
+
       if (watchedAt.getTime() < airDate.getTime()) {
         $(watchedInfo).text('Watch date can\'t be before the air date.');
         return;
@@ -247,14 +248,35 @@ $(() => {
         }, 2500);
       }
 
-      console.log(watchedEpisodes);
+      //save to server ajax(watchedEpisodes)
+    });
+  }
+
+  function handleWatchSeason() {
+
+  }
+
+  function handleWatchAll() {
+    $('main').on('click', '.watchAllShow', e => {
+      workingEpisodes.map(e => {
+        if (!e.watchedAt) {
+          if(e.airDate) {
+            e.watchedAt = e.airDate;
+          } else {
+            e.watchedAt = Date.now();
+          }
+        }
+      });
+
+      $('.watchNotification').css('display', 'initial');
+      $('.watchNotification').css('height', $(document).height());
+      $('body').addClass('noScroll');
     });
   }
 
   function getWatched() {
     ajax('/api/watched/watched', {}, 'GET', true, getWatchedSuccess, getWatchedFail);
   }
-  
 
   function getWatchedSuccess(data, status, res) {
     watchedShows.push(data);
