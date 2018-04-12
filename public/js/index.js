@@ -50,7 +50,7 @@ $(() => {
   let event = document.createEvent('Event');
   event.initEvent('login', true, true);
 
-  let loginOrRegister = 'register';
+  let loginOrRegister = 'login';
   var body = document.getElementsByTagName("BODY")[0];
   let loginFinished = document.createEvent('HTMLEvents');
   loginFinished.initEvent('loginFinished', true, true);
@@ -106,13 +106,13 @@ $(() => {
         $('.loginForm legend').text('Login');
         $('.loginForm').attr('action', 'api/auth/login');
         $('.passwordConfirm').remove();
-        loginOrRegister = 'login';
+        loginOrRegister = 'register';
       } else {
         $(e.currentTarget).text('Login');
         $('.currentForm-js').text('Already Registered?')
         $('.loginForm legend').text('Create Account');
         $('.loginForm').attr('action', 'api/users');
-        loginOrRegister = 'register';
+        loginOrRegister = 'login';
       }
     })
   }
