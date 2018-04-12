@@ -86,14 +86,18 @@ $(() => {
       $('.login').css('display', 'none');
     });
 
-    $('.sidebar').on('click', '.logNav', () => {
+    $('header').on('click', '.loginLink', () => {
       $('.login').css('display', 'initial');
+      console.log('hi');
     });
   }
 
   function handleSwitchLogin() {
     $('.registerLink').click(e => {
       $('.loginError').empty();
+      $('.login input').each(function() {
+        $(this).val('');
+      });
       let linkText = $(e.currentTarget).text();
       if (linkText == 'Login') {
         ('hi');
@@ -108,11 +112,6 @@ $(() => {
         $('.currentForm-js').text('Already Registered?')
         $('.loginForm legend').text('Create Account');
         $('.loginForm').attr('action', 'api/users');
-        $('.loginForm button').before(
-          `<div class="passwordConfirm">
-          <label for="passwordConfirm">Confirm</label>
-          <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm password" required>
-        </div>`)
         loginOrRegister = 'register';
       }
     })
@@ -152,7 +151,7 @@ $(() => {
 
   function failedLogin(res) {
     console.log(res);
-    $('.loginError').text('Incorrect username or password. Please try again.');
+    $('.loginError').text(res.responseJSON.message);
   }
 
   function handleResizeSidebar() {
