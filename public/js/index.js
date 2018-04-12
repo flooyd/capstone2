@@ -157,16 +157,15 @@ $(() => {
   function handleResizeSidebar() {
     $('.sidebar').on('click', '.chevronCollapse', e => {
       swapSidebarElements(true);
-      //$('.sidebar').css('width', '40px');
-      //$('.brand').css('margin-left', '25px');
-      $('body').css('grid-template-columns', '40px 1fr');
+      $('.sidebar').css('width', '35px');
+      $('main').css('margin-left', '40px');
+      
     });
 
     $('.sidebar').on('click', '.chevronOpen', e => {
       swapSidebarElements(false);
-      //$('.sidebar').css('width', '130px');
-      //$('.brand').css('margin-left', '115px');
-      $('body').css('grid-template-columns', '130px 1fr');
+      $('.sidebar').css('width', '130px');
+      $('main').css('margin-left', '135px');
     });
   }
 
@@ -175,8 +174,7 @@ $(() => {
     $('.sidebar').empty();
     if (bCollapse) {
       $('.sidebar').append(
-        `<div class="sidebarNav">
-        <div class="searchNav">
+        `<div class="searchNav">
           <a href="/">
             <img src="icons/search.png">
           </a>
@@ -191,15 +189,13 @@ $(() => {
             <img src="icons/friends.png">
           </a>
         </div>
-      </div>
       <div class="collapseNav">
         <img src="icons/chevronOpen.png" class="chevronOpen">
       </div>`
       );
     } else {
       $('.sidebar').append(
-        `<div class="sidebarNav">
-        <div class="searchNav">
+        `<div class="searchNav">
           <a href="/">
             Search
           </a>
@@ -214,7 +210,6 @@ $(() => {
             Friends
           </a>
         </div>
-      </div>
       <div class="collapseNav">
         <img src="icons/chevron.png" class="chevronCollapse">
       </div>`

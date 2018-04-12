@@ -8,10 +8,6 @@
   cursor: pointer;
 }
 
-main {
-  padding-top: 10px;
-}
-
 .seasonBlock {
   position: sticky;
   top: 90px;
@@ -72,7 +68,7 @@ main {
   justify-content: center;
   width: 100%;
   min-height: 50px;
-  top: 50px;
+  top: 40px;
   margin: 0 auto;
   text-align: left;
   background-color: #222;

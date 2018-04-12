@@ -5,18 +5,11 @@
 
 body {
   color: #222;
-  display: grid;
-  margin: 0px;
-  min-height: 100vh;
-  min-width: 100%;
-  grid-template-columns: 40px 1fr;
-  grid-template-rows: 50px 1fr;
-  grid-template-areas: "sidebar header" "sidebar content";
-  font-family: 'Roboto', sans-serif;
+  
 }
 
 main {
-  margin: 15px 20px;
+  margin: 15px 40px;
 }
 
 a {
@@ -34,6 +27,7 @@ header {
   justify-content: space-between;
   z-index: 5;
   color: #e8554e;
+  height: 40px;
 }
 
 .brand {
@@ -56,13 +50,23 @@ header a:hover{
 }
 
 .sidebar {
+  border: 3px solid #222;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-left: none;
   grid-area: sidebar;
-  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 500px;
   background-color: #e8554e;
-  position: sticky;
-  top: 0px;
-  z-index: 5;
+  position: fixed;
+  width: 35px;
   font-size: 16px;
+  padding: 10px 0px;
+  top: 50%;
+  transform: translate(0%, -50%);
 }
 
 legend {
@@ -82,40 +86,6 @@ legend {
   background-color: initial;
   border: none;
   cursor: pointer;
-}
-
-.sidebarNav, .collapseNav, .logNav{
-  text-align: center;
-  height: 33.3%;
-}
-
-.sidebarNav {
-  padding-top: 10px;
-}
-
-.searchNav {
-  margin-top: 50px;
-}
-
-.searchNav, .profileNav, .friendsNav {
-  padding: 15px 0px;
-}
-
-.collapseNav{
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logNav {
-  display: flex;
-  justify-content: center;
-}
-
-.logNav a {
-  align-self: flex-end;
-  margin-bottom: 25%;
 }
 
 .login {
@@ -282,10 +252,14 @@ legend {
 }
 
 @media only screen and (max-width: 768px),
-(max-height: 400px) {
+(max-height: 600px) {
   .watchNotification div {
     font-size: 16px;
     padding: 25px;
+  }
+
+  .sidebar {
+    max-height: 250px;
   }
   
   .watchNotification p {
