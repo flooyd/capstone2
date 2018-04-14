@@ -64,7 +64,7 @@ router.post('/',  middleware, (req, res) => {
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
-      res.status(500).json({code: 500, message: err});
+      //res.status(500).json({code: 500, message: err});
     });
 });
 

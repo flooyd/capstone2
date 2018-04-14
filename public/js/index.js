@@ -50,7 +50,7 @@ $(() => {
   let event = document.createEvent('Event');
   event.initEvent('login', true, true);
 
-  let loginOrRegister = 'login';
+  let loginOrRegister = 'Login';
   var body = document.getElementsByTagName("BODY")[0];
   let loginFinished = document.createEvent('HTMLEvents');
   loginFinished.initEvent('loginFinished', true, true);
@@ -98,30 +98,28 @@ $(() => {
       $('.login input').each(function() {
         $(this).val('');
       });
+
       let linkText = $(e.currentTarget).text();
-      if (linkText == 'Login') {
-        ('hi');
+
+      if (linkText === 'Login') {
         $(e.currentTarget).text('Register');
         $('.currentForm-js').text('Need an account?')
         $('.loginForm legend').text('Login');
-        $('.loginForm').attr('action', 'api/auth/login');
-        $('.passwordConfirm').remove();
-        loginOrRegister = 'register';
+        loginOrRegister = 'login';
       } else {
         $(e.currentTarget).text('Login');
         $('.currentForm-js').text('Already Registered?')
         $('.loginForm legend').text('Create Account');
-        $('.loginForm').attr('action', 'api/users');
-        loginOrRegister = 'login';
+        loginOrRegister = 'register';
       }
-    })
+    });
   }
 
   function handleLoginSubmit() {
     $('.loginForm').submit(e => {
       e.preventDefault();
       let URL = '';
-      if (loginOrRegister === 'register') {
+      if (loginOrRegister == 'register') {
         URL = 'api/users';
       } else {
         URL = 'api/auth/login'

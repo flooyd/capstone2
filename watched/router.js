@@ -34,9 +34,11 @@ router.get('/watched', jwtStrategy, (req, res) => {
 router.put('/watched', jwtStrategy, (req, res) => {
   let user = req.user;
   let modifiedEpisodes = [];
+  let showId = req.body.showId;
   
   req.body.modifiedEpisodes.forEach((e, i) => {
     let query = {
+      showId,
       id: e.id,
       user: req.user
     };
