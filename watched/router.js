@@ -28,8 +28,32 @@ router.get('/watched', jwtStrategy, (req, res) => {
   })
   .catch(err => {
     res.json(err);
+  });
+});
+
+router.put('/watched', jwtStrategy, (req, res) => {
+  let user = req.user;
+  let modifiedEpisodes = [];
+  
+  req.body.modifiedEpisodes.forEach((e, i) => {
+    let query = {
+      id: e.id,
+      user: req.user
+    };
+
+    let watchedAt = e.watchedAt;
+
+    Watched.findOneAndUpdate(query, {
+      $set: {watchedAt}
+    }, {new: true})
+    .then(modifiedEpisode => {
+      modifiedEpisodes.push(modifiedEpisode);
+      if(modifiedEpisodes.length === req.body.modifiedEpisodes.length) {
+        res.json(modifiedEpisodes);
+      }
+    })
   })
-})
+});
 
 //saves all episodes, marks none
 router.post('/watching', jwtStrategy, (req, res) => {
@@ -60,8 +84,6 @@ router.get('/episodes', jwtStrategy, (req, res) => {
   console.log(req.user);
   Watched.find({showId: req.query.showId, user: req.user})
   .then(episodes => {
-    console.log('episodes');
-    console.log(episodes);
     if(episodes.count === 0) {
      return res.json({"response": "No saved episodes"});
     }

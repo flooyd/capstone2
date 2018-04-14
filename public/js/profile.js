@@ -37,11 +37,26 @@ $(() => {
     if (showId) return showId;
   }
 
-  function renderShowInfo(show, seasonCount) {
+  function renderShowInfo(show, episodes, seasonCount) {
+    let episodesWatched = episodes.filter(e => {
+      return e.watchedAt !== null;
+    });
+
+    console.log(episodesWatched);
+
+    let episodeCount = '';
+
+    if (episodesWatched.length === episodes.length) {
+      episodeCount = '- All episodes watched';
+    }
+    else if (episodesWatched.length > 0) {
+      episodeCount = `- ${episodesWatched.length} episodes watched`;
+    }
+
     $('main').empty().append(
       `
       <section class="showOptions">
-      <p class="showTitle">${show.show}</p>
+      <p class="showTitle">${show.show} ${episodeCount}</p>
       <div class="showButtons">
         <button class="btn btn-default watchAllShow">Watch all</button>
         <button class="btn btn-default removeShow">Remove show</button>
@@ -66,8 +81,9 @@ $(() => {
   }
 
   function renderSeasons(data) {
+    console.log(workingEpisodes);
     let seasonCount = [...new Set(data.map(episode => episode.season))].length;
-    renderShowInfo(data[0], seasonCount);
+    renderShowInfo(data[0], data, seasonCount);
 
     for (let i = 0; i < seasonCount; i++) {
       let episodes = data.filter(episode => episode.season === i + 1);
@@ -221,7 +237,6 @@ $(() => {
 
       let watchedInfo = $(e.currentTarget).parent().siblings('.watchedInfo');
       let seasonBlock = $(e.currentTarget).closest('.episode').siblings('.seasonBlock');
-      console.log(seasonBlock);
 
       if (watchedAt.getTime() < airDate.getTime()) {
         $(watchedInfo).text('Watch date can\'t be before the air date.');
@@ -237,11 +252,13 @@ $(() => {
           watchedAt
         });
 
-        numEpisodesToSave++;
+        numEpisodesToSave = watchedEpisodes.length;
         bNeedSave = true;
 
         $(watchedInfo).text('Episode watched! Remember to save when you are finished.');
+        $(watchedInfo).css('height', '34px');
         $('.saveEpisodes').css('display', 'block');
+        $(e.currentTarget).parent().remove();
         $('.numEpisodesToSave').text(`${numEpisodesToSave} episodes watched (all seasons)`);
         setTimeout(() => {
           $(watchedInfo).text('');
@@ -258,21 +275,44 @@ $(() => {
 
   function handleWatchAll() {
     $('main').on('click', '.watchAllShow', e => {
-      workingEpisodes.map(e => {
-        if (!e.watchedAt) {
-          if(e.airDate) {
-            e.watchedAt = e.airDate;
-          } else {
-            e.watchedAt = Date.now();
-          }
-        }
-      });
-
       $('.watchNotification').css('display', 'initial');
       $('.watchNotification').css('height', 1000);
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       $('body').addClass('noScroll');
+      watchAll();
     });
+  }
+
+  function watchAll() {
+    let showId = workingEpisodes[0].showId;
+    //map and filter :D
+    let modifiedEpisodes = workingEpisodes.reduce((filtered, episode) => {
+      if(!episode.watchedAt) {
+        if(episode.airDate) {
+          episode.watchedAt = episode.airDate;
+        } else {
+          episode.watchedAt = Date.now();
+        }
+        filtered.push({
+          id: episode.id,
+          watchedAt: episode.watchedAt
+        });
+      }
+
+      return filtered;
+    }, []);
+
+    console.log(modifiedEpisodes);
+
+    ajax('/api/watched/watched', JSON.stringify({modifiedEpisodes, showId}), 'PUT', true, watchAllSuccess, watchAllFail);
+  }
+
+  function watchAllSuccess(data, status, res) {
+    console.log(data);
+  }
+
+  function watchAllFail(data, status, res) {
+    console.log(data);
   }
 
   function getWatched() {
