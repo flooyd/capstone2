@@ -30,6 +30,7 @@ function ajax(url, data, type, bSendAuth, success, error) {
 function begin() {
   if (localStorage.getItem('token')) {
     loggedIn = true;
+    $('.loginLink').text('Logout');
     $('.preAuth').css('display', 'none');
     $('.authNeeded').css('display', 'block');
   }

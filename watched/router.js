@@ -36,7 +36,7 @@ router.put('/watched', jwtStrategy, (req, res) => {
   let modifiedEpisodes = [];
   let showId = req.body.showId;
   
-  req.body.modifiedEpisodes.forEach((e, i) => {
+  req.body.episodesToSave.forEach((e, i) => {
     let query = {
       showId,
       id: e.id,
@@ -50,7 +50,7 @@ router.put('/watched', jwtStrategy, (req, res) => {
     }, {new: true})
     .then(modifiedEpisode => {
       modifiedEpisodes.push(modifiedEpisode);
-      if(modifiedEpisodes.length === req.body.modifiedEpisodes.length) {
+      if(modifiedEpisodes.length === req.body.episodesToSave.length) {
         res.json(modifiedEpisodes);
       }
     })

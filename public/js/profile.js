@@ -5,7 +5,6 @@ $(() => {
   let clickedShows = [];
   let workingEpisodes = [];
   let watchedEpisodes = [];
-  let bNeedSave = false;
   let numEpisodesToSave = 0;
 
   window.addEventListener('loginFinished', function () {
@@ -20,10 +19,12 @@ $(() => {
   handleShowClicked();
   handleDisplayEpisodes();
   handleWatchEpisode();
+  handleWatchSeason();
   handleWatchAll();
-
-
+  handleSaveEpisodes();
+  
   function profileBegin() {
+    //check for episode link clicked from search page
     let showId = checkForShow();
     if (showId !== '0') {
       $('main').empty();
@@ -48,8 +49,7 @@ $(() => {
 
     if (episodesWatched.length === episodes.length) {
       episodeCount = '- All episodes watched';
-    }
-    else if (episodesWatched.length > 0) {
+    } else if (episodesWatched.length > 0) {
       episodeCount = `- ${episodesWatched.length} episodes watched`;
     }
 
@@ -248,12 +248,12 @@ $(() => {
 
         watchedEpisodes.push({
           id,
-          showId,
           watchedAt
         });
 
+        console.log(watchedEpisodes);
+
         numEpisodesToSave = watchedEpisodes.length;
-        bNeedSave = true;
 
         $(watchedInfo).text('Episode watched! Remember to save when you are finished.');
         $(watchedInfo).css('height', '34px');
@@ -269,8 +269,18 @@ $(() => {
     });
   }
 
-  function handleWatchSeason() {
+  function handleSaveEpisodes() {
+    $('main').on('click', '.saveEpisodesButton', e => {
+      console.log('hi');
+      watchMany(false);
+    });
+  }
 
+  function handleWatchSeason() {
+    $('main').on('click', '.watchAllSeason', e => {
+      let season = $(e.currentTarget).closest('.season').prop('id').split('---')[0];
+      watchMany(false, season);
+    });
   }
 
   function handleWatchAll() {
@@ -279,35 +289,49 @@ $(() => {
       $('.watchNotification').css('height', 1000);
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       $('body').addClass('noScroll');
-      watchAll();
+      watchMany(true);
     });
   }
 
-  function watchAll() {
+  function watchMany(bAll = false, season = false) {
     let showId = workingEpisodes[0].showId;
-    //map and filter :D
-    let modifiedEpisodes = workingEpisodes.reduce((filtered, episode) => {
-      if(!episode.watchedAt) {
-        if(episode.airDate) {
-          episode.watchedAt = episode.airDate;
-        } else {
-          episode.watchedAt = Date.now();
-        }
-        filtered.push({
-          id: episode.id,
-          watchedAt: episode.watchedAt
-        });
+    let episodesToSave = workingEpisodes;
+
+    if (bAll || season) {
+      if(season) {
+        episodesToSave = episodesToSave.filter(e => e.season == season);
+        console.log(episodesToSave);
       }
+      //map and filter
+      episodesToSave = episodesToSave.reduce((filtered, episode) => {
+        if (!episode.watchedAt) {
+          if (episode.airDate) {
+            episode.watchedAt = episode.airDate;
+          } else {
+            episode.watchedAt = Date.now();
+          }
+          filtered.push({
+            id: episode.id,
+            watchedAt: episode.watchedAt
+          });
+        }
 
-      return filtered;
-    }, []);
+        return filtered;
+      }, []);
+    } else {
+      episodesToSave = watchedEpisodes;
+    }
 
-    console.log(modifiedEpisodes);
+    console.log(episodesToSave);
 
-    ajax('/api/watched/watched', JSON.stringify({modifiedEpisodes, showId}), 'PUT', true, watchAllSuccess, watchAllFail);
+    ajax('/api/watched/watched', JSON.stringify({
+      episodesToSave,
+      showId
+    }), 'PUT', true, watchAllSuccess, watchAllFail);
   }
 
   function watchAllSuccess(data, status, res) {
+    console.log('hell');
     console.log(data);
   }
 
