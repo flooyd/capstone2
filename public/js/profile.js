@@ -38,14 +38,7 @@ $(() => {
       e.preventDefault();
       let showId = $(e.currentTarget).parent().prop('id');
       let watchedShow = clickedShows.find(show => show.showId);
-      if (watchedShow) {
-        //user previously clicked on this show while on page
-        //don't make another server call, get episodes from memory
-        renderSeasons(watchedShow.episodes);
-        renderShowInfo(watchedShow.episodes[0]);
-      } else {
-        getEpisodes(showId);
-      }
+      getEpisodes(showId);
     });
   }
 
@@ -126,12 +119,14 @@ $(() => {
         let episodeHtml = episodeInfo.episodeHtml;
         if (episodes[j].watchedAt) {
           watchedCount++;
-          console.log('hi');
         }
         episodesToRender.push(episodeHtml);
       }
       let episodeCount = $(currentSeason).find('.episodeCount');
       $(episodeCount).text(`${watchedCount} / ${episodes.length} episodes watched`);
+      if(watchedCount == episodes.length) {
+        $(currentSeason).find('.watchAllSeason').prop('disabled', true);
+      }
       $(currentSeason).append(episodesToRender);
     }
   }
@@ -148,7 +143,7 @@ $(() => {
         </table>
         <div class="saveEpisodes">
           <p class="numEpisodesToSave">15 episodes watched (all seasons)</p>
-          <button class="saveEpisodesButton btn btn-default">Save watched episodes</button>
+          <button class="saveEpisodesButton btn btn-default">Save watched episodes - Ctrl+S / ⌘+S</button>
         </div>
         <div class="seasonOptions">
           <button class="viewSeason btn btn-default">View episodes</button>
@@ -179,9 +174,9 @@ $(() => {
     let formattedAirDate = getFormattedDate(airDate);
     let formattedWatchDate = getFormattedDate(episode.watchedAt);
     let watchedAt = '';
-    console.log(episode.watchedAt);
     if (episode.watchedAt) {
-      watchedAt = `<p>Watched on: <span class=watchedAt>${formattedWatchDate}</span></p>`;
+      watchedAt = `<p class="epWatchedAt">Watched on: ${formattedWatchDate}</p>
+                   <button class="unwatch btn btn-default">Unwatch</button>`;
     } else {
       watchedAt = `<input class="dateInput" type="date" name="watchedDate" value="${airDate}">
         <button class="episodeWatched btn btn-default">Watch</button>`
@@ -246,9 +241,9 @@ $(() => {
           id,
           watchedAt
         });
-
+        
         numEpisodesToSave = watchedEpisodes.length;
-
+        
         $(watchedInfo).text('Episode watched! Remember to save when you are finished.');
         $(watchedInfo).css('height', '34px');
         $('.saveEpisodes').css('display', 'block');
@@ -258,8 +253,6 @@ $(() => {
           $(watchedInfo).text('');
         }, 2500);
       }
-
-      //save to server ajax(watchedEpisodes)
     });
   }
 
@@ -284,6 +277,13 @@ $(() => {
     $('main').on('click', '.saveEpisodesButton', e => {
       watchMany(false);
     });
+
+    $(document).keydown(e => {
+      if((e.ctrlKey || e.metaKey) && e.which == 83) {
+        e.preventDefault();
+        watchMany(false);
+      }
+    })
   }
 
   function watchMany(bAll = false, season = false) {
@@ -317,10 +317,10 @@ $(() => {
     ajax('/api/watched/watched', JSON.stringify({
       episodesToSave,
       showId
-    }), 'PUT', true, watchAllSuccess, watchAllFail);
+    }), 'PUT', true, watchManySuccess, watchManyFail);
   }
 
-  function watchAllSuccess(data, status, res) {
+  function watchManySuccess(data, status, res) {
     for (let i = 0; i < data.length; i++) {
       workingEpisodes = workingEpisodes.map(e => {
         if (e.id === data[i].id) {
@@ -329,12 +329,15 @@ $(() => {
         return e;
       })
     }
-    console.log();
+
+    watchedEpisodes = [];
+    $('.saveEpisodes').css('display', 'none');
     updateShowInfo()
     updateEpisodes(data);
+    updateSeasons();
   }
 
-  function watchAllFail(data, status, res) {
+  function watchManyFail(data, status, res) {
     console.log(data);
   }
 
@@ -354,21 +357,42 @@ $(() => {
     $('.showTitle').text(`${workingEpisodes[0].show} ${episodeCount}`);
   }
 
+  function updateSeasons() {
+    let seasonBlocks = $('.seasonBlock');
+    $(seasonBlocks).each(function(s) {
+      let season = $(this).closest('.season').prop('id').split('---')[0];
+
+      let numWatched = workingEpisodes.filter(e => {
+        return e.watchedAt && e.season == season;
+      }).length;
+
+      let numInSeason = workingEpisodes.filter(e => {
+        return e.season == season;
+      }).length;
+
+      $(this).find('.episodeCount').text(`${numWatched} / ${numInSeason} episodes watched`);
+      if(numWatched == numInSeason) {
+        $(this).find('.watchAllSeason').prop('disabled', true);
+      } else {
+        $(this).find('.watchAllSeason').prop('disabled', false);
+      }
+    });
+  }
+
   function updateEpisodes(episodes) {
     episodes.forEach(episodeToUpdate => {
       let newEpisode = workingEpisodes.find(e => {
         return e.id === episodeToUpdate.id;
       });
-      console.log(episodeToUpdate);
 
       let oldEpisode = $(`#${episodeToUpdate.id}`);
       newEpisode = getEpisodeHTML(newEpisode).episodeHtml;
-      console.log(oldEpisode);
       newEpisode = $('<div></div>').html(newEpisode).children();
       $(oldEpisode).find('.episodeOptions');
       
       $(oldEpisode).replaceWith(newEpisode);
       $(newEpisode).css('display', 'block');
+      let seasonBlock = $(newEpisode).closest('.seasonBlock').html();
     })
   }
 
