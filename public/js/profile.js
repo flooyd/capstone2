@@ -22,7 +22,7 @@ $(() => {
   handleWatchSeason();
   handleWatchAll();
   handleSaveEpisodes();
-  
+
   function profileBegin() {
     //check for episode link clicked from search page
     let showId = checkForShow();
@@ -124,8 +124,9 @@ $(() => {
       for (let j = 0; j < episodes.length; j++) {
         let episodeInfo = getEpisodeHTML(episodes[j], i + 1);
         let episodeHtml = episodeInfo.episodeHtml;
-        if (episodeInfo.watchedAt) {
+        if (episodes[j].watchedAt) {
           watchedCount++;
+          console.log('hi');
         }
         episodesToRender.push(episodeHtml);
       }
@@ -159,24 +160,31 @@ $(() => {
     );
   }
 
-  function getEpisodeHTML(episode, season) {
-    //if all episodes null airdate, handle future season
-    let airDate = episode.airDate.split('T')[0];
-    let formattedAirDate = new Date(airDate);
-    let month = formattedAirDate.getUTCMonth() + 1;
+  function getFormattedDate(date) {
+    let formattedDate = new Date(date);
+    let month = formattedDate.getUTCMonth() + 1;
     if (month < 10) {
       month = '0' + month;
     }
-    let day = formattedAirDate.getUTCDate();
-    let year = formattedAirDate.getUTCFullYear();
+    let day = formattedDate.getUTCDate();
+    let year = formattedDate.getUTCFullYear();
 
-    formattedAirDate = month + "/" + day + "/" + year;
+    formattedDate = month + "/" + day + "/" + year;
+    return formattedDate;
+  }
+
+  function getEpisodeHTML(episode) {
+    //if all episodes null airdate, handle future season
+    let airDate = episode.airDate.split('T')[0];
+    let formattedAirDate = getFormattedDate(airDate);
+    let formattedWatchDate = getFormattedDate(episode.watchedAt);
     let watchedAt = '';
-
+    console.log(episode.watchedAt);
     if (episode.watchedAt) {
-      watchedAt = `<p>Watched on: <span class=watchedAt>${episode.watchedAt}</span></p>`;
+      watchedAt = `<p>Watched on: <span class=watchedAt>${formattedWatchDate}</span></p>`;
     } else {
-      watchedAt = null;
+      watchedAt = `<input class="dateInput" type="date" name="watchedDate" value="${airDate}">
+        <button class="episodeWatched btn btn-default">Watch</button>`
     }
     let episodeHtml = `
       <div class=episode id=${episode.id}>
@@ -191,8 +199,7 @@ $(() => {
         alt="A preview picture of season ${episode.season} episode ${episode.number}">
         </div>
         <div class="episodeOptions">
-        <input class="dateInput" type="date" name="watchedDate" value="${airDate}">
-        <button class="episodeWatched btn btn-default">Watch</button>
+        ${watchedAt}
         </div>
         <p class="watchedInfo"></p>
       </div>`;
@@ -245,7 +252,7 @@ $(() => {
         $(watchedInfo).text('Episode watched! Remember to save when you are finished.');
         $(watchedInfo).css('height', '34px');
         $('.saveEpisodes').css('display', 'block');
-        $(e.currentTarget).parent().remove();
+        $(e.currentTarget).parent().css('display', 'none');
         $('.numEpisodesToSave').text(`${numEpisodesToSave} episodes watched (all seasons)`);
         setTimeout(() => {
           $(watchedInfo).text('');
@@ -284,7 +291,7 @@ $(() => {
     let episodesToSave = workingEpisodes;
 
     if (bAll || season) {
-      if(season) {
+      if (season) {
         episodesToSave = episodesToSave.filter(e => e.season == season);
       }
       //map and filter
@@ -307,8 +314,6 @@ $(() => {
       episodesToSave = watchedEpisodes;
     }
 
-    console.log(episodesToSave);
-
     ajax('/api/watched/watched', JSON.stringify({
       episodesToSave,
       showId
@@ -316,12 +321,52 @@ $(() => {
   }
 
   function watchAllSuccess(data, status, res) {
-    console.log(data);
-    renderSeasons(data);
+    for (let i = 0; i < data.length; i++) {
+      workingEpisodes = workingEpisodes.map(e => {
+        if (e.id === data[i].id) {
+          e.watchedAt = data[i].watchedAt;
+        }
+        return e;
+      })
+    }
+    console.log();
+    updateShowInfo()
+    updateEpisodes(data);
   }
 
   function watchAllFail(data, status, res) {
     console.log(data);
+  }
+
+  function updateShowInfo() {
+    let numEpisodes = workingEpisodes.filter(e => {
+      return e.watchedAt !== null;
+    }).length;
+
+    let episodeCount = '';
+
+    if (numEpisodes === workingEpisodes.length) {
+      episodeCount = '- All episodes watched';
+    } else if (numEpisodes > 0) {
+      episodeCount = `- ${numEpisodes} episodes watched`;
+    }
+
+    $('.showTitle').text(`${workingEpisodes[0].show} ${episodeCount}`);
+  }
+
+  function updateEpisodes(episodes) {
+    episodes.forEach(episodeToUpdate => {
+      let newEpisode = workingEpisodes.find(e => {
+        return e.id === episodeToUpdate.id;
+      });
+      console.log(episodeToUpdate);
+
+      let oldEpisode = $('.episode').find(`[id=${episodeToUpdate.id}]`);
+      newEpisode = getEpisodeHTML(newEpisode).episodeHtml;
+      console.log(newEpisode);
+      $(oldEpisode).find('.episodeOptions').css('display', 'block');
+      $(oldEpisode).replaceWith(`${newEpisode}`);
+    })
   }
 
   function getEpisodes(showId) {
@@ -333,6 +378,7 @@ $(() => {
   }
 
   function getEpisodesSuccess(data, status, res) {
+    console.log(data);
     let showId = data[0].showId;
     workingEpisodes = data;
     clickedShows.push({
