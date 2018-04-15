@@ -187,7 +187,7 @@ $(() => {
         <button class="episodeWatched btn btn-default">Watch</button>`
     }
     let episodeHtml = `
-      <div class=episode id=${episode.id}>
+      <div class="episode" id="${episode.id}">
         <p class="episodeHeader">
         <span class="episodeTitle">${episode.title}</span>
         <span class="episodeAirDate">Air date: ${formattedAirDate}</span>
@@ -361,11 +361,14 @@ $(() => {
       });
       console.log(episodeToUpdate);
 
-      let oldEpisode = $('.episode').find(`[id=${episodeToUpdate.id}]`);
+      let oldEpisode = $(`#${episodeToUpdate.id}`);
       newEpisode = getEpisodeHTML(newEpisode).episodeHtml;
-      console.log(newEpisode);
-      $(oldEpisode).find('.episodeOptions').css('display', 'block');
-      $(oldEpisode).replaceWith(`${newEpisode}`);
+      console.log(oldEpisode);
+      newEpisode = $('<div></div>').html(newEpisode).children();
+      $(oldEpisode).find('.episodeOptions');
+      
+      $(oldEpisode).replaceWith(newEpisode);
+      $(newEpisode).css('display', 'block');
     })
   }
 
