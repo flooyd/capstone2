@@ -57,7 +57,16 @@ router.put('/watched', jwtStrategy, (req, res) => {
   })
 });
 
-//saves all episodes, marks none
+router.delete('/remove', jwtStrategy, (req, res) => {
+  let user = req.user;
+  let showId = req.body.showId;
+
+  Watched.remove({user, showId})
+  .then(result => {
+    res.json(result);
+  });
+});
+
 router.post('/watching', jwtStrategy, (req, res) => {
   let episode = req.body[0];
   episode.user = req.user;

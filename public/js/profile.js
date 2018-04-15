@@ -1,8 +1,6 @@
 'use strict';
 
 $(() => {
-  let watchedShows = [];
-  let clickedShows = [];
   let workingEpisodes = [];
   let watchedEpisodes = [];
   let numEpisodesToSave = 0;
@@ -37,7 +35,6 @@ $(() => {
     $('main').on('click', '.watchedTitle p', e => {
       e.preventDefault();
       let showId = $(e.currentTarget).parent().prop('id');
-      let watchedShow = clickedShows.find(show => show.showId);
       getEpisodes(showId);
     });
   }
@@ -52,7 +49,6 @@ $(() => {
   }
 
   function getWatchedSuccess(data, status, res) {
-    watchedShows.push(data);
     data.forEach(show => {
       renderWatchedShow(show);
     });
@@ -83,7 +79,7 @@ $(() => {
         <button class="btn btn-default watchAllShow">Watch all</button>
         <button class="btn btn-default removeShow">Remove show</button>
         <button class="btn btn-default expandAllSeasons">Expand all</button>
-        <button class="btn btn-default backToBrowse">Shows</button>
+        <button class="btn btn-default backToBrowse"><a href="/profile">Shows</a></button>
       </div>
       </section>
 
@@ -408,11 +404,6 @@ $(() => {
     console.log(data);
     let showId = data[0].showId;
     workingEpisodes = data;
-    clickedShows.push({
-      showId: showId,
-      episodes: data
-    });
-
     renderSeasons(data);
   }
 
@@ -458,5 +449,20 @@ $(() => {
         $(e.currentTarget).text('Expand all');
       }
     });
+  }
+
+  $('main').on('click', '.removeShow', e => {
+    ajax(`/api/watched/remove`, JSON.stringify({
+      showId: workingEpisodes[0].showId
+    }), 'DELETE', true, removeSuccess, removeFail);
+  })
+
+  function removeSuccess(data, status, res) {
+    console.log(data);
+    window.location.replace('/profile');
+  }
+
+  function removeFail(data, status, res) {
+    console.log(data);
   }
 });

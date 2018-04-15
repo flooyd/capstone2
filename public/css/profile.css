@@ -206,16 +206,21 @@ episodeInfo .episodeImg {
   overflow: hidden;
 }
 
-.epWatchedAt {
-  line-height: 16px;
-}
-
 .unwatch {
   background-color: #222;
   color: white;
   border: 1px solid white;
   margin-left: 8px;
 }
+
+.backToBrowse a:hover {
+  color:#e8554e;
+}
+
+.watchedTitle p {
+  text-decoration: underline;
+}
+
 
 @media only screen and (max-width: 768px),
 (max-height: 400px) {
@@ -234,8 +239,9 @@ episodeInfo .episodeImg {
   }
   .showButtons button {
     display: block;
-    width: 100%;
-    margin: 10px 0;
+    width: 90%;
+    margin: 10px auto;
+    
   }
   .showInfo img {
     float: left;
@@ -294,7 +300,8 @@ episodeInfo .episodeImg {
   }
   
   .unwatch {
-    margin-left: none;
+    width: 90%;
+    margin: 0 auto;
   }
   
 }
