@@ -1,3 +1,8 @@
+.btn-default {
+  border-color: black;
+  color: black;
+}
+
 #watchedTitles {
   font-size: 18px;
   text-align: center;
@@ -198,8 +203,8 @@ episodeInfo .episodeImg {
 
 .btn-default:hover {
   color: black;
-  background-color: #e6e6e6;
-  border-color: #adadad;
+  background-color: white;
+  border-color: black;
 }
 
 .noScroll {
@@ -214,11 +219,21 @@ episodeInfo .episodeImg {
 }
 
 .backToBrowse a:hover {
-  color:#e8554e;
+  color:white;
 }
 
 .watchedTitle p {
   text-decoration: underline;
+}
+
+.episodeWatched:hover {
+  color: black;
+  background-color: #e8554e;
+}
+
+.removeShow:hover, .expandAllSeasons:hover, .backToBrowse:hover {
+  color: black;
+  background-color: #e8554e;
 }
 
 

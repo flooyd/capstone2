@@ -75,6 +75,12 @@ app.get(`/profile`, (req, res) => {
   }
 });
 
+app.get('/about', (req, res) => {
+  res.render('pages/about.ejs', {
+    title: 'Watched - About'
+  })
+})
+
 let server;
 
 function runServer(dbUrl, port) {

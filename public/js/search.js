@@ -69,7 +69,6 @@ $(() => {
       watchShows = `
       <div class="watchButtons">
             <button id=${show.id} class="Watching btn btn-danger">Watching</button>
-            <button id="${show.id}-all" class="Watched btn btn-default">Watched All</button>
             <button id=${show.externals.imdb} class="IMDB btn btn-info">View on IMDB</button>
             </div>`;
     }

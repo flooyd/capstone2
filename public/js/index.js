@@ -183,9 +183,9 @@ $(() => {
             <img src="icons/profile.png">
           </a>
         </div>
-        <div class="friendsNav">
-          <a href="#">
-            <img src="icons/friends.png">
+        <div class="aboutNav">
+          <a href="/about">
+            <img src="icons/about.png">
           </a>
         </div>
       <div class="collapseNav">
@@ -204,9 +204,9 @@ $(() => {
             Profile
           </a>
         </div>
-        <div class="friendsNav">
+        <div class="aboutNav">
           <a href="#">
-            Friends
+            About
           </a>
         </div>
       <div class="collapseNav">

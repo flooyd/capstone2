@@ -79,7 +79,7 @@ $(() => {
         <button class="btn btn-default watchAllShow">Watch all</button>
         <button class="btn btn-default removeShow">Remove show</button>
         <button class="btn btn-default expandAllSeasons">Expand all</button>
-        <button class="btn btn-default backToBrowse"><a href="/profile">Shows</a></button>
+        <button class="btn btn-default backToBrowse">Shows</button>
       </div>
       </section>
 
@@ -465,4 +465,8 @@ $(() => {
   function removeFail(data, status, res) {
     console.log(data);
   }
+  
+  $('main').on('click', '.backToBrowse', e => {
+    window.location.replace('/profile');
+  });
 });

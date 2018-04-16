@@ -31,15 +31,30 @@ legend {
   padding: 10px;
 }
 
+
+
 label {
   margin-right: 6px;
 }
 
 .searchButton {
-  color: #e8554e;
-  margin-top: 60px;
+  color: white;
   display: block;
-  margin: 25px auto;
+  margin: 15px auto;
+  width: 150px;
+  background-color: #e8554e;
+}
+
+.searchButton:hover {
+  background-color: white;
+  color: black;
+  border-color: #222;
+}
+
+.searchButton:focus{
+  background-color: white;
+  color: black;
+  border-color: #222;
 }
 
 fieldset {
@@ -126,6 +141,10 @@ fieldset {
   text-align: center;
   width: 90%;
   margin: 0 auto;
+}
+
+.btn-default {
+  border: 1px solid black 
 }
 
 

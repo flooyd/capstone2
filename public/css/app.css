@@ -211,6 +211,10 @@ legend {
   display: none;
 }
 
+.titleBlocks {
+  background-color: white;
+}
+
 .watchNotification {
   z-index: 10;
   display: none;
@@ -241,6 +245,7 @@ legend {
 .watchNotification button {
   margin-top: 20px;
   color: black;
+  border: 1px solid black;
 }
 
 .watchConfirm {
