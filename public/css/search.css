@@ -1,15 +1,8 @@
-main {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 550px;
-  grid-column-gap: 10px;
-  grid-template-areas: "form something" "result result"
-}
-
 form {
-  width: 100%;
+  width: 50%;
   margin: 0 auto;
   text-align: center;
+  display: inline-block;
 }
 
 legend {
@@ -18,7 +11,7 @@ legend {
 
 .legendText {
   display: inline-block;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #222;
   padding-bottom: 2px;
 }
 
@@ -57,11 +50,8 @@ label {
   border-color: #222;
 }
 
-fieldset {
-  margin-top: 10px;
-}
-
 #searchResults {
+  width: 50%;
   padding: 10px;
   height: 100%;
   overflow-y: auto;
@@ -110,21 +100,26 @@ fieldset {
 }
 
 #watchedTitles {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  display: inline-block;
+  width: 50%;
   line-height: 1.2;
   text-align: center;
   grid-area: result;
-  margin-top: 20px;
+  margin-top: 55px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+#watchedTitles>p{
+  font-size: 21px;
 }
 
 .watchedTitle p {
   cursor: pointer;
   text-decoration: underline;
-}
-
-.separator {
-  border-top: 2px solid black;
-  width: 75%;
-  margin: 0 auto;
 }
 
 .watchButtons {
@@ -145,6 +140,52 @@ fieldset {
 
 .btn-default {
   border: 1px solid black 
+}
+
+.clickTitle{
+  border-bottom: 2px solid #222;
+  padding-bottom: 2px;
+}
+
+.clickHeader {
+  position: sticky;
+  top: 0px;
+  background-color: white;
+  height: 40px;
+}
+
+.hideResults {
+  display: none;
+}
+
+@media only screen and (max-width: 768px),
+(max-height: 400px) {
+  .clickHeader {
+    position: initial;
+  }
+
+  #searchResults {
+    display: block;
+    width: 100%;
+  }
+
+  form {
+    display: block;
+    width: 100%;
+  }
+
+  #watchedTitles {
+    position: initial;
+    display: block;
+    width: 100%;
+  }
+
+  .hideResults {
+    display: block;
+    margin: 0 auto;
+    border-color: black;
+  }
+  
 }
 
 

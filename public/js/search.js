@@ -34,6 +34,7 @@ $(() => {
       .then(data => {
         if (data.length > 0) {
           searchedShows = data;
+          //$('#searchResults').append(`<button class="hideResults btn btn-default">Hide results</button>`)
           data.forEach(item => {
             renderItem(item.show);
           })
@@ -132,7 +133,7 @@ $(() => {
       $('#displayFilters ').css('display', 'block');
       console.log('hello 2');
       data.forEach(s => {
-        $('#watchedTitles').append(renderWatchedShow(s));
+        renderWatchedShow(s);
       });
     } else {
       $('#displayFilters ').css('display', 'none');
