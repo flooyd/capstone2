@@ -261,10 +261,10 @@ $(() => {
 
   function handleWatchAll() {
     $('main').on('click', '.watchAllShow', e => {
-      $('.watchNotification').css('display', 'initial');
-      $('.watchNotification').css('height', 1000);
+      //$('.watchNotification').css('display', 'initial');
+      //$('.watchNotification').css('height', 1000);
       document.body.scrollTop = document.documentElement.scrollTop = 0;
-      $('body').addClass('noScroll');
+      //$('body').addClass('noScroll');
       watchMany(true);
     });
   }

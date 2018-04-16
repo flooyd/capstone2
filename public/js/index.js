@@ -31,6 +31,7 @@ function begin() {
   if (localStorage.getItem('token')) {
     loggedIn = true;
     $('.loginLink').text('Logout');
+    $('.loginLink').addClass('logoutLink').removeClass('loginLink');
     $('.preAuth').css('display', 'none');
     $('.authNeeded').css('display', 'block');
   }
@@ -48,13 +49,13 @@ function renderWatchedShow(show, displayPref) {
 }
 
 $(() => {
-  let event = document.createEvent('Event');
-  event.initEvent('login', true, true);
 
   let loginOrRegister = 'Login';
-  var body = document.getElementsByTagName("BODY")[0];
+
   let loginFinished = document.createEvent('HTMLEvents');
   loginFinished.initEvent('loginFinished', true, true);
+  let logoutFinished = document.createEvent('HTMLEvents');
+  logoutFinished.initEvent('logoutFinished', true, true);
 
   handleDisplayLoginBox();
   handleSwitchLogin();
@@ -62,6 +63,7 @@ $(() => {
   handleChangeListDisplay();
   handleResizeSidebar();
   swapSidebarElements(sidebarCollapsed);
+  handleLogout();
 
   function handleChangeListDisplay() {
     $('.titleBlocks').click((e) => {
@@ -130,6 +132,14 @@ $(() => {
     })
   }
 
+  function handleLogout() {
+    $('header').on('click', '.logoutLink', e => {
+      console.log('hi');
+      localStorage.clear();
+      window.location.replace(window.location.href);
+    })
+  }
+
   function login(URL) {
     let username = $('#username').val();
     let password = $('#password').val();
@@ -144,6 +154,7 @@ $(() => {
   function afterLogin(res) {
     localStorage.setItem('token', res.token);
     localStorage.setItem('user', res.username);
+    $('.loginLink').addClass('logoutLink').removeClass('.loginLink');
     $('.login').css('display', 'none');
     window.dispatchEvent(loginFinished);
   }
