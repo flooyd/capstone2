@@ -120,7 +120,7 @@ $(() => {
       }
       let episodeCount = $(currentSeason).find('.episodeCount');
       $(episodeCount).text(`${watchedCount} / ${episodes.length} episodes watched`);
-      if(watchedCount == episodes.length) {
+      if (watchedCount == episodes.length) {
         $(currentSeason).find('.watchAllSeason').prop('disabled', true);
       }
       $(currentSeason).append(episodesToRender);
@@ -170,13 +170,14 @@ $(() => {
     let formattedAirDate = getFormattedDate(airDate);
     let formattedWatchDate = getFormattedDate(episode.watchedAt);
     let watchedAt = '';
-    if (episode.watchedAt) {
+    if (episode.watchedAt !== null) {
       watchedAt = `<p class="epWatchedAt">Watched on: ${formattedWatchDate}</p>
                    <button class="unwatch btn btn-default">Unwatch</button>`;
     } else {
       watchedAt = `<input class="dateInput" type="date" name="watchedDate" value="${airDate}">
         <button class="episodeWatched btn btn-default">Watch</button>`
     }
+
     let episodeHtml = `
       <div class="episode" id="${episode.id}">
         <p class="episodeHeader">
@@ -237,9 +238,9 @@ $(() => {
           id,
           watchedAt
         });
-        
+
         numEpisodesToSave = watchedEpisodes.length;
-        
+
         $(watchedInfo).text('Episode watched! Remember to save when you are finished.');
         $(watchedInfo).css('height', '34px');
         $('.saveEpisodes').css('display', 'block');
@@ -275,7 +276,7 @@ $(() => {
     });
 
     $(document).keydown(e => {
-      if((e.ctrlKey || e.metaKey) && e.which == 83) {
+      if ((e.ctrlKey || e.metaKey) && e.which == 83) {
         e.preventDefault();
         watchMany(false);
       }
@@ -328,7 +329,7 @@ $(() => {
 
     watchedEpisodes = [];
     $('.saveEpisodes').css('display', 'none');
-    updateShowInfo()
+    updateShowInfo();
     updateEpisodes(data);
     updateSeasons();
   }
@@ -355,7 +356,7 @@ $(() => {
 
   function updateSeasons() {
     let seasonBlocks = $('.seasonBlock');
-    $(seasonBlocks).each(function(s) {
+    $(seasonBlocks).each(function (s) {
       let season = $(this).closest('.season').prop('id').split('---')[0];
 
       let numWatched = workingEpisodes.filter(e => {
@@ -367,7 +368,7 @@ $(() => {
       }).length;
 
       $(this).find('.episodeCount').text(`${numWatched} / ${numInSeason} episodes watched`);
-      if(numWatched == numInSeason) {
+      if (numWatched == numInSeason) {
         $(this).find('.watchAllSeason').prop('disabled', true);
       } else {
         $(this).find('.watchAllSeason').prop('disabled', false);
@@ -385,7 +386,7 @@ $(() => {
       newEpisode = getEpisodeHTML(newEpisode).episodeHtml;
       newEpisode = $('<div></div>').html(newEpisode).children();
       $(oldEpisode).find('.episodeOptions');
-      
+
       $(oldEpisode).replaceWith(newEpisode);
       $(newEpisode).css('display', 'block');
       let seasonBlock = $(newEpisode).closest('.seasonBlock').html();
@@ -401,7 +402,6 @@ $(() => {
   }
 
   function getEpisodesSuccess(data, status, res) {
-    console.log(data);
     let showId = data[0].showId;
     workingEpisodes = data;
     renderSeasons(data);
@@ -458,14 +458,43 @@ $(() => {
   })
 
   function removeSuccess(data, status, res) {
-    console.log(data);
     window.location.replace('/profile');
   }
 
   function removeFail(data, status, res) {
     console.log(data);
   }
-  
+
+  $('main').on('click', '.unwatch', e => {
+    let id = $(e.currentTarget).closest('.episode').prop('id');
+    let episode = workingEpisodes.find(e => e.id == id);
+    let unwatch = {
+      id: episode.id,
+      showId: episode.showId
+    };
+
+    ajax('/api/watched/unwatch', JSON.stringify(unwatch), 'PUT', true, unwatchSuccess, unwatchFail);
+  });
+
+  function unwatchSuccess(data, status, res) {
+    workingEpisodes = workingEpisodes.map(e => {
+      if (e.id == data.id) {
+        e.watchedAt = data.watchedAt;
+      }
+      return e;
+    });
+    
+    updateShowInfo();
+    updateEpisodes(new Array(data));
+    updateSeasons();
+  }
+
+
+
+  function unwatchFail(data, status, res) {
+    console.log(data);
+  }
+
   $('main').on('click', '.backToBrowse', e => {
     window.location.replace('/profile');
   });

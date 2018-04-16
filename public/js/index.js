@@ -121,6 +121,11 @@ $(() => {
   function handleLoginSubmit() {
     $('.loginForm').submit(e => {
       e.preventDefault();
+      let password = $('#password').val();
+      if (password.length < 8) {
+        $('.loginError').text('Password must be at least 8 characters.');
+        return;
+      }
       let URL = '';
       if (loginOrRegister == 'register') {
         URL = 'api/users';

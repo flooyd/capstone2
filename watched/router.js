@@ -57,6 +57,22 @@ router.put('/watched', jwtStrategy, (req, res) => {
   })
 });
 
+router.put('/unwatch', jwtStrategy, (req, res) => {
+  let unwatchedEpisode = req.body;
+  unwatchedEpisode.user = req.user;
+  console.log(unwatchedEpisode);
+
+  Watched.findOneAndUpdate(unwatchedEpisode, {
+    $set: {watchedAt: null}
+  }, {new: true})
+  .then(modifiedEpisode => {
+    res.json(modifiedEpisode);
+  })
+  .catch(err => {
+    res.json(err);
+  });
+})
+
 router.delete('/remove', jwtStrategy, (req, res) => {
   let user = req.user;
   let showId = req.body.showId;

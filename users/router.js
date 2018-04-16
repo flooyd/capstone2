@@ -31,6 +31,8 @@ const createAuthToken = function(user) {
 router.post('/',  middleware, (req, res) => {
 
   let {username, password} = req.body;
+  username = username.toLowerCase();
+  console.log(username);
 
   return User.find({username})
     .count()
