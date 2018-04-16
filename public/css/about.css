@@ -54,6 +54,7 @@ p {
 .innerHeader {
   padding: 2px;
   border-bottom: 2px solid #e8554e;
+  font-weight: bold;
 }
 
 .listCategory {
