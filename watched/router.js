@@ -7,7 +7,7 @@ const {Watched} = require('../models/watched');
 const {jwtStrategy } = require('../auth/strategies');
 
 
-router.use(bodyParser.json());
+router.use(bodyParser.json({limit: '2mb'}));
 router.use(bodyParser.urlencoded({extended: false}));
 // The user provides a username and password to login
 

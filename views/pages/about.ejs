@@ -9,19 +9,85 @@
 <body>
   <% include ../partials/navigation %>
     <main>
-      <p><span class="aboutpage">About & Help</span></p>
+      <p>
+        <span class="aboutpage">About & Help</span>
+      </p>
       <section class="aboutContainer">
         <p class="aboutHeader">About</p>
-        <div class="row createdBy">
-          <p class="category">Created by:</p>
+        <div class="row floydInfo">
+          <p class="rowHeader">
+            <span class="innerHeader">Created by me</span>
+          </p>
+          <p class="info">Hi! My name is Floyd and I'm a student at Thinkful. Watched is my 2nd capstone project. Checkout the links below
+            for more!</p>
+          <p class="pageInfo"><a href="https://www.linkedin.com/in/floyd-jones-2a51099a/">Linkedin</a></p>
+          <p class="pageInfo"><a href="https://github.com/flooyd" target="__blank">Github</a></p>  
         </div>
         <div class="row">
-          <p class="category">Who is me?</p>
-
+          <p class="rowHeader">
+            <span class="innerHeader">Technologies</span>
+          </p>
+          <div class="info">
+            <p class="listCategory">Client</p>
+            <ul>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5" target="__blank">HTML5</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="__blank">CSS3</a> - with flex and grid</li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="__blank">JavaScript</a> - with ES6</li>
+              <li><a href="https://jquery.com/" target="__blank">jQuery</a></li>
+              <li><a href="https://getbootstrap.com/docs/3.3/css/" target="__blank">Bootstrap</a> - element styles only, no layout</li>
+              <li><a href="https://www.tvmaze.com/api" target="__blank">TVmaze API</a></li>
+            </ul>
+            <p class="listCategory">Server</p>
+            <ul>
+                <li><a href="https://nodejs.org/en/" target="__blank">Node.js</a></li>
+                <li><a href="https://expressjs.com/" target="__blank">Express.js</a></li>
+                <li><a href="http://ejs.co/" target="__blank">EJS</a></li>
+                <li><a href="http://mongoosejs.com/" target="__blank">Mongoose</a></li>
+                <li><a href="https://mochajs.org/" target="__blank">Mocha</a> & <a href="http://www.chaijs.com/" target="__blank">Chai</a> </li>
+            </ul>
+          </div>
         </div>
         <div class="row">
-          <p class="category">Technologies</p>
+          <p class="rowHeader">
+            <span class="innerHeader">Thinkful Projects</span>
+          </p>
+          <div class="info">
+            <p class="projectInfo">Here are the other projects I have worked on during my time in Thinkful's Full Stack Flex</p>
+            <p class="projects">I'll come back to this after third capstone :P</p>
+          </div>
         </div>
+      </section>
+      <section class="aboutContainer">
+        <p class="aboutHeader">Help</p>
+        <div class="row">
+          <p class="rowHeader">
+            <span class="innerHeader">Search</span>
+          </p>
+          <div class="info">
+            <p class="pageInfo">Search for a show and add it to your watched collection. Pretty straightforward.</p>
+            <p class="listCategory">Known issues</p>
+            <ul>
+              <li>Functional on mobile, but lacking in UX.</li>
+              <li class="lol">Shows that have too many seasons won't save eg. Grey's Anatomy, The Simpsons :(</li>
+              <li>Fixed the above issue with 1 line of code :D - <a href="https://stackoverflow.com/a/19965089">Amazing</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <p class="rowHeader">
+              <span class="innerHeader">Profile/Episodes</span>
+            </p>
+            <div class="info">
+              <p class="pageInfo">The <span class="featureName">Watch all</span> button will save all episodes of the show with the air date.</p>
+              <p class="pageInfo">The <span class="featureName">Watch entire season</span> button will save all episodes of the season with the air date.</p>
+              <p class="pageInfo">Neither will modify episodes with a Watched on date different than the air date.</p>
+              <p class="pageInfo">The <span class="featureName removeShow">Remove show</span> button will delete all of your Watched on dates. Use with caution!</p>
+              <p class="listCategory">Known issues</p>
+              <ul>
+                <li>Future seasons of shows (eg. The Expanse) that have episode information, but no air date yet, will not be visible.</li>
+                <li>The text on the View Episodes, Hide Episodes, View all, and Collapse all may become out of sync after modifying the Watched on date of episodes.</li>
+                <li>Some episodes without an episode description, or with an episode description with formatting (from the API) different than most, will display strangely.</li>
+              </ul>
+          </div>
       </section>
     </main>
     <% include ../partials/scripts %>
