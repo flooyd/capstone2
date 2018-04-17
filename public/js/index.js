@@ -190,22 +190,22 @@ $(() => {
     if (bCollapse) {
       $('.sidebar').append(
         `<div class="searchNav">
-          <a href="/">
-            <img src="icons/search.png">
+          <a name="search" href="/">
+            <img alt="A magnifying glass icon" src="icons/search.png">
           </a>
         </div>
         <div class="profileNav">
-          <a href="/profile">
-            <img src="icons/profile.png">
+          <a name="profile" href="/profile">
+            <img alt="A person icon" src="icons/profile.png">
           </a>
         </div>
         <div class="aboutNav">
-          <a href="/about">
-            <img src="icons/about.png">
+          <a name="about" href="/about">
+            <img alt="A question mark icon" src="icons/about.png">
           </a>
         </div>
       <div class="collapseNav">
-        <img src="icons/chevronOpen.png" class="chevronOpen">
+        <img alt="An icon of an arrow pointing to the right" src="icons/chevronOpen.png" class="chevronOpen">
       </div>`
       );
     } else {
@@ -226,7 +226,7 @@ $(() => {
           </a>
         </div>
       <div class="collapseNav">
-        <img src="icons/chevron.png" class="chevronCollapse">
+        <img alt="An icon of an arrow pointing to the left" src="icons/chevron.png" class="chevronCollapse">
       </div>`
       )
     }

@@ -84,6 +84,10 @@ label {
   text-align: left;
 }
 
+input:-webkit-autofill {
+  background-color: white;
+}
+
 .resultTitle {
   font-family: 'Roboto Slab', serif;
   text-align: center;
@@ -92,6 +96,12 @@ label {
 
 .resultInfo button {
   margin-top: 15px;
+  border: 1px solid black;
+}
+
+.IMDB {
+  background-color: white;
+  color: black;
 }
 
 .resultInfo .watched  {

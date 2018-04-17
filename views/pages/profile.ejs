@@ -9,7 +9,7 @@
 <body>
   <% include ../partials/navigation %>
     <main id=<%= show %>>
-      <section id="watchedTitles">
+      <section role="region" aria-live="polite" id="watchedTitles">
         <p class="watchedHelp authNeeded"><span class="clickTitle">Click the title of a show to manage episodes.</span></p>
         <p class="preAuth">Login to manage your shows.</p>
         <div id="displayFilters" class="authNeeded">
@@ -17,7 +17,7 @@
             <button class="btn btn-default imageBlocks" disabled>Image blocks</button>
         </div>
       </section>
-      <section id="episodes">
+      <section role="region" id="episodes">
         
       </section>
     </main>

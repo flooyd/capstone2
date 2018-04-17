@@ -73,7 +73,7 @@ $(() => {
 
     $('main').empty().append(
       `
-      <section class="showOptions">
+      <section role="region" aria-live="polite" class="showOptions">
       <p class="showTitle">${show.show} ${episodeCount}</p>
       <div class="showButtons">
         <button class="btn btn-default watchAllShow">Watch all</button>
@@ -83,14 +83,14 @@ $(() => {
       </div>
       </section>
 
-      <section class="showInfo">
+      <section role="region" aria-live="polite" class="showInfo">
         <img src="${show.image}" alt="An image of the show ${show.show}">
         <div class="showDescription">
         ${show.showDescription}
         </div>
       </section>
 
-      <section id="episodes">
+      <section role="region" aria-live="polite" id="episodes">
 
       </section>
       `

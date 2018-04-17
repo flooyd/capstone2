@@ -75,7 +75,7 @@ $(() => {
     }
     $('#searchResults').append(
       `<div class="result">
-          <img class="resultImg" src="${getImage(show.image)}">
+          <img class="resultImg" alt="A post of ${show.name}" src="${getImage(show.image)}">
           <div class='resultInfo'>
             <div class="resultTitle">
               ${show.name}
