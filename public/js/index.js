@@ -185,12 +185,12 @@ $(() => {
   }
 
 
-  function swapSidebarElements(bCollapse, fromLogin) {
+  function swapSidebarElements(bCollapse) {
     $('.sidebar').empty();
     if (bCollapse) {
       $('.sidebar').append(
         `<div class="searchNav">
-          <a name="search" href="/">
+          <a name="search" href="/search">
             <img alt="A magnifying glass icon" src="icons/search.png">
           </a>
         </div>

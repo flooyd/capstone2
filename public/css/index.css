@@ -1,0 +1,134 @@
+* {
+  box-sizing: border-box;
+}
+
+main {
+  height: 100%;
+  margin: 0px;
+  font-family: "Roboto Slab" serif;
+}
+
+body {
+  height: 100%;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+.sidebar {
+  display: none;
+  position: initial;
+  width: 0px;
+}
+
+main .banner {
+  flex: none;
+  background-color: #222;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 25px;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.header {
+  font-family: "Roboto Slab", serif;
+  color: #e8554e;
+  font-size: 100px;
+  text-align: center;
+}
+
+.watchedText {
+  border-bottom: 3px solid whitesmoke;
+}
+
+.info {
+  color: white;
+  font-size: 22px;
+  text-align: center;
+}
+
+ a {
+  color: #e8554e;
+  text-decoration: none;
+  font-family: "Roboto Slab", serif;
+}
+
+.info a:hover {
+  color: #e8554e;
+}
+
+.shows p {
+  width: 50%;
+  margin: 20px auto;
+  text-align: center;
+  font-size: 18px;
+}
+
+main .shows {
+  margin-top: 15px;
+  flex: auto;
+}
+
+.featureName {
+  color: #e8554e;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #e8554e;
+}
+
+.images {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px 50px;
+  margin-bottom: 50px;
+}
+
+.images img {
+  margin-top: 25px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  flex-basis: 80px;
+  background-color: #222;
+}
+
+.footer p {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  font-size: 22px;
+  width: 100%;
+  margin: 0px;
+  font-weight: 700;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .header {
+    font-size: 72px;
+  }
+
+  .info {
+    font-size: 18px;
+  }
+
+  img {
+    max-width: 100px;
+    max-height: 100px;
+  }
+  
+}

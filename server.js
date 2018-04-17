@@ -53,8 +53,13 @@ app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 app.use('/api/watched/', watchedRouter);
 
-
 app.get('/', (req, res) => {
+  res.render('pages/index.ejs', {
+    title: 'Watched'
+  });
+});
+
+app.get('/search', (req, res) => {
   res.render('pages/search.ejs', {
     title: 'Watched - Search'
   });

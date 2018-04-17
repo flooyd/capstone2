@@ -90,6 +90,7 @@ $(() => {
     e.preventDefault();
     $('#searchResults').empty();
     let query = $('.titleSearch').val();
+    $('.titleSearch').val('');
     search(query);
   });
 

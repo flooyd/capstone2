@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 form {
   width: 50%;
   margin: 0 auto;
@@ -31,11 +35,12 @@ label {
 }
 
 .searchButton {
-  color: white;
+  color: black;
   display: block;
   margin: 15px auto;
   width: 150px;
   background-color: #e8554e;
+  font-weight: 600;
 }
 
 .searchButton:hover {
@@ -79,7 +84,7 @@ label {
 .resultInfo p {
   width: 100%;
   padding: 10px;
-  line-height: 1.4;
+  line-height: 1.5;
   margin-top: 10px;
   text-align: left;
 }
@@ -97,11 +102,16 @@ input:-webkit-autofill {
 .resultInfo button {
   margin-top: 15px;
   border: 1px solid black;
+  color: black;
 }
 
 .IMDB {
   background-color: white;
   color: black;
+}
+
+.IMDB:hover {
+  background-color: #222;
 }
 
 .resultInfo .watched  {

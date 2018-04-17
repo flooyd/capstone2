@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../partials/head %>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+  <main role="main">
+    <div class="box">
+      <section class="banner" role="header">
+        <p class="header"><span class="watchedText">Watched</span></p>
+        <p class="info">The "unofficial" way to keep track of the shows you're watching!</p>
+        <p class="info">Consider it a journal...for your tv. Amazing.</p>
+        <p class="info">Get started
+          <a href="/search">here!</a>
+        </p>
+      </section>
+      <section class="shows" role="region">
+        <p>Watched uses data from
+          <a href="https://www.tvmaze.com" target="__blank" class="featureName">TVmaze</a>. Nearly any show you can imagine can be added to your list and tracked!</p>
+        <p class="old">From old to new, Sci-Fi to Western, you'll find 'em all here.</p>
+        <div class="images">
+          <img src="images/westworld.jpg">
+          <img src="images/oa.jpg">
+          <img src="images/rugrats.jpg">
+          <img src="images/got.jpg">
+          <img src="images/bsg.jpg">
+          <img src="images/dbz.jpg">
+        </div>
+      </section>
+      <section class="footer" role="region">
+        <p>Who made this? I made this! Read more about it (and me!) <a href="/about">here</a>.</p>
+      </section>
+    </div>
+  </main>
+  <% include ../partials/scripts %>
+</body>
+
+</html>
