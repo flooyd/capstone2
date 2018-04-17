@@ -3,6 +3,20 @@
   color: black;
 }
 
+.watchedHelp {
+  position: sticky;
+  top: 46px;
+  background-color: white;
+  height: 40px;
+}
+
+.clickTitle {
+  font-family: 'Roboto Slab', serif;
+  font-size: 21px;
+  border-bottom: 2px solid #222;
+  padding-bottom: 2px;
+}
+
 #watchedTitles {
   font-size: 18px;
   text-align: center;
@@ -62,6 +76,7 @@
 .showTitle {
   color: white;
   font-weight: bold;
+  font-family: 'Roboto Slab', serif;
   text-align: left;
   margin-left: 5px;
 }
@@ -82,6 +97,8 @@
 
 .showOptions p {
   margin-right: auto;
+  margin-bottom: 0px;
+  padding-left: 5px;
 }
 
 .showButtons {
@@ -137,18 +154,16 @@
 }
 
 .episodeTitle {
-  
   text-align: left;
+  font-weight: bold;
 }
 
 .episodeAirDate {
-  width: 33%;
   text-align: center;
 }
 
 .episodeNumber {
-  width: 33%;
-  float: right;
+  
   text-align: right;
   color: #e8554e;
 }

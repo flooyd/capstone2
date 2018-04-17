@@ -46,6 +46,11 @@ header a {
   cursor: pointer;
 }
 
+.loginLink, .logoutLink {
+  font-family: 'Roboto Slab', serif;
+  font-weight: bold;
+}
+
 header a:hover{
   color: white;
   text-decoration: none;
@@ -71,8 +76,27 @@ header a:hover{
   transform: translate(0%, -50%);
 }
 
+.sidebar a {
+  font-family: 'Roboto Slab', serif;
+  font-size: 18px;
+}
+
+.sidebar a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.preAuth {
+  font-family: 'Roboto Slab', serif;
+  font-size: 21px;
+}
+
 legend {
   border: none;
+}
+
+.legendText {
+  font-family: 'Roboto Slab', serif;
 }
 
 .sidebar img {
@@ -123,8 +147,9 @@ legend {
   width: 100%;
 }
 
-.loginForm legend {
+.loginForm>fieldset>legend {
   font-size: 22px;
+  font-family: 'Roboto Slab', serif;
 }
 
 .loginForm p {
@@ -132,6 +157,7 @@ legend {
 }
 
 .loginForm .legendText {
+  
   border: none;
   font-size: 20px;
 }
@@ -264,6 +290,10 @@ legend {
 
 .watchedTitleOnly p a:hover {
   color: #e8554e;
+}
+
+.clickTitle {
+  font-family: 'Roboto Slab', serif;
 }
 
 
