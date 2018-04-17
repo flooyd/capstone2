@@ -132,11 +132,12 @@
   padding: 10px;
   margin-bottom: 10px;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .episodeTitle {
-  float: left;
-  width: 33%;
+  
   text-align: left;
 }
 
@@ -264,7 +265,6 @@ episodeInfo .episodeImg {
   .showDescription {
     line-height: 1;
     padding: 0px 10px;
-    ;
   }
   .seasonBlock {
     position: initial;
