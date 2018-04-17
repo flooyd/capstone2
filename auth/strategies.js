@@ -33,14 +33,13 @@ const localStrategy = (req, res, next) => {
     .catch(err => {
       if (err.reason === 'LoginError') {
         console.log('login error');
-        res.status(401).json(err);
+        return res.status(401).json(err);
       }
     }); 
 }
 
 
 const jwtStrategy = (req, res, next) => {
-  
   if(req.header('Authorization')) {
     let token = req.header('Authorization').split(' ')[1];
       jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
@@ -50,12 +49,12 @@ const jwtStrategy = (req, res, next) => {
       }
       else {
         console.log(err);
-        res.status(401).json({"unauthorized": "must be logged in"});
+        return res.status(401).json({"unauthorized": "must be logged in"});
         next();
       }
     });
   } else {
-    res.status(401).json({"unauthorized": "must be logged in"});
+    return res.status(401).json({"unauthorizedabc": "must be logged in"});
     next();
   }
 }

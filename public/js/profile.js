@@ -166,8 +166,16 @@ $(() => {
 
   function getEpisodeHTML(episode) {
     //if all episodes null airdate, handle future season
-    let airDate = episode.airDate.split('T')[0];
-    let formattedAirDate = getFormattedDate(airDate);
+    let airDate;
+    let formattedAirDate;
+    if(!episode.airDate) {
+      airDate = Date.now();
+      formattedAirDate = getFormattedDate(airDate);
+    } else {
+      airDate = episode.airDate.split('T')[0];
+      formattedAirDate = getFormattedDate(airDate);
+    }
+    
     let formattedWatchDate = getFormattedDate(episode.watchedAt);
     let watchedAt = '';
     if (episode.watchedAt !== null) {
@@ -176,6 +184,10 @@ $(() => {
     } else {
       watchedAt = `<input class="dateInput" type="date" name="watchedDate" value="${airDate}">
         <button class="episodeWatched btn btn-default">Watch</button>`
+    }
+
+    if (!episode.description) {
+      episode.description = '<p>No description available</p>';
     }
 
     let episodeHtml = `
@@ -402,6 +414,7 @@ $(() => {
   }
 
   function getEpisodesSuccess(data, status, res) {
+    console.log(data);
     let showId = data[0].showId;
     workingEpisodes = data;
     renderSeasons(data);
