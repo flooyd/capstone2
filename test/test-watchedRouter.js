@@ -17,8 +17,9 @@ const {
 
 const {Watched} = require('../models/watched.js');
 
-const generateEpisode = function (bFirstEpisode = false) {
+const generateEpisode = function (bFirstEpisode = false, counter) {
   let episode = {
+    id: counter,
     season: 1,
     number: 1,
     description: 'test',
@@ -43,9 +44,12 @@ const generateEpisode = function (bFirstEpisode = false) {
 
 const seedDb = () => {
   const seedData = [];
-  seedData.push(generateEpisode(true));
+  let counter = 1;
+  seedData.push(generateEpisode(true, 1));
+  counter++;
   for(let i = 0; i < 10; i++) {
-    seedData.push(generateEpisode());
+    seedData.push(generateEpisode(false, counter));
+    counter++;
   }
 
   return Watched.insertMany(seedData);
@@ -56,6 +60,9 @@ const tearDownDb = () => {
 }
 
 describe('Watched Router', function() {
+  let token;
+  let user;
+  
   before(function() {
     return runServer(TEST_DATABASE_URL, 3001)
   });
@@ -65,7 +72,14 @@ describe('Watched Router', function() {
   });
 
   beforeEach(function() {
-    return seedDb();
+    return chai.request(app)
+    .post('/api/users')
+    .send({username: 'demo', password: 'password'})
+    .then(function(res) {
+      token = res.body.token;
+      user = res.body.username;
+      return seedDb();
+    })
   });
 
   afterEach(function() {
@@ -73,23 +87,25 @@ describe('Watched Router', function() {
   })
 
   it('should get a list of shows', function() {
-    let res;
-
-    return chai.request(app)
-    .post('/api/users')
-    .send({username: 'demo', password: 'password'})
-    .then(function(_res) {
-      console.log(_res);
-    })
-
-    return chai.request(app)
-    .get('/api/watched/watched')
-    .then(function(_res) {
-      res = _res;
-      expect(res).to.have.status(401);
+      return chai.request(app)
+      .get('/api/watched/watched')
+      .set('Authorization', 'bearer ' + token)
+    .then(function(res) {
+        console.log(res.body);
+        expect(res.body).length.to.equal(1);
+        expect(res.body).to.be.json;
     })
     .catch(function(err) {
       console.log('not logged in');
+    })
+  })
+  it('should get a list of episodes', function() {
+    return chai.request(app)
+    .get('/api/watched/episodes?showId=166')
+    .set('Authorization', 'bearer ' + token)
+    .then(function(res) {
+      expect(res.body[0].user).to.equal('demo');
+      expect(res.body).to.be.an('array');
     })
   })
 
