@@ -60,7 +60,6 @@ router.put('/watched', jwtStrategy, (req, res) => {
 router.put('/unwatch', jwtStrategy, (req, res) => {
   let unwatchedEpisode = req.body;
   unwatchedEpisode.user = req.user;
-  console.log(unwatchedEpisode);
 
   Watched.findOneAndUpdate(unwatchedEpisode, {
     $set: {watchedAt: null}
