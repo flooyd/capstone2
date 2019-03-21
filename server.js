@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const reload = require('reload');
+
 const cookieParser = require('cookie-parser');
 
 mongoose.Promise = global.Promise;
